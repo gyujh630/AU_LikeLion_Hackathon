@@ -1,18 +1,23 @@
-import React from "react";
+import styled from "styled-components";
+const StyleApplication = styled.section`
+  display: flex;
+  justifycontent: center;
+  minheight: calc(
+    100vh - 100px
+  ); // Adjust the height to account for the SubNavigation height
+  margintop: 100px;
+
+  Button {
+    margin: auto;
+  }
+`;
 
 const Application = () => {
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        // alignItems: "center",
-        minHeight: "calc(100vh - 100px)", // Adjust the height to account for the SubNavigation height
-        marginTop: "100px",
-      }}
-    >
-      <h2>수혜 신청 목록</h2>
-    </div>
+    <StyleApplication>
+      <button>새 글 등록</button>
+      <main>{/* 수혜 신청 리스트 */}</main>
+    </StyleApplication>
   );
 };
 

@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { NavLink, Route, Routes } from "react-router-dom";
-
+import { NavLink, Route, Routes, Outlet } from "react-router-dom";
 const StyledMyPage = styled.div`
   text-align: center;
 `;
@@ -65,20 +64,10 @@ const MyPage = () => {
             </SubNavigationItem>
           </li>
         </SubNavigation>
-        <Routes>
-          <Route path="/mypage/application" element={<Application />} />
-          <Route path="/mypage/donation" element={<Donation />} />
-          <Route path="/mypage/device" element={<Device />} />
-          <Route path="/mypage/profile" element={<Profile />} />
-        </Routes>
+        <Outlet />
       </main>
     </StyledMyPage>
   );
 };
-
-const Application = () => <div>수혜 신청 목록 내용</div>;
-const Donation = () => <div>기부 목록 내용</div>;
-const Device = () => <div>등록된 기기 내용</div>;
-const Profile = () => <div>내 정보 내용</div>;
 
 export default MyPage;
