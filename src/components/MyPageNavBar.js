@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { NavLink, Route, Routes, Outlet } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const SubNavigation = styled.ul`
   display: flex;

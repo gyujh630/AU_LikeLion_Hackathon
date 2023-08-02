@@ -1,14 +1,61 @@
 import styled from "styled-components";
-import { useState, useEffect } from "react";
-import { getMyApplicationList } from "../services/api";
+import { MyApplicationList } from "./sub/MyApplicationList";
+
+const Application = () => {
+  return (
+    <StyleApplication>
+      <div id="title-box">
+        <h2>수혜 신청 목록</h2>
+        <button id="apply-btn">수혜 신청하기</button>
+      </div>
+      <main>
+        {/* <MyApplicationList /> */}
+        <div id="apply-box">
+          {/* css 테스트코드 */}
+          <div id="apply-top">
+            <div id="apply-profile-image">image</div>
+            <div id="apply-profile">
+              <p>
+                이름
+                <br />
+                필요한 기기
+              </p>
+            </div>
+            <div id="apply-date">등록일자</div>
+            <div id="apply-status">상태</div>
+          </div>
+          <div id="apply-bottom">
+            <div id="apply-content">
+              <p>필요한 이유</p>
+            </div>
+          </div>
+        </div>
+      </main>
+    </StyleApplication>
+  );
+};
 
 const StyleApplication = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
   margin: auto;
+  width: 100%;
+  align-items: center;
+
+  main {
+    width: 100%;
+  }
+
+  div#title-box {
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
 
   button#apply-btn {
+    position: absolute;
+    right: 25px;
     margin: auto;
     padding: 10px 20px;
     font-size: 16px;
@@ -17,51 +64,55 @@ const StyleApplication = styled.section`
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    width: 200px;
-    margin-top: 20px;
+    width: 150px;
+    margin: 20px 0;
   }
 
-  hr {
-    border: 0.5px solid #ccc; /* 구분선의 두께와 스타일을 설정 */
-    margin: 20px 0; /* 구분선 위아래 여백을 설정 */
+  //apply box
+  div {
+    display: flex;
+  }
+
+  div#apply-box {
+    border: 1px solid black;
+    flex-direction: column;
+    margin: auto;
+    width: 70%;
+  }
+
+  div#apply-top,
+  div#apply-bottom {
+    width: 100%;
+    justify-content: space-around;
+  }
+
+  div#apply-status {
+    flex: 1;
+    padding: 10px;
+  }
+
+  div#apply-profile-image {
+    flex: none;
+    margin: auto;
+    height: width;
+    width: 60px;
+    height: 60px;
+    margin-left: 10px;
+  }
+
+  div#apply-date,
+  div#apply-profile {
+    flex: 4;
+    padding: 10px;
+  }
+
+  div#apply-content {
+    padding: 10px;
+    min-height: 60px;
+    width: 95%;
+    margin: 10px;
+    border: 1px solid black;
   }
 `;
-
-const Application = () => {
-  const [myApplicationList, setMyApplicationList] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchMyApplications = async () => {
-      try {
-        const token = localStorage.getItem("accessToken"); //로컬스토리지에서 토큰 가져오기
-        const list = await getMyApplicationList(token); // 수혜 신청 리스트 가져오기
-        setMyApplicationList(list);
-        setLoading(false);
-      } catch (error) {
-        setLoading(false);
-      }
-    };
-    fetchMyApplications();
-  }, []);
-
-  // if (loading) {
-  //   return <p>불러오는 중...</p>;
-  // }
-
-  return (
-    <StyleApplication>
-      <button id="apply-btn">수혜 신청하기</button>
-      <hr /> {/* 수평 구분선 추가 */}
-      <main>
-        <ul>
-          {myApplicationList.map((item) => (
-            <li key={item.id}>{item.title}</li>
-          ))}
-        </ul>
-      </main>
-    </StyleApplication>
-  );
-};
 
 export default Application;

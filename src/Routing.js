@@ -1,5 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import Home from "./pages/Home";
 import PostList from "./pages/PostList";
 import Login from "./pages/Login";
@@ -20,7 +25,8 @@ const Routing = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/mypage/" element={<MyPage />}>
+        <Route path="/mypage" element={<MyPage />}>
+          <Route index element={<Navigate to="application" />} />
           <Route path="application" element={<Application />} />
           <Route path="donation" element={<Donation />} />
           <Route path="device" element={<Device />} />
