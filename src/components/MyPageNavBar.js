@@ -32,22 +32,22 @@ const MyPageNavBar = () => {
   return (
     <SubNavigation>
       <li>
-        <SubNavigationItem to="/mypage/application" activeClassName="active">
+        <SubNavigationItem to="/mypage/application" activeclassname="active">
           수혜 신청 목록
         </SubNavigationItem>
       </li>
       <li>
-        <SubNavigationItem to="/mypage/donation" activeClassName="active">
+        <SubNavigationItem to="/mypage/donation" activeclassname="active">
           기부 목록
         </SubNavigationItem>
       </li>
       <li>
-        <SubNavigationItem to="/mypage/device" activeClassName="active">
+        <SubNavigationItem to="/mypage/device" activeclassname="active">
           등록된 기기
         </SubNavigationItem>
       </li>
       <li>
-        <SubNavigationItem to="/mypage/profile" activeClassName="active">
+        <SubNavigationItem to="/mypage/profile" activeclassname="active">
           내 정보
         </SubNavigationItem>
       </li>
