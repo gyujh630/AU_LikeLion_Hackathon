@@ -1,19 +1,40 @@
-import React from "react";
+import styled from "styled-components";
+import { MyDonationList } from "./sub/MyDonationList";
 
 const Donation = () => {
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        // alignItems: "center",
-        minHeight: "calc(100vh - 100px)", // Adjust the height to account for the SubNavigation height
-        marginTop: "100px",
-      }}
-    >
-      <h2>기부 목록</h2>
-    </div>
+    <StyleDonation>
+      <div id="title-box">
+        <h2>기부 목록</h2>
+      </div>
+      <main>
+        <MyDonationList />
+      </main>
+    </StyleDonation>
   );
 };
+
+const StyleDonation = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
+  width: 100%;
+  align-items: center;
+
+  div {
+    display: flex;
+  }
+
+  main {
+    width: 100%;
+  }
+
+  div#title-box {
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+`;
 
 export default Donation;
