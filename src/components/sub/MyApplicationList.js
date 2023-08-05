@@ -139,9 +139,9 @@ const StyleMyApplication = styled.div`
   div#apply-profile-image {
     flex: none;
     height: width;
-    width: 60px;
-    height: 60px;
-    margin: 15px 0 10px 15px;
+    width: 50px;
+    height: 50px;
+    margin: 15px 0 15px 15px;
     background-color: white;
     border-radius: 50%;
   }
