@@ -14,6 +14,7 @@ import Application from "./components/Application";
 import Device from "./components/Device";
 import Donation from "./components/Donation";
 import Profile from "./components/Profile";
+import DeviceDetails from "./components/DeviceDetails";
 
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer"; // Import the Footer component
@@ -34,6 +35,8 @@ const Routing = () => {
           <Route path="profile" element={<Profile />} />
         </Route>
         <Route path="/postlist" element={<PostList />} />
+        <Route path="/device/:device_id" element={<DeviceDetails />} />{" "}
+        {/* 새로운 페이지 라우트 등록 */}
       </Routes>
       {/* <Footer /> */}
     </>
