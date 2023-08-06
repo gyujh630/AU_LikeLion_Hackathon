@@ -1,3 +1,4 @@
+// Device.js
 import Modal from "react-modal";
 import { useState, useEffect } from "react";
 import AddMyDevice from "./modal/AddMyDevice";
