@@ -17,6 +17,7 @@ import Profile from "./components/Profile";
 
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer"; // Import the Footer component
+import styled from "styled-components";
 
 const Routing = () => {
   return (
@@ -34,7 +35,7 @@ const Routing = () => {
         </Route>
         <Route path="/postlist" element={<PostList />} />
       </Routes>
-      <Footer />
+      {/* <Footer /> */}
     </>
   );
 };

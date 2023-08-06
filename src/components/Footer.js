@@ -5,11 +5,10 @@ const Footer = () => {
   return (
     <footer style={styles.footer}>
       <p>
-        &copy; {new Date().getFullYear()} GROWL TO-GROWTH
+        &copy; {new Date().getFullYear()} LIKELION UNIV. 11TH HACKATHON
         <br />
-        LIKELION UNIV. 11TH HACKATHON
+        아주대학교 다같이돌자동네한바퀴 팀
         <br />
-        아주대학교 00팀
       </p>
     </footer>
   );
