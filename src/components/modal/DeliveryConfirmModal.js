@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import Modal from "react-modal";
 import { useDeliveryStatus } from "../../contexts/DeliveryStatusContext";
 
@@ -15,7 +15,7 @@ const DeliveryConfirmModal = ({ isOpen, onClose, onConfirm }) => {
     //  } catch (error) {
     // console.error("error);
     //  }
-    setStatus((prevStatus) => prevStatus + 1);
+    setStatus((prevStatus) => prevStatus + 1); //test코드
     onClose();
   };
 

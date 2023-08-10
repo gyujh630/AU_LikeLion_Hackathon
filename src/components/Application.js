@@ -3,6 +3,36 @@ import { MyApplicationList } from "./sub/MyApplicationList";
 import { DeliveryStatusProvider } from "../contexts/DeliveryStatusContext";
 
 const Application = () => {
+  const applicationDataList = [
+    {
+      userName: "홍길동",
+      devicetype: "노트북",
+      content: "너무 필요합니다",
+      date: "2023/08/02",
+      status: 2,
+    },
+    {
+      userName: "홍길동",
+      devicetype: "스마트폰",
+      content: "안녕하세요~",
+      date: "2023/08/03",
+      status: 1,
+    },
+    {
+      userName: "홍길동",
+      devicetype: "태블릿",
+      content: "아이패드 주세요",
+      date: "2023/08/04",
+      status: 0,
+    },
+    {
+      userName: "홍길동",
+      devicetype: "스마트폰",
+      content: "폰이 없어요",
+      date: "2023/08/04",
+      status: 2,
+    },
+  ];
   return (
     <StyleApplication>
       <div id="title-box">
@@ -12,7 +42,10 @@ const Application = () => {
       <main>
         {/* DeliveryStatusProvider로 감싸기 */}
         <DeliveryStatusProvider>
-          <MyApplicationList />
+          {/* data 배열을 반복 -> 컴포넌트 생성 */}
+          {applicationDataList.map((data, index) => (
+            <MyApplicationList key={index} data={data} />
+          ))}
         </DeliveryStatusProvider>
       </main>
     </StyleApplication>

@@ -1,25 +1,19 @@
 import { getMyApplicationList } from "../../services/api";
-import { useState, useEffect, useContext, createContext } from "react";
+import { useState } from "react";
 import styled, { css } from "styled-components";
 import DeliveryConfirmModal from "../modal/DeliveryConfirmModal";
 import { useDeliveryStatus } from "../../contexts/DeliveryStatusContext";
-export const MyApplicationList = () => {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+export const MyApplicationList = (props) => {
+  const [modalIsOpen, setModalIsOpen] = useState(false); //modal 열고 닫는 상태
 
-  // 예시 dataSet
-  const data = {
-    userName: "홍길동",
-    devicetype: "노트북",
-    content: "너무 필요합니다",
-    date: "2023/08/02",
-    status: 2,
-  };
+  // props.data에서 데이터 추출
+  const { userName, devicetype, content, date, status } = props.data;
 
   // DeliveryStatusContext 사용
-  const { status, setStatus } = useDeliveryStatus();
+  const { status: contextStatus, setStatus } = useDeliveryStatus();
 
   // 배송상태 string
-  const statusString = ["매칭 준비중", "매칭 완료", "배송중", "수령 완료"];
+  const statusString = ["매칭 대기중", "매칭 완료", "배송중", "수령 완료"];
 
   return (
     <StyleMyApplication>
@@ -27,11 +21,11 @@ export const MyApplicationList = () => {
         <div id="apply-top">
           <div id="apply-profile-image"></div>
           <div id="apply-profile">
-            <p id="user-apply-name">{data.userName}</p>
-            <p id="device-type">신청 기기 유형: {data.devicetype}</p>
+            <p id="user-apply-name">{userName}</p>
+            <p id="device-type">신청 기기 유형: {devicetype}</p>
           </div>
           <div id="apply-date">
-            <p>등록날짜: {data.date}</p>
+            <p>등록날짜: {date}</p>
           </div>
           <div id="status-btn-container">
             <StyledStatusButton status={status}>
@@ -50,7 +44,7 @@ export const MyApplicationList = () => {
         </div>
         <div id="apply-bottom">
           <div id="apply-content">
-            <p id="content">{data.content}</p>
+            <p id="content">{content}</p>
           </div>
         </div>
       </div>
@@ -103,6 +97,7 @@ const StyleMyApplication = styled.div`
     flex-direction: column;
     margin: auto;
     width: 80%;
+    margin-bottom: 30px;
   }
 
   div#apply-top,
@@ -160,7 +155,7 @@ const StyleMyApplication = styled.div`
     padding: 10px;
     min-height: 60px;
     width: 90%;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
     border: none;
     font-size: 12px;
     color: #424242;
