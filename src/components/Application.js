@@ -44,7 +44,7 @@ const StyleApplication = styled.section`
   button#apply-btn {
     font-weight: bold;
     position: absolute;
-    right: 35px;
+    right: 100px;
     margin: auto;
     padding: 10px 20px;
     font-size: 16px;
