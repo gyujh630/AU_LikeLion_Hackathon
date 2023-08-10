@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { MyApplicationList } from "./sub/MyApplicationList";
+import { DeliveryStatusProvider } from "../contexts/DeliveryStatusContext";
 
 const Application = () => {
   return (
@@ -9,7 +10,10 @@ const Application = () => {
         <button id="apply-btn">수혜 신청하기</button>
       </div>
       <main>
-        <MyApplicationList />
+        {/* DeliveryStatusProvider로 감싸기 */}
+        <DeliveryStatusProvider>
+          <MyApplicationList />
+        </DeliveryStatusProvider>
       </main>
     </StyleApplication>
   );
@@ -40,7 +44,7 @@ const StyleApplication = styled.section`
   button#apply-btn {
     font-weight: bold;
     position: absolute;
-    right: 25px;
+    right: 35px;
     margin: auto;
     padding: 10px 20px;
     font-size: 16px;

@@ -1,50 +1,25 @@
 import { getMyApplicationList } from "../../services/api";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext, createContext } from "react";
 import styled, { css } from "styled-components";
-import Modal from "react-modal";
-
-Modal.setAppElement("#root"); //스크린 리더가 모달 이외의 컨텐츠를 읽지 않도록 설정
-
+import DeliveryConfirmModal from "../modal/DeliveryConfirmModal";
+import { useDeliveryStatus } from "../../contexts/DeliveryStatusContext";
 export const MyApplicationList = () => {
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleConfirm = () => {
-    setUserChoice("예");
-    //   try {
-    //     // status를 3(수령완료)로 업데이트하는 API 호출
-    //     const token = localStorage.getItem("accessToken");
-    //     // await updateApplicationStatus(token, 3); // 예시 API 호출 (실제 API 함수명 및 호출 방식에 맞게 수정 필요)
-    //   } catch (error) {
-    //     console.error("Error updating application status:", error);
-    //   }
-    setStatus((prevStatus) => prevStatus + 1); //test용 코드
-    handleCloseModal();
-  };
-
-  const handleCancel = () => {
-    setUserChoice("아니오");
-    handleCloseModal();
-  };
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   // 예시 dataSet
   const data = {
     userName: "홍길동",
     devicetype: "노트북",
-    content:
-      "너무 필요해여너무너무너무너무너무너무너무너무너무 필요합니다. 너무 필요해여너무너무너무너무너무너무너무너무너무 필요합니다 너무 필요해여너무너무너무너무너무너무너무너무너무 필요합니다 너무 필요해여너무너무너무너무너무너무너무너무너무 필요합니다",
+    content: "너무 필요합니다",
     date: "2023/08/02",
-    status: 0,
+    status: 2,
   };
 
-  const [status, setStatus] = useState(data.status);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [userChoice, setUserChoice] = useState(null);
+  // DeliveryStatusContext 사용
+  const { status, setStatus } = useDeliveryStatus();
+
+  // 배송상태 string
+  const statusString = ["매칭 준비중", "매칭 완료", "배송중", "수령 완료"];
 
   return (
     <StyleMyApplication>
@@ -56,24 +31,22 @@ export const MyApplicationList = () => {
             <p id="device-type">신청 기기 유형: {data.devicetype}</p>
           </div>
           <div id="apply-date">
-            <p>{data.date}</p>
+            <p>등록날짜: {data.date}</p>
           </div>
-          <StyledStatusButton
-            status={status}
-            onClick={() => {
-              if (status === 2) {
-                handleOpenModal();
-              }
-            }}
-          >
-            {status === 0
-              ? "매칭 준비중"
-              : status === 1
-              ? "매칭 완료"
-              : status === 2
-              ? "배송중 · 수령 시 클릭"
-              : "수령 완료"}
-          </StyledStatusButton>
+          <div id="status-btn-container">
+            <StyledStatusButton status={status}>
+              {statusString[status]}
+            </StyledStatusButton>
+            {status === 2 && (
+              <Atag
+                id="change-status"
+                href="#"
+                onClick={() => setModalIsOpen(true)}
+              >
+                배송완료로 변경
+              </Atag>
+            )}
+          </div>
         </div>
         <div id="apply-bottom">
           <div id="apply-content">
@@ -81,43 +54,46 @@ export const MyApplicationList = () => {
           </div>
         </div>
       </div>
-      <CustomModal
-        isOpen={isModalOpen}
-        onRequestClose={handleCloseModal}
-        overlayClassName="CustomModal__Overlay"
-      >
-        <div>
-          <p>기기를 수령 하셨나요?</p>
-          <ModalButton onClick={handleConfirm}>예</ModalButton>
-          <ModalButton onClick={handleCloseModal}>아니오</ModalButton>
-        </div>
-      </CustomModal>
+
+      {/* 모달 부분 */}
+      {modalIsOpen && (
+        <DeliveryConfirmModal
+          isOpen={modalIsOpen}
+          onClose={() => setModalIsOpen(false)}
+          onConfirm={() => setModalIsOpen(false)}
+        />
+      )}
     </StyleMyApplication>
   );
 };
 
+const Atag = styled.a`
+  margin: 10px;
+  font-size: 12px;
+  text-decoration: none;
+  color: blue;
+`;
+
 const StyledStatusButton = styled.button`
-  flex: 2;
-  padding: 0px;
-  margin: 15px;
+  width: 100px;
+  padding: 8px 12px;
+  margin: ${(props) => (props.status === 2 ? "15px 15px 0px 15px" : "15px")};
   height: 30px;
   border: none;
   border-radius: 4px;
   color: white;
   background-color: #4caf50;
   font-weight: bold;
-
-  ${(props) =>
-    props.status === 2 &&
-    css`
-      cursor: pointer;
-    `}
 `;
 
 const StyleMyApplication = styled.div`
   div {
     display: flex;
     max-width: 900px;
+  }
+
+  div#status-btn-container {
+    flex-direction: column;
   }
 
   div#apply-box {
@@ -194,47 +170,6 @@ const StyleMyApplication = styled.div`
   p#content {
     margin: auto;
   }
-`;
-
-const CustomModal = styled(Modal)`
-  // overlay 스타일 설정
-  &.ReactModal__Overlay {
-    background-color: rgba(0, 0, 0, 0);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  // content 스타일 설정
-  &.ReactModal__Content {
-    width: 300px;
-    height: 200px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: white;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-`;
-
-const ModalButton = styled.button`
-  margin-top: 40px;
-  margin: 10px;
-  padding: 10px 20px;
-  background-color: #4caf50;
-  color: white;
-  border: none;
-  font-size: 15px;
-  font-weight: bold;
-  border-radius: 4px;
-  cursor: pointer;
 `;
 
 // export const MyApplicationList = () => {
