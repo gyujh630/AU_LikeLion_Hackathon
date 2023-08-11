@@ -25,12 +25,7 @@ export const MyDonationList = (props) => {
     <StyledMyDonation>
       <div id="apply-box">
         <div id="apply-top">
-          <div id="apply-profile-image"></div>
-          {/* 추후 img로 변경*/}
-          <div id="apply-profile">
-            <p id="user-apply-name">{userName}</p>
-            <p id="device-type">신청 기기 유형: {devicetype}</p>
-          </div>
+          <h3 id="apply-user-inform">수혜자 정보</h3>
           <div id="apply-date">
             <p>등록날짜: {date}</p>
           </div>
@@ -40,6 +35,15 @@ export const MyDonationList = (props) => {
             </StyledStatusButton>
           </div>
         </div>
+        <div id="apply-middle">
+          <div id="apply-profile-image"></div>
+          {/* 추후 img로 변경*/}
+          <div id="apply-profile">
+            <p id="user-apply-name">{userName}</p>
+            <p id="device-type">신청 기기 유형: {devicetype}</p>
+          </div>
+        </div>
+        <h3 id="donate-device-inform">기부한 기기</h3>
         <div id="apply-bottom">
           <div id="donate-image"></div>
           {/* 추후 img로 변경*/}
@@ -58,7 +62,7 @@ export const MyDonationList = (props) => {
 const StyledStatusButton = styled.button`
   width: 100px;
   padding: 8px 12px;
-  margin: ${(props) => (props.status === 2 ? "20px 20px 0px 20px" : "20px")};
+  margin: 25px 25px 0px 25px;
   height: 30px;
   border: none;
   border-radius: 4px;
@@ -99,7 +103,7 @@ const StyledMyDonation = styled.div`
     height: width;
     width: 50px;
     height: 50px;
-    margin: 20px 0 20px 20px;
+    margin: 30px 0 30px 30px;
     background-color: white;
     border-radius: 50%;
   }
@@ -108,7 +112,7 @@ const StyledMyDonation = styled.div`
     flex: 4;
     flex-direction: column;
     margin: auto;
-    padding: 15px;
+    padding-left: 15px;
     text-align: left;
   }
 
@@ -131,7 +135,8 @@ const StyledMyDonation = styled.div`
     display: block;
     justify-content: space-between;
     text-align: right;
-    padding: 20px;
+    padding: 30px;
+    padding-bottom: 0px;
     font-size: 12px;
     color: #848484;
     padding-right: 0;
@@ -140,7 +145,7 @@ const StyledMyDonation = styled.div`
   div#donate-image {
     flex: none;
     height: width;
-    margin: 20px;
+    margin: 30px;
     width: 100px;
     height: 100px;
     background-color: white;
@@ -158,5 +163,20 @@ const StyledMyDonation = styled.div`
     margin-top: 15px;
     font-size: 13px;
     color: gray;
+  }
+
+  h3#donate-device-inform {
+    margin-bottom: 0;
+    margin-left: 34px;
+    text-align: left;
+    font-size: 18px;
+  }
+
+  h3#apply-user-inform {
+    margin-bottom: 0;
+    margin-top: 30px;
+    margin-left: 34px;
+    text-align: left;
+    font-size: 18px;
   }
 `;
