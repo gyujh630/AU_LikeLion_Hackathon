@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { MyApplicationList } from "./sub/MyApplicationList";
+import { getMyApplicationList } from "../../services/api";
 import { DeliveryStatusProvider } from "../contexts/DeliveryStatusContext";
 
 const Application = () => {

@@ -1,4 +1,3 @@
-import { getMyApplicationList } from "../../services/api";
 import { useState } from "react";
 import styled, { css } from "styled-components";
 import DeliveryConfirmModal from "../modal/DeliveryConfirmModal";
@@ -16,7 +15,7 @@ export const MyApplicationList = (props) => {
   const statusString = ["매칭 대기중", "매칭 완료", "배송중", "수령 완료"];
 
   return (
-    <StyleMyApplication>
+    <StyledMyApplication>
       <div id="apply-box">
         <div id="apply-top">
           <div id="apply-profile-image"></div>
@@ -57,7 +56,7 @@ export const MyApplicationList = (props) => {
           onConfirm={() => setModalIsOpen(false)}
         />
       )}
-    </StyleMyApplication>
+    </StyledMyApplication>
   );
 };
 
@@ -80,7 +79,7 @@ const StyledStatusButton = styled.button`
   font-weight: bold;
 `;
 
-const StyleMyApplication = styled.div`
+const StyledMyApplication = styled.div`
   div {
     display: flex;
     max-width: 900px;
