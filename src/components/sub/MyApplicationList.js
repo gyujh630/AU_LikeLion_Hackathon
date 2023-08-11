@@ -19,6 +19,7 @@ export const MyApplicationList = (props) => {
       <div id="apply-box">
         <div id="apply-top">
           <div id="apply-profile-image"></div>
+          {/* 추후 img로 변경*/}
           <div id="apply-profile">
             <p id="user-apply-name">{userName}</p>
             <p id="device-type">신청 기기 유형: {devicetype}</p>
@@ -70,7 +71,7 @@ const Atag = styled.a`
 const StyledStatusButton = styled.button`
   width: 100px;
   padding: 8px 12px;
-  margin: ${(props) => (props.status === 2 ? "15px 15px 0px 15px" : "15px")};
+  margin: ${(props) => (props.status === 2 ? "20px 20px 0px 20px" : "20px")};
   height: 30px;
   border: none;
   border-radius: 4px;
@@ -111,7 +112,7 @@ const StyledMyApplication = styled.div`
     height: width;
     width: 50px;
     height: 50px;
-    margin: 15px 0 15px 15px;
+    margin: 20px 0 20px 20px;
     background-color: white;
     border-radius: 50%;
   }
@@ -120,7 +121,7 @@ const StyledMyApplication = styled.div`
     flex: 4;
     flex-direction: column;
     margin: auto;
-    padding: 10px;
+    padding: 15px;
     text-align: left;
   }
 
@@ -143,7 +144,7 @@ const StyledMyApplication = styled.div`
     display: block;
     justify-content: space-between;
     text-align: right;
-    padding: 15px;
+    padding: 20px;
     font-size: 12px;
     color: #848484;
     padding-right: 0;

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { MyApplicationList } from "./sub/MyApplicationList";
-import { getMyApplicationList } from "../../services/api";
+import { getMyApplicationList } from "../services/api";
 import { DeliveryStatusProvider } from "../contexts/DeliveryStatusContext";
 
 const Application = () => {
@@ -9,28 +9,28 @@ const Application = () => {
       userName: "홍길동",
       devicetype: "노트북",
       content: "너무 필요합니다",
-      date: "2023/08/02",
+      date: "2023-08-02",
       status: 2,
     },
     {
       userName: "홍길동",
       devicetype: "스마트폰",
       content: "안녕하세요~",
-      date: "2023/08/03",
+      date: "2023-08-03",
       status: 1,
     },
     {
       userName: "홍길동",
       devicetype: "태블릿",
       content: "아이패드 주세요",
-      date: "2023/08/04",
+      date: "2023-08-04",
       status: 0,
     },
     {
       userName: "홍길동",
       devicetype: "스마트폰",
       content: "폰이 없어요",
-      date: "2023/08/04",
+      date: "2023-08-04",
       status: 2,
     },
   ];

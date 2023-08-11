@@ -4,7 +4,16 @@ import { useDeliveryStatus } from "../../contexts/DeliveryStatusContext";
 
 export const MyDonationList = (props) => {
   // props.data에서 데이터 추출
-  const { userName, devicetype, content, date, status } = props.data;
+  const {
+    userName,
+    devicetype,
+    date,
+    status,
+    model,
+    image,
+    usedDate,
+    deliverNum,
+  } = props.data;
 
   // DeliveryStatusContext 사용
   const { status: contextStatus, setStatus } = useDeliveryStatus();
@@ -12,7 +21,36 @@ export const MyDonationList = (props) => {
   // 배송상태 string
   const statusString = ["매칭 대기중", "매칭 완료", "배송중", "수령 완료"];
 
-  return <StyledMyDonation></StyledMyDonation>;
+  return (
+    <StyledMyDonation>
+      <div id="apply-box">
+        <div id="apply-top">
+          <div id="apply-profile-image"></div>
+          {/* 추후 img로 변경*/}
+          <div id="apply-profile">
+            <p id="user-apply-name">{userName}</p>
+            <p id="device-type">신청 기기 유형: {devicetype}</p>
+          </div>
+          <div id="apply-date">
+            <p>등록날짜: {date}</p>
+          </div>
+          <div id="status-btn-container">
+            <StyledStatusButton status={status}>
+              {statusString[status]}
+            </StyledStatusButton>
+          </div>
+        </div>
+        <div id="apply-bottom">
+          <div id="donate-image"></div>
+          {/* 추후 img로 변경*/}
+          <div id="donate-device-container">
+            <p id="model-name">{model}</p>
+            <p id="used-date">사용기간 {usedDate}</p>
+          </div>
+        </div>
+      </div>
+    </StyledMyDonation>
+  );
 };
 
 // style
@@ -20,7 +58,7 @@ export const MyDonationList = (props) => {
 const StyledStatusButton = styled.button`
   width: 100px;
   padding: 8px 12px;
-  margin: ${(props) => (props.status === 2 ? "15px 15px 0px 15px" : "15px")};
+  margin: ${(props) => (props.status === 2 ? "20px 20px 0px 20px" : "20px")};
   height: 30px;
   border: none;
   border-radius: 4px;
@@ -61,7 +99,7 @@ const StyledMyDonation = styled.div`
     height: width;
     width: 50px;
     height: 50px;
-    margin: 15px 0 15px 15px;
+    margin: 20px 0 20px 20px;
     background-color: white;
     border-radius: 50%;
   }
@@ -70,7 +108,7 @@ const StyledMyDonation = styled.div`
     flex: 4;
     flex-direction: column;
     margin: auto;
-    padding: 10px;
+    padding: 15px;
     text-align: left;
   }
 
@@ -93,25 +131,32 @@ const StyledMyDonation = styled.div`
     display: block;
     justify-content: space-between;
     text-align: right;
-    padding: 15px;
+    padding: 20px;
     font-size: 12px;
     color: #848484;
     padding-right: 0;
   }
 
-  div#apply-content {
-    text-align: center;
-    padding: 10px;
-    min-height: 60px;
-    width: 90%;
-    margin-bottom: 20px;
-    border: none;
-    font-size: 12px;
-    color: #424242;
+  div#donate-image {
+    flex: none;
+    height: width;
+    margin: 20px;
+    width: 100px;
+    height: 100px;
     background-color: white;
   }
 
-  p#content {
-    margin: auto;
+  div#donate-device-container {
+    flex: 7;
+    flex-direction: column;
+    margin: 20px 0;
+    text-align: left;
+    justify-content: center;
+  }
+
+  p#used-date {
+    margin-top: 15px;
+    font-size: 13px;
+    color: gray;
   }
 `;

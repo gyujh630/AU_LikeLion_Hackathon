@@ -6,11 +6,35 @@ import { DeliveryStatusProvider } from "../contexts/DeliveryStatusContext";
 const Donation = () => {
   const exampleDonateListData = [
     {
+      deviceId: "1",
+      userId: "2",
+      applyId: "23",
       userName: "홍길동",
-      devicetype: "노트북",
-      content: "너무 필요합니다",
-      date: "2023/08/02",
+      devicetype: "태블릿",
+      profile: "profile image",
+      model: "아이패드 에어 2 wifi 128GB",
+      date: "2023-08-02",
+      condition: "2",
+      image: "기기 사진",
+      status: 1,
+      usedDate: "2년",
+      deliverNum: "1234567890",
+    },
+
+    {
+      deviceId: "1",
+      userId: "2",
+      applyId: "23",
+      userName: "홍길동",
+      devicetype: "태블릿",
+      profile: "profile image",
+      model: "아이패드 에어 2 wifi 128GB",
+      date: "2023-08-02",
+      condition: "2",
+      image: "기기 사진",
       status: 2,
+      usedDate: "2년",
+      deliverNum: "1234567890",
     },
   ];
 
@@ -23,7 +47,7 @@ const Donation = () => {
         {/* DeliveryStatusProvider로 감싸기 */}
         <DeliveryStatusProvider>
           {/* data 배열을 반복 -> 컴포넌트 생성 */}
-          {applicationDataList.map((data, index) => (
+          {exampleDonateListData.map((data, index) => (
             <MyDonationList key={index} data={data} />
           ))}
         </DeliveryStatusProvider>

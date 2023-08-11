@@ -14,11 +14,11 @@ export const getApplicationList = async () => {
 };
 
 //user token으로 user의 수혜신청목록 가져오기 - endpoint 수정 필요
-export const getMyApplicationList = async (token) => {
+export const getMyApplicationList = async () => {
   try {
     const response = await axios.get(`${apiUrl}/myApplications`, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        // Authorization: `Bearer ${token}`,
       },
     });
     return response.data;
@@ -33,7 +33,7 @@ export const getDonationList = async () => {
   try {
     const response = await axios.get(`${apiUrl}/`, {
       headers: {
-        Authorization: `Bearer ${token}`,
+        // Authorization: `Bearer ${token}`,
       },
     });
     return response.data;
