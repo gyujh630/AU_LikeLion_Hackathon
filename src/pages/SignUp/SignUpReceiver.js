@@ -4,15 +4,19 @@ import * as yup from "yup";
 
 function SignUpReceiver() {
   const formSchema = yup.object({
-    email: yup
+    name: yup
       .string()
-      .required("이메일을 입력해주세요")
-      .email("이메일 형식이 아닙니다."),
+      .required("사용자명을 입력해주세요.")
+      .max(10, "최대 10자 까지만 가능합니다"),
+    id: yup
+      .string()
+      .required("아이디를 입력해주세요")
+      .max(10, "최대 10자 까지만 가능합니다"),
     password: yup
       .string()
       .required("영문, 숫자포함 8자리를 입력해주세요.")
       .min(8, "최소 8자 이상 가능합니다")
-      .max(15, "최대 15자 까지만 가능합니다")
+      .max(20, "최대 20자 까지만 가능합니다")
       .matches(
         /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,15}$/,
         "영문 숫자포함 8자리를 입력해주세요."
@@ -63,7 +67,33 @@ function SignUpReceiver() {
         <h2>수혜자 회원가입</h2>
         <form onSubmit={handleSubmit(onSubmit)} style={styles.form}>
           <div style={styles.inputGroup}>
-            <label htmlFor="username" style={styles.label}>
+            <label htmlFor="name" style={styles.label}>
+              <span
+                style={{
+                  display: "inline-block",
+                  width: "100px",
+                  marginRight: "10px",
+                }}
+              >
+                사용자명 *
+              </span>
+            </label>
+            <input
+              name="name"
+              placeholder="사용자명"
+              {...register("name")}
+              style={styles.input}
+            />
+            {errors.name && (
+              <div
+                style={{ marginLeft: "100px", marginTop: "10px", color: "red" }}
+              >
+                {errors.name.message}
+              </div>
+            )}
+          </div>
+          <div style={styles.inputGroup}>
+            <label htmlFor="name" style={styles.label}>
               <span
                 style={{
                   display: "inline-block",
@@ -75,16 +105,16 @@ function SignUpReceiver() {
               </span>
             </label>
             <input
-              name="email"
-              placeholder="이메일"
-              {...register("email")}
+              name="id"
+              placeholder="아이디"
+              {...register("id")}
               style={styles.input}
             />
-            {errors.email && (
+            {errors.id && (
               <div
                 style={{ marginLeft: "100px", marginTop: "10px", color: "red" }}
               >
-                {errors.email.message}
+                {errors.id.message}
               </div>
             )}
           </div>
