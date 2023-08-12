@@ -1,3 +1,4 @@
+//Routing.js
 import React from "react";
 import {
   BrowserRouter as Router,
@@ -5,6 +6,9 @@ import {
   Route,
   Navigate,
 } from "react-router-dom";
+
+import CommonLayout from "./components/CommonLayout";
+
 import Home from "./pages/Home";
 import PostList from "./pages/PostList";
 import Login from "./pages/Login";
@@ -14,28 +18,91 @@ import Application from "./components/Application";
 import Device from "./components/Device";
 import Donation from "./components/Donation";
 import Profile from "./components/Profile";
+import DeviceDetails from "./components/DeviceDetails";
 
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer"; // Import the Footer component
+import styled from "styled-components";
+import SignUp from "./pages/SignUp";
 
 const Routing = () => {
   return (
-    <>
-      <NavBar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/mypage" element={<MyPage />}>
-          <Route index element={<Navigate to="application" />} />
-          <Route path="application" element={<Application />} />
-          <Route path="donation" element={<Donation />} />
-          <Route path="device" element={<Device />} />
-          <Route path="profile" element={<Profile />} />
-        </Route>
-        <Route path="/postlist" element={<PostList />} />
-      </Routes>
-      <Footer />
-    </>
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <CommonLayout>
+            <Home />
+          </CommonLayout>
+        }
+      />
+      <Route
+        path="/login"
+        element={
+          <CommonLayout>
+            <Login />
+          </CommonLayout>
+        }
+      />
+      <Route
+        path="/signup"
+        element={
+          <CommonLayout>
+            <SignUp />
+          </CommonLayout>
+        }
+      />
+      <Route
+        path="/mypage"
+        element={
+          <CommonLayout>
+            <MyPage />
+          </CommonLayout>
+        }
+      >
+        <Route index element={<Navigate to="application" />} />
+        <Route path="application" element={<Application />} />
+        <Route path="donation" element={<Donation />} />
+        <Route path="device" element={<Device />} />
+        <Route path="profile" element={<Profile />} />
+      </Route>
+      <Route
+        path="/postlist"
+        element={
+          <CommonLayout>
+            <PostList />
+          </CommonLayout>
+        }
+      />
+      <Route
+        path="/device/:device_id"
+        element={
+          <CommonLayout>
+            <DeviceDetails />
+          </CommonLayout>
+        }
+      />
+    </Routes>
+
+    // <>
+    //   <NavBar />
+    //   <Routes>
+    //     <Route path="/" element={<Home />} />
+    //     <Route path="/login" element={<Login />} />
+    //     <Route path="/signup" element={<SignUp />} />
+    //     <Route path="/mypage" element={<MyPage />}>
+    //       <Route index element={<Navigate to="application" />} />
+    //       <Route path="application" element={<Application />} />
+    //       <Route path="donation" element={<Donation />} />
+    //       <Route path="device" element={<Device />} />
+    //       <Route path="profile" element={<Profile />} />
+    //     </Route>
+    //     <Route path="/postlist" element={<PostList />} />
+    //     <Route path="/device/:device_id" element={<DeviceDetails />} />{" "}
+    //     {/* 새로운 페이지 라우트 등록 */}
+    //   </Routes>
+    //   {/* <Footer /> */}
+    // </>
   );
 };
 
