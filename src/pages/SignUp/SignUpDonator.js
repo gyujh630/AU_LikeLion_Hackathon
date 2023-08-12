@@ -63,7 +63,7 @@ function SignUpDonator() {
     <div className="SignUpDonator" style={{ marginTop: "100px" }}>
       <div style={styles.container}>
         <h1>회원가입</h1>
-        <h2>수혜자 회원가입</h2>
+        <h2>기부자 회원가입</h2>
         <form onSubmit={handleSubmit(onSubmit)} style={styles.form}>
           <div style={styles.inputGroup}>
             <label htmlFor="name" style={styles.label}>
