@@ -63,6 +63,9 @@ const NavBar = () => {
           <Button to="/login">Login</Button>
         </li>
         <li>
+          <Button to="/signup">Sign Up</Button>
+        </li>
+        <li>
           <Button to="/mypage">MyPage</Button>
         </li>
       </ul>
