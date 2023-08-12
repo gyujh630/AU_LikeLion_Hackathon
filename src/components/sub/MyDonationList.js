@@ -42,6 +42,11 @@ export const MyDonationList = (props) => {
             <p id="user-apply-name">{userName}</p>
             <p id="device-type">신청 기기 유형: {devicetype}</p>
           </div>
+          {status === 1 && (
+            <StyledDeliveryNumButton id="">
+              운송장 번호 입력하기
+            </StyledDeliveryNumButton>
+          )}
         </div>
         <h3 id="donate-device-inform">기부한 기기</h3>
         <div id="apply-bottom">
@@ -58,6 +63,23 @@ export const MyDonationList = (props) => {
 };
 
 // style
+
+const StyledDeliveryNumButton = styled.button`
+  width: 100px;
+  padding: 8px 12px;
+  margin: 25px 25px 0px 25px;
+  height: 60px;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  background-color: #007bff;
+  font-weight: bold;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #0056b3;
+  }
+`;
 
 const StyledStatusButton = styled.button`
   width: 100px;
