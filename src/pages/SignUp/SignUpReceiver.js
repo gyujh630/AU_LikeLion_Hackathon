@@ -27,7 +27,7 @@ function SignUpReceiver() {
     register,
     handleSubmit,
     watch,
-    formState: { errors },
+    formState: { errors, isValid, isDirty },
   } = useForm({
     mode: "onChange",
     resolver: yupResolver(formSchema),
@@ -37,14 +37,15 @@ function SignUpReceiver() {
 
   const onSubmit = async (data) => {
     try {
+      const formData = new FormData();
+      for (const key in data) {
+        formData.append(key, data[key]);
+      }
+
       const response = await fetch("/users/join/receiver", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
+        body: formData, // FormData 사용
       });
-
       if (response.ok) {
         // 회원가입 성공 처리
       } else {
@@ -58,12 +59,19 @@ function SignUpReceiver() {
   return (
     <div className="SignUpReceiver" style={{ marginTop: "100px" }}>
       <div style={styles.container}>
-        <h1>회원가입 - 수혜자</h1>
+        <h1>회원가입</h1>
+        <h2>수혜자 회원가입</h2>
         <form onSubmit={handleSubmit(onSubmit)} style={styles.form}>
           <div style={styles.inputGroup}>
             <label htmlFor="username" style={styles.label}>
-              <span style={{ display: "inline-block", width: "100px" }}>
-                아이디
+              <span
+                style={{
+                  display: "inline-block",
+                  width: "100px",
+                  marginRight: "10px",
+                }}
+              >
+                아이디 *
               </span>
             </label>
             <input
@@ -81,9 +89,15 @@ function SignUpReceiver() {
             )}
           </div>
           <div style={styles.inputGroup}>
-            <label htmlFor="username" style={styles.label}>
-              <span style={{ display: "inline-block", width: "100px" }}>
-                비밀번호
+            <label htmlFor="password" style={styles.label}>
+              <span
+                style={{
+                  display: "inline-block",
+                  width: "100px",
+                  marginRight: "10px",
+                }}
+              >
+                비밀번호 *
               </span>
             </label>
             <input
@@ -102,9 +116,15 @@ function SignUpReceiver() {
             )}
           </div>
           <div style={styles.inputGroup}>
-            <label htmlFor="username" style={styles.label}>
-              <span style={{ display: "inline-block", width: "100px" }}>
-                비밀번호 확인
+            <label htmlFor="password" style={styles.label}>
+              <span
+                style={{
+                  display: "inline-block",
+                  width: "100px",
+                  marginRight: "10px",
+                }}
+              >
+                비밀번호 확인 *
               </span>
             </label>
             <input
@@ -123,17 +143,29 @@ function SignUpReceiver() {
             )}
           </div>
           <div style={styles.inputGroup}>
-            <label htmlFor="username" style={styles.label}>
-              <span style={{ display: "inline-block", width: "100px" }}>
+            <label htmlFor="profileImg" style={styles.label}>
+              <span
+                style={{
+                  display: "inline-block",
+                  width: "100px",
+                  marginRight: "10px",
+                }}
+              >
                 프로필 사진
               </span>
             </label>
             <input type="file" placeholder="프로필 사진" style={styles.input} />
           </div>
           <div style={styles.inputGroup}>
-            <label htmlFor="username" style={styles.label}>
-              <span style={{ display: "inline-block", width: "100px" }}>
-                수혜자 인증
+            <label htmlFor="certification" style={styles.label}>
+              <span
+                style={{
+                  display: "inline-block",
+                  width: "100px",
+                  marginRight: "10px",
+                }}
+              >
+                수혜자 인증 *
               </span>
             </label>
             <input
@@ -149,11 +181,30 @@ function SignUpReceiver() {
                 {errors.certification.message}
               </div>
             )}
+            <div
+              style={{
+                marginLeft: "110px",
+                marginTop: "10px",
+                color: "gray",
+                fontSize: "14px",
+              }}
+            >
+              거짓 정보 입력 시 불이익이 있을 수 있습니다.
+            </div>
           </div>
           <input
             type="submit"
-            // disabled={errors || watch()}
-            style={styles.button}
+            disabled={!isValid || !isDirty} // Disable the button based on form validity
+            style={{
+              ...styles.button,
+              backgroundColor: isValid && isDirty ? "#4CAF50" : "#ccc",
+              cursor: isValid && isDirty ? "pointer" : "not-allowed",
+            }}
+            // disabled={errors}
+            // style={{
+            //   ...styles.button,
+            //   backgroundColor: errors ? "#ccc" : "#4CAF50",
+            // }}
           />
         </form>
       </div>
