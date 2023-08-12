@@ -7,7 +7,6 @@ const Profile = () => {
         display: "flex",
         justifyContent: "center",
         // alignItems: "center",
-        minHeight: "calc(100vh - 100px)", // Adjust the height to account for the SubNavigation height
       }}
     >
       <h2>내 정보</h2>
