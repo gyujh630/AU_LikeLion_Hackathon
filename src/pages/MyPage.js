@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { NavLink, Route, Routes, Outlet } from "react-router-dom";
 import MyPageNavBar from "../components/MyPageNavBar";
+import CommonLayout from "../components/CommonLayout";
 
 const StyledMyPage = styled.div`
   text-align: center;
@@ -10,11 +11,10 @@ const StyledMyPage = styled.div`
 const MyPage = () => {
   return (
     <StyledMyPage>
-      <header>
-        <h1>My Page</h1>
-      </header>
-      <MyPageNavBar></MyPageNavBar>
-      <Outlet />
+      <CommonLayout>
+        <MyPageNavBar></MyPageNavBar>
+        <Outlet />
+      </CommonLayout>
     </StyledMyPage>
   );
 };

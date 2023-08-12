@@ -5,7 +5,7 @@ import Footer from "./Footer";
 import styled from "styled-components";
 
 const PageContainer = styled.div`
-  margin: 100px 0;
+  margin: 80px 0;
 `;
 
 const CommonLayout = ({ children }) => (

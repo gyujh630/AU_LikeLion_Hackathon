@@ -79,11 +79,11 @@ const Routing = () => {
           </CommonLayout>
         }
       >
-        <Route index element={<Navigate to="application" />} />
+        <Route index element={<Navigate to="Profile" />} />
+        <Route path="profile" element={<Profile />} />
         <Route path="application" element={<Application />} />
         <Route path="donation" element={<Donation />} />
         <Route path="device" element={<Device />} />
-        <Route path="profile" element={<Profile />} />
       </Route>
       <Route
         path="/postlist"

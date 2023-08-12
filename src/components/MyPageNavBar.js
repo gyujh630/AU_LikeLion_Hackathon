@@ -6,6 +6,7 @@ const SubNavigation = styled.ul`
   justify-content: center;
   background-color: #f2f2f2;
   padding: 10px 0;
+  margin-top: 0;
   max-width: 100vw;
   overflow-x: auto;
   list-style-type: none;
@@ -32,6 +33,11 @@ const MyPageNavBar = () => {
   return (
     <SubNavigation>
       <li>
+        <SubNavigationItem to="/mypage/profile" activeclassname="active">
+          내 정보
+        </SubNavigationItem>
+      </li>
+      <li>
         <SubNavigationItem to="/mypage/application" activeclassname="active">
           수혜 신청 목록
         </SubNavigationItem>
@@ -44,11 +50,6 @@ const MyPageNavBar = () => {
       <li>
         <SubNavigationItem to="/mypage/device" activeclassname="active">
           등록된 기기
-        </SubNavigationItem>
-      </li>
-      <li>
-        <SubNavigationItem to="/mypage/profile" activeclassname="active">
-          내 정보
         </SubNavigationItem>
       </li>
     </SubNavigation>
