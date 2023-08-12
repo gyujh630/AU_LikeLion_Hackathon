@@ -5,33 +5,48 @@ import { useDeliveryStatus } from "../../contexts/DeliveryStatusContext";
 
 Modal.setAppElement("#root");
 
-const DeliveryConfirmModal = ({ isOpen, onClose, onConfirm }) => {
+const DeliveryNumInputModal = ({ isOpen, onClose, onConfirm }) => {
   const { status, setStatus } = useDeliveryStatus(); // DeliveryStatusContext 사용
+  const [deliveryNum, setDeliveryNum] = useState(""); // 송장번호 상태
+
   const handleConfirm = () => {
     onConfirm();
     // try {
-    //   // status를 3(수령완료)로 업데이트하는 API 호출
-    //   await patchApplicationStatus(); // 예시 API 호출 (실제 API 함수명 및 호출 방식에 맞게 수정 필요)
+    //   await updateDeliveryNum(deliveryNum); // deliveryNum update 함수 호출
+    //   await patchDeliveryState();           // 상태 변경
     //  } catch (error) {
     // console.error("error);
     //  }
-    setStatus((prevStatus) => prevStatus + 1); //test코드
-    console.log(status);
     onClose();
   };
 
   return (
     <CustomModal isOpen={isOpen} onRequestClose={onClose}>
-      <p>기기를 수령하셨나요?</p>
+      <p style={{ fontSize: "14px" }}>
+        기기를 발송하셨나요?<br></br>운송장 번호를 입력해주세요!.
+      </p>
+      <CustomInput
+        value={deliveryNum}
+        onChange={(e) => setDeliveryNum(e.target.value)}
+      />
       <ButtonContainer>
-        <ModalButton onClick={handleConfirm}>예</ModalButton>
-        <ModalButton onClick={onClose} style={{ backgroundColor: "grey" }}>
-          아니오
+        <ModalButton onClick={handleConfirm}>입력</ModalButton>
+        <ModalButton style={{ backgroundColor: "grey" }} onClick={onClose}>
+          취소
         </ModalButton>
       </ButtonContainer>
     </CustomModal>
   );
 };
+
+const CustomInput = styled.input`
+  width: 70%;
+  padding: 6px;
+  font-size: 14px;
+  border-radius: 4px;
+  outline: none;
+  border: 1px solid #ccc;
+`;
 
 const CustomModal = styled(Modal)`
   // overlay 스타일 설정
@@ -44,6 +59,7 @@ const CustomModal = styled(Modal)`
 
   // content 스타일 설정
   &.ReactModal__Content {
+    text-align: center;
     width: 300px;
     height: 200px;
     border-radius: 8px;
@@ -79,4 +95,4 @@ const ModalButton = styled.button`
   cursor: pointer;
 `;
 
-export default DeliveryConfirmModal;
+export default DeliveryNumInputModal;

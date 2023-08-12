@@ -37,7 +37,7 @@ export const MyApplicationList = (props) => {
                 href="#"
                 onClick={() => setModalIsOpen(true)}
               >
-                배송완료로 변경
+                배송완료로 변경하기
               </Atag>
             )}
           </div>

@@ -89,6 +89,11 @@ const StyleApplication = styled.section`
     cursor: pointer;
     width: 150px;
     margin: 20px 0;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #0056b3;
+    }
   }
 `;
 

@@ -1,8 +1,11 @@
 import { useState } from "react";
 import styled, { css } from "styled-components";
 import { useDeliveryStatus } from "../../contexts/DeliveryStatusContext";
+import DeliveryNumInputModal from "../modal/DeliveryNumInputModal";
 
 export const MyDonationList = (props) => {
+  const [modalIsOpen, setModalIsOpen] = useState(false); //modal 열고 닫는 상태
+
   // props.data에서 데이터 추출
   const {
     userName,
@@ -43,7 +46,7 @@ export const MyDonationList = (props) => {
             <p id="device-type">신청 기기 유형: {devicetype}</p>
           </div>
           {status === 1 && (
-            <StyledDeliveryNumButton id="">
+            <StyledDeliveryNumButton onClick={() => setModalIsOpen(true)}>
               운송장 번호 입력하기
             </StyledDeliveryNumButton>
           )}
@@ -58,6 +61,14 @@ export const MyDonationList = (props) => {
           </div>
         </div>
       </div>
+      {/* 모달 부분 */}
+      {modalIsOpen && (
+        <DeliveryNumInputModal
+          isOpen={modalIsOpen}
+          onClose={() => setModalIsOpen(false)}
+          onConfirm={() => setModalIsOpen(false)}
+        />
+      )}
     </StyledMyDonation>
   );
 };
@@ -75,6 +86,7 @@ const StyledDeliveryNumButton = styled.button`
   background-color: #007bff;
   font-weight: bold;
   cursor: pointer;
+  transition: background-color 0.3s;
 
   &:hover {
     background-color: #0056b3;
