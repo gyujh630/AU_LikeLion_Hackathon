@@ -11,10 +11,8 @@ const StyledMyPage = styled.div`
 const MyPage = () => {
   return (
     <StyledMyPage>
-      <CommonLayout>
-        <MyPageNavBar></MyPageNavBar>
-        <Outlet />
-      </CommonLayout>
+      <MyPageNavBar></MyPageNavBar>
+      <Outlet />
     </StyledMyPage>
   );
 };
