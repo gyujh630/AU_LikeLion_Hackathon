@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
-function SignUp() {
+function SignUpReceiver() {
   const formSchema = yup.object({
     email: yup
       .string()
@@ -20,6 +20,7 @@ function SignUp() {
     passwordConfirm: yup
       .string()
       .oneOf([yup.ref("password")], "비밀번호가 다릅니다."),
+    certification: yup.mixed().required("수혜자 인증 파일을 등록해주세요."),
   });
 
   const {
@@ -55,7 +56,7 @@ function SignUp() {
   };
 
   return (
-    <div className="SignUp" style={{ marginTop: "100px" }}>
+    <div className="SignUpReceiver" style={{ marginTop: "100px" }}>
       <div style={styles.container}>
         <h1>회원가입 - 수혜자</h1>
         <form onSubmit={handleSubmit(onSubmit)} style={styles.form}>
@@ -138,8 +139,16 @@ function SignUp() {
             <input
               type="file"
               placeholder="수혜자 인증 파일"
+              {...register("certification")}
               style={styles.input}
             />
+            {errors.certification && (
+              <div
+                style={{ marginLeft: "100px", marginTop: "10px", color: "red" }}
+              >
+                {errors.certification.message}
+              </div>
+            )}
           </div>
           <input
             type="submit"
@@ -189,4 +198,4 @@ const styles = {
   },
 };
 
-export default SignUp;
+export default SignUpReceiver;

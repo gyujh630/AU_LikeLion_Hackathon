@@ -20,10 +20,13 @@ import Donation from "./components/Donation";
 import Profile from "./components/Profile";
 import DeviceDetails from "./components/DeviceDetails";
 
+import SignUp from "./pages/SignUp/SignUp";
+import SignUpReceiver from "./pages/SignUp/SignUpReceiver";
+import SignUpDonator from "./pages/SignUp/SignUpDonator";
+
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer"; // Import the Footer component
 import styled from "styled-components";
-import SignUp from "./pages/SignUp";
 
 const Routing = () => {
   return (
@@ -49,6 +52,22 @@ const Routing = () => {
         element={
           <CommonLayout>
             <SignUp />
+          </CommonLayout>
+        }
+      />
+      <Route
+        path="/signup/receiver"
+        element={
+          <CommonLayout>
+            <SignUpReceiver />
+          </CommonLayout>
+        }
+      />
+      <Route
+        path="/signup/donator"
+        element={
+          <CommonLayout>
+            <SignUpDonator />
           </CommonLayout>
         }
       />
