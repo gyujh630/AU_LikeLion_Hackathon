@@ -21,7 +21,7 @@ const DeliveryNumInputModal = ({ isOpen, onClose, onConfirm }) => {
   };
 
   return (
-    <CustomModal isOpen={isOpen} onRequestClose={onClose}>
+    <Modal style={ModalStyles} isOpen={isOpen} onRequestClose={onClose}>
       <p style={{ fontSize: "14px" }}>
         기기를 발송하셨나요?<br></br>운송장 번호를 입력해주세요!.
       </p>
@@ -35,8 +35,36 @@ const DeliveryNumInputModal = ({ isOpen, onClose, onConfirm }) => {
           취소
         </ModalButton>
       </ButtonContainer>
-    </CustomModal>
+    </Modal>
   );
+};
+
+const ModalStyles = {
+  overlay: {
+    zIndex: 1000,
+    display: "flex",
+    backgroundColor: "rgba(0, 0, 0, 0.3)", //모달 바깥 배경
+  },
+
+  content: {
+    minHeight: "200px",
+    // width: "70%",
+    // height: "70%",
+    borderRadius: "8px",
+    padding: "20px",
+    overflowY: "auto", //스크롤 허용
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    textAlign: "center",
+    justifyContent: "space-evenly",
+    backgroundColor: "white",
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.3)",
+  },
 };
 
 const CustomInput = styled.input`
@@ -46,35 +74,6 @@ const CustomInput = styled.input`
   border-radius: 4px;
   outline: none;
   border: 1px solid #ccc;
-`;
-
-const CustomModal = styled(Modal)`
-  // overlay 스타일 설정
-  &.ReactModal__Overlay {
-    background-color: rgba(0, 0, 0, 0);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  // content 스타일 설정
-  &.ReactModal__Content {
-    text-align: center;
-    width: 300px;
-    height: 200px;
-    border-radius: 8px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: white;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
-  }
 `;
 
 const ButtonContainer = styled.div`
