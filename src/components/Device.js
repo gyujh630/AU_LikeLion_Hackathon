@@ -51,26 +51,37 @@ const Device = () => {
     },
   ];
 
-  Modal.setAppElement("#root"); //스크린 리더가 모달 이외의 컨텐츠를 읽지 않도록 설정
+  // new modal style 반영 코드
+  const [modalIsOpen, setModalIsOpen] = useState(false); //modal 열고 닫는 상태
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  // 기존 코드
+  // Modal.setAppElement("#root"); //스크린 리더가 모달 이외의 컨텐츠를 읽지 않도록 설정
 
-  const handleModalOpen = () => {
-    setIsModalOpen(true);
-  };
+  // const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleModalClose = () => {
-    setIsModalOpen(false);
-  };
+  // const handleModalOpen = () => {
+  //   setIsModalOpen(true);
+  // };
+
+  // const handleModalClose = () => {
+  //   setIsModalOpen(false);
+  // };
 
   return (
     <StyleApplication>
       <div id="title-box">
         <h2>등록된 기기</h2>
-        <button id="add-btn" onClick={handleModalOpen}>
+        <button id="add-btn" onClick={() => setModalIsOpen(true)}>
           새 기기 추가
-        </button>
-        <AddMyDevice isOpen={isModalOpen} onClose={handleModalClose} />
+        </button>{" "}
+        {modalIsOpen && (
+          <AddMyDevice
+            isOpen={modalIsOpen}
+            onClose={() => setModalIsOpen(false)}
+            onConfirm={() => setModalIsOpen(false)}
+          />
+        )}
+        {/* <AddMyDevice isOpen={isModalOpen} onClose={handleModalClose} /> */}
       </div>
       <main>
         {/* {deviceList.map((deviceInfo, index) => (
