@@ -5,6 +5,8 @@ import styled from "styled-components";
 import { useForm, Controller, useFieldArray, reset } from "react-hook-form";
 import axios from "axios"; // Import axios
 
+// TODO :: deviceType, model, condition, image, usedDate로 erd 반영해서 수정 필요
+
 Modal.setAppElement("#root");
 
 const AddMyDevice = ({ isOpen, onClose }) => {
@@ -133,7 +135,12 @@ const AddMyDevice = ({ isOpen, onClose }) => {
               name="details"
               control={control}
               rules={{ required: "세부 내용을 입력해주세요." }}
-              render={({ field }) => <Textarea {...field} />}
+              render={({ field }) => (
+                <Textarea
+                  {...field}
+                  placeholder="여기에 예시 텍스트를 입력하세요."
+                />
+              )}
             />
             {errors.details && (
               <ErrorMessage>{errors.details.message}</ErrorMessage>
