@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { MyDonationList } from "./sub/MyDonationList";
-import { getDonationList } from "../services/api";
+import { getDonationList } from "../services/MyPageAPI";
 import { DeliveryStatusProvider } from "../contexts/DeliveryStatusContext";
 
 const Donation = () => {

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { useDeliveryStatus } from "../../contexts/DeliveryStatusContext";
 import DeliveryNumInputModal from "../modal/DeliveryNumInputModal";
 

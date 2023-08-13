@@ -1,13 +1,34 @@
 import { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import Modal from "react-modal";
+import { createApplication } from "../../services/PostListAPI";
 
 Modal.setAppElement("#root");
 
 const ApplyModal = ({ isOpen, onClose, onConfirm }) => {
+  const [content, setContent] = useState("");
+  const [address, setAddress] = useState("");
+  const [deviceType, setDeviceType] = useState("스마트폰");
+
   const handleConfirm = () => {
     onConfirm();
+    console.log(content, address, deviceType);
     // 제출 시 작업
+    const data = {
+      // userId: "", //유저 정보 토큰으로 조회해서..
+      deviceType: deviceType,
+      address: address,
+      content: content,
+      status: 1,
+    };
+
+    //
+    // try {
+    //   // 수혜신청 생성 api
+    //   await createApplication(data);
+    //  } catch (error) {
+    // console.error("error);
+    //  }
     onClose();
   };
 
@@ -45,26 +66,66 @@ const ApplyModal = ({ isOpen, onClose, onConfirm }) => {
             <div id="apply-profile">
               <p id="user-apply-name">홍길동</p>
               <div id="select-box">
-                <p>필요한 기기</p>
-                <select
+                <p
+                  style={{
+                    fontSize: "14px",
+                    margin: "auto",
+                    marginRight: "6px",
+                  }}
+                >
+                  필요한 기기
+                </p>
+                <CustomSelect
                   id="device-type"
                   name="device-type"
-                  defaultValue="tablet"
+                  value={deviceType}
+                  onChange={(e) => setDeviceType(e.target.value)}
                 >
                   <option value="phone">스마트폰</option>
                   <option value="tablet">태블릿</option>
                   <option value="laptop">노트북</option>
                   <option value="watch">스마트 워치</option>
-                </select>
+                </CustomSelect>
               </div>
             </div>
           </div>
         </div>
+        <CustomTextArea
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+        />
+        <div
+          id="address"
+          style={{
+            flexDirection: "column",
+            justifyContent: "left",
+            textAlign: "left",
+          }}
+        >
+          <p
+            style={{
+              fontWeight: "bold",
+              fontSize: "18px",
+              marginBottom: "8px",
+            }}
+          >
+            수령위치
+          </p>
+          <p style={{ margin: 0, fontSize: "13px", marginBottom: "8px" }}>
+            가까운 행정복지센터를 입력해주세요.
+          </p>
+          <CustomInput
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+          />
+        </div>
+        <SubmitButton
+          onClick={handleConfirm}
+          disabled={content === "" || address === ""}
+        >
+          제출
+        </SubmitButton>
       </CustomApply>
-      <CustomInput />
-      <CustomInput />
-      <div id="address">수령위치</div>
-      <ModalButton>제출</ModalButton>
     </Modal>
   );
 };
@@ -117,19 +178,29 @@ const CloseButton = styled.button`
   cursor: pointer;
 `;
 
-const ModalButton = styled.button`
-  margin-top: 10px;
+const SubmitButton = styled.button`
+  margin-top: 30px;
   padding: 10px 20px;
-  background-color: #4caf50;
   color: white;
   border: none;
+  background-color: grey;
   font-size: 15px;
   font-weight: bold;
   border-radius: 4px;
-  cursor: pointer;
+  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
+  background-color: ${({ disabled }) => (disabled ? "grey" : "#4caf50")};
+  transition: background-color 0.3s;
+`;
+
+const CustomSelect = styled.select`
+  padding: 2px;
+  font-size: 13px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 `;
 
 const CustomApply = styled.main`
+  width: 80%;
   div {
     display: flex;
   }
@@ -139,16 +210,23 @@ const CustomApply = styled.main`
   }
 
   div#apply-top {
+    width: 100%;
     flex-direction: row;
+    margin: auto;
+    margin-bottom: 20px;
   }
 
   p#user-apply-name {
-    font-size: 16px;
     font-weight: bold;
+    font-size: 16px;
+    margin: 0;
   }
 
   div#apply-profile {
     flex-direction: column;
+    text-align: left;
+    justify-content: space-evenly;
+    margin-left: 12px;
   }
 
   div#apply-profile-image {
@@ -156,26 +234,41 @@ const CustomApply = styled.main`
     height: width;
     width: 50px;
     height: 50px;
-    background-color: blue;
+    background-color: grey;
     border-radius: 50%;
   }
 `;
 
-const CustomInput = styled.input`
-  width: 80%;
-  height: 100%;
+const CustomStyledTextArea = styled.textarea`
+  width: 100%;
   min-height: 200px;
-  padding: 6px;
-  font-size: 14px;
+  padding: 13px;
+  font-size: 13px;
   border-radius: 4px;
   outline: none;
   border: 1px solid #ccc;
+  margin-bottom: 30px;
+  resize: none;
 `;
 
-const ButtonContainer = styled.div`
-  display: flex;
-  gap: 10px;
-  margin-top: 20px;
+const CustomTextArea = ({ value, onChange }) => {
+  return (
+    <CustomStyledTextArea
+      value={value}
+      onChange={onChange}
+      placeholder={
+        "예시) 안녕하세요. 저는 60대 노인이며 스마트폰을 통해 더 편리한 삶을 살고 싶습니다. 가족들과의 연락이나 건강 정보 접근 등을 위해 스마트폰이 필요합니다. 온라인 커뮤니티나 뉴스에도 쉽게 접근하며, 좀 더 다양한 취미를 즐길 수 있을 것 같습니다. 디지털 기기를 통해 더욱 활기찬 노후를 보낼 수 있다면 좋겠습니다. 혹시 도움을 주실 수 있다면 감사하겠습니다."
+      }
+    />
+  );
+};
+
+const CustomInput = styled.input`
+  width: 50%;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  height: 20px;
+  border-radius: 4px;
 `;
 
 export default ApplyModal;

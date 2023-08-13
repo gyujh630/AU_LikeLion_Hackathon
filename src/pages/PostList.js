@@ -7,7 +7,7 @@ const PostList = () => {
   return (
     <div style={{ marginTop: "100px" }}>
       <div style={styles.container}>
-        <h1>수혜 신청 글 목록</h1>
+        <h1>수혜 신청 목록</h1>
         <button onClick={() => setModalIsOpen(true)} style={styles.button}>
           수혜 신청하기
         </button>
