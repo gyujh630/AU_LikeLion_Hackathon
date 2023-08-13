@@ -1,9 +1,13 @@
 //AddMyDevice.js
-import React from "react";
+import { useState, useEffect, useContext } from "react";
 import Modal from "react-modal";
 import styled from "styled-components";
 import { useForm, Controller, useFieldArray, reset } from "react-hook-form";
 import axios from "axios"; // Import axios
+
+// TODO :: deviceType, model, condition, image, usedDate로 erd 반영해서 수정 필요
+
+Modal.setAppElement("#root");
 
 const AddMyDevice = ({ isOpen, onClose }) => {
   const {
@@ -11,8 +15,21 @@ const AddMyDevice = ({ isOpen, onClose }) => {
     control,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isValid, isDirty },
   } = useForm();
+
+  useEffect(() => {
+    document.body.style.cssText = `
+      position: fixed; 
+      top: -${window.scrollY}px;
+      overflow-y: scroll;
+      width: 100%;`;
+    return () => {
+      const scrollY = document.body.style.top;
+      document.body.style.cssText = "";
+      window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+    };
+  }, []);
 
   const onSubmit = async (data) => {
     try {
@@ -41,16 +58,28 @@ const AddMyDevice = ({ isOpen, onClose }) => {
   };
 
   return (
-    <Modal
+    <Modal style={ModalStyles} isOpen={isOpen} onRequestClose={onClose}>
+      {/* <Modal
       isOpen={isOpen}
       onRequestClose={handleModalClose}
       overlayClassName="modal-overlay"
       contentLabel="Add My Device Modal"
       style={ModalStyle} // Add this line to apply the custom styles
       className="modal-content"
-    >
+    > */}
+      <div style={ModalHeader}>
+        <CloseButton
+          style={{ padding: 0 }}
+          type="button"
+          className="close"
+          onClick={onClose}
+        >
+          <span aria-hidden="true">×</span>
+        </CloseButton>
+      </div>
+
       <ModalContainer>
-        <h3>새 기기 추가</h3>
+        <h2>새 기기 추가</h2>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <div>
             <h4>이미지 등록 *</h4>
@@ -106,15 +135,28 @@ const AddMyDevice = ({ isOpen, onClose }) => {
               name="details"
               control={control}
               rules={{ required: "세부 내용을 입력해주세요." }}
-              render={({ field }) => <Textarea {...field} />}
+              render={({ field }) => (
+                <Textarea
+                  {...field}
+                  placeholder="여기에 예시 텍스트를 입력하세요."
+                />
+              )}
             />
             {errors.details && (
               <ErrorMessage>{errors.details.message}</ErrorMessage>
             )}
           </div>
           <ButtonWrapper>
-            <Button type="submit">추가</Button>
-            <Button onClick={() => handleModalClose}>취소</Button>
+            <ModalButton
+              type="submit"
+              disabled={!isValid}
+              style={{
+                backgroundColor: isValid && isDirty ? "#4CAF50" : "#ccc",
+                cursor: isValid && isDirty ? "pointer" : "not-allowed",
+              }}
+            >
+              추가
+            </ModalButton>
           </ButtonWrapper>
         </Form>
       </ModalContainer>
@@ -122,14 +164,106 @@ const AddMyDevice = ({ isOpen, onClose }) => {
   );
 };
 
-// Styled components
-const ModalContainer = styled.div`
-  /* 모달 컨테이너 스타일 */
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-  background-color: #fff;
+const ModalStyles = {
+  overlay: {
+    zIndex: 1000,
+    display: "flex",
+    backgroundColor: "rgba(0, 0, 0, 0.3)", //모달 바깥 배경
+    overflow: "hidden",
+  },
+
+  content: {
+    minHeight: "400px",
+    width: "70%",
+    height: "70%",
+    borderRadius: "8px",
+    padding: "20px",
+    overflowY: "auto", //스크롤 허용
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    textAlign: "center",
+    // justifyContent: "space-evenly",
+    backgroundColor: "white",
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.3)",
+  },
+};
+
+const ModalHeader = {
+  width: "100%",
+  display: "flex",
+  height: "20px",
+  alignItems: "flex-end",
+  justifyContent: "flex-end",
+  padding: 0,
+};
+
+const CloseButton = styled.button`
+  padding: 12px;
+  background-color: transparent;
+  border: none;
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
 `;
+
+const ModalButton = styled.button`
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  font-size: 15px;
+  font-weight: bold;
+  border-radius: 4px;
+  cursor: pointer;
+`;
+
+const ModalContainer = styled.main`
+  div {
+    display: flex;
+  }
+
+  div#apply {
+    width: 100%;
+  }
+
+  div#apply-top {
+    flex-direction: row;
+  }
+
+  p#user-apply-name {
+    font-size: 16px;
+    font-weight: bold;
+  }
+
+  div#apply-profile {
+    flex-direction: column;
+  }
+
+  div#apply-profile-image {
+    flex: none;
+    height: width;
+    width: 50px;
+    height: 50px;
+    background-color: blue;
+    border-radius: 50%;
+  }
+`;
+
+// // Styled components
+// const ModalContainer = styled.div`
+//   /* 모달 컨테이너 스타일 */
+//   display: flex;
+//   flex-direction: column;
+//   padding: 20px;
+//   background-color: #fff;
+// `;
 
 const Form = styled.form`
   display: flex;
@@ -164,18 +298,18 @@ const ErrorMessage = styled.span`
 `;
 
 // Set modal styles
-Modal.setAppElement("#root"); // Replace "#root" with your root element ID or remove this line if not using portals
+// Modal.setAppElement("#root"); // Replace "#root" with your root element ID or remove this line if not using portals
 
-const ModalStyle = {
-  content: {
-    width: "400px",
-    // minWidth: "200px",
-    top: "50%",
-    left: "50%",
-    right: "auto",
-    bottom: "auto",
-    position: "fix",
-  },
-};
+// const ModalStyle = {
+//   content: {
+//     width: "400px",
+//     // minWidth: "200px",
+//     top: "50%",
+//     left: "50%",
+//     right: "auto",
+//     bottom: "auto",
+//     position: "fix",
+//   },
+// };
 
 export default AddMyDevice;

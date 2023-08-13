@@ -58,7 +58,6 @@ const ApplyModal = ({ isOpen, onClose, onConfirm }) => {
         </CloseButton>
       </div>
       <CustomApply>
-        <div style={{ display: "flex", justifyContent: "flex-end" }}></div>
         <h2>수혜 신청</h2>
         <div id="apply">
           <div id="apply-top">
