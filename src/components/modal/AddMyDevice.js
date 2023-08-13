@@ -35,7 +35,7 @@ const AddMyDevice = ({ isOpen, onClose }) => {
     try {
       const postData = {
         deviceType: data.deviceType,
-        model: data.deviceName,
+        model: data.deviceModel,
         condition: data.condition,
         usedDate: data.usedDate,
         // date: new Date().toISOString().slice(0, 10), // 현재 날짜를 "YYYY-MM-DD" 형태로 변환
@@ -82,17 +82,18 @@ const AddMyDevice = ({ isOpen, onClose }) => {
       <ModalContainer>
         <h2>새 기기 추가</h2>
         <Form onSubmit={handleSubmit(onSubmit)}>
-          <div>
+          <div className="input-row">
             <h4>기기타입 *</h4>
             <Controller
               name="deviceType"
               control={control}
               rules={{ required: "기기타입을 입력해주세요." }}
+              defaultValue=""
               render={({ field }) => (
                 <select {...field}>
-                  {/* <option value="" disabled>
+                  <option value="" disabled>
                     기기 타입
-                  </option> */}
+                  </option>
                   <option value="스마트폰">스마트폰</option>
                   <option value="태블릿">태블릿</option>
                   <option value="노트북">노트북</option>
@@ -100,23 +101,29 @@ const AddMyDevice = ({ isOpen, onClose }) => {
                 </select>
               )}
             />
-            {errors.deviceName && (
+            {errors.deviceType && (
               <ErrorMessage>{errors.deviceType.message}</ErrorMessage>
             )}
           </div>
-          <div>
+          <div className="input-row">
             <h4>기기명 *</h4>
             <Controller
-              name="deviceName"
+              name="deviceModel"
               control={control}
-              rules={{ required: "기기명을 입력해주세요." }}
-              render={({ field }) => <Input {...field} maxLength={50} />}
+              rules={{ required: "모델명을 입력해주세요." }}
+              render={({ field }) => (
+                <Input
+                  {...field}
+                  placeholder="예시) 아이폰 11 pro"
+                  maxLength={50}
+                />
+              )}
             />
-            {errors.deviceName && (
-              <ErrorMessage>{errors.deviceName.message}</ErrorMessage>
+            {errors.deviceModel && (
+              <ErrorMessage>{errors.deviceModel.message}</ErrorMessage>
             )}
           </div>
-          <div>
+          <div className="input-row">
             <h4>이미지 등록 *</h4>
             <Controller
               name="deviceImage"
@@ -128,29 +135,32 @@ const AddMyDevice = ({ isOpen, onClose }) => {
               <ErrorMessage>{errors.deviceImage.message}</ErrorMessage>
             )}
           </div>
-          <div>
+          <div className="input-row">
             <h4>사용 기간 *</h4>
             <Controller
               name="usedDate"
               control={control}
               rules={{ required: "사용 기간을 입력해주세요." }}
-              render={({ field }) => <Input {...field} maxLength={100} />}
+              render={({ field }) => (
+                <Input {...field} placeholder="예시) 3년" maxLength={100} />
+              )}
             />
-            {errors.usagePeriod && (
-              <ErrorMessage>{errors.usagePeriod.message}</ErrorMessage>
+            {errors.usedDate && (
+              <ErrorMessage>{errors.usedDate.message}</ErrorMessage>
             )}
           </div>
-          <div>
+          <div className="input-row">
             <h4>상태 *</h4>
             <Controller
               name="condition"
               control={control}
               rules={{ required: "상태를 입력해주세요." }}
+              defaultValue=""
               render={({ field }) => (
                 <select {...field}>
-                  {/* <option value="" disabled>
+                  <option value="" disabled>
                     기기 상태
-                  </option> */}
+                  </option>
                   <option value="1">최상</option>
                   <option value="2">상</option>
                   <option value="3">중</option>
@@ -159,7 +169,7 @@ const AddMyDevice = ({ isOpen, onClose }) => {
                 </select>
               )}
             />
-            {errors.deviceName && (
+            {errors.condition && (
               <ErrorMessage>{errors.condition.message}</ErrorMessage>
             )}
           </div>
@@ -208,8 +218,9 @@ const ModalStyles = {
 
   content: {
     minHeight: "400px",
+    maxWidth: "700px",
     width: "70%",
-    height: "70%",
+    height: "50%",
     borderRadius: "8px",
     padding: "20px",
     overflowY: "auto", //스크롤 허용
@@ -294,6 +305,37 @@ const ModalContainer = styled.main`
     height: 50px;
     background-color: blue;
     border-radius: 50%;
+  }
+
+  /* Input 컨테이너 스타일 */
+  .input-row {
+    display: flex;
+    align-items: center; /* 각 요소를 세로로 정렬 */
+    margin-bottom: 16px;
+  }
+
+  h4 {
+    font-size: 16px;
+    margin: 0;
+    width: 120px; /* 헤더 너비 조정 (선택사항) */
+  }
+
+  /* Input 스타일 */
+  input,
+  select,
+  textarea {
+    flex: 1; /* 나머지 공간을 차지하여 정렬 */
+    padding: 8px;
+    margin: 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+
+  /* 에러 메시지 스타일 */
+  span.error {
+    color: red;
+    font-size: 12px;
   }
 `;
 
