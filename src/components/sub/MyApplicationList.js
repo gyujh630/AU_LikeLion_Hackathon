@@ -83,7 +83,7 @@ const StyledStatusButton = styled.button`
 const StyledMyApplication = styled.div`
   div {
     display: flex;
-    max-width: 800px;
+    max-width: 700px;
   }
 
   div#status-btn-container {
@@ -96,7 +96,7 @@ const StyledMyApplication = styled.div`
     background-color: #f2f2f2;
     flex-direction: column;
     margin: auto;
-    width: 70%;
+    width: 80%;
     margin-bottom: 30px;
   }
 

@@ -25,9 +25,9 @@ export const ApplicationList = (props) => {
             <p>등록날짜: {date}</p>
           </div>
           <div id="status-btn-container">
-            <StyledStatusButton status={status}>
-              {statusString[status]}
-            </StyledStatusButton>
+            <StyledStatus status={status}>
+              <p style={{ margin: "auto" }}>{statusString[status]}</p>
+            </StyledStatus>
           </div>
         </div>
         <div id="apply-bottom">
@@ -40,9 +40,8 @@ export const ApplicationList = (props) => {
   );
 };
 
-const StyledStatusButton = styled.button`
+const StyledStatus = styled.div`
   width: 100px;
-  padding: 8px 12px;
   margin: 20px;
   height: 30px;
   border: none;
@@ -50,12 +49,13 @@ const StyledStatusButton = styled.button`
   color: white;
   background-color: #4caf50;
   font-weight: bold;
+  font-size: 13px;
 `;
 
 const StyledApplication = styled.div`
   div {
     display: flex;
-    max-width: 800px;
+    max-width: 700px;
   }
 
   div#status-btn-container {
@@ -68,7 +68,7 @@ const StyledApplication = styled.div`
     background-color: #f2f2f2;
     flex-direction: column;
     margin: auto;
-    width: 70%;
+    width: 80%;
     margin-bottom: 30px;
     transition: all 200ms ease;
 

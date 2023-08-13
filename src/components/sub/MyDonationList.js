@@ -108,7 +108,7 @@ const StyledStatusButton = styled.button`
 const StyledMyDonation = styled.div`
   div {
     display: flex;
-    max-width: 900px;
+    max-width: 700px;
   }
 
   div#status-btn-container {
