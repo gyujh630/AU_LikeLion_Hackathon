@@ -23,7 +23,7 @@ const DeliveryNumInputModal = ({ isOpen, onClose, onConfirm }) => {
   return (
     <Modal style={ModalStyles} isOpen={isOpen} onRequestClose={onClose}>
       <p style={{ fontSize: "14px" }}>
-        기기를 발송하셨나요?<br></br>운송장 번호를 입력해주세요!.
+        기기를 발송하셨나요?<br></br>운송장 번호를 입력해주세요!
       </p>
       <CustomInput
         value={deliveryNum}
