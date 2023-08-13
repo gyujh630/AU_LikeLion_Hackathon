@@ -34,10 +34,11 @@ const AddMyDevice = ({ isOpen, onClose }) => {
   const onSubmit = async (data) => {
     try {
       const postData = {
+        deviceType: data.deviceType,
         model: data.deviceName,
-        usedDate: data.usagePeriod,
-        condition: data.status,
-        date: new Date().toISOString().slice(0, 10), // 현재 날짜를 "YYYY-MM-DD" 형태로 변환
+        condition: data.condition,
+        usedDate: data.usedDate,
+        // date: new Date().toISOString().slice(0, 10), // 현재 날짜를 "YYYY-MM-DD" 형태로 변환
         image: data.deviceImage[0].name, // 이미지 파일 이름
       };
 
@@ -82,6 +83,40 @@ const AddMyDevice = ({ isOpen, onClose }) => {
         <h2>새 기기 추가</h2>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <div>
+            <h4>기기타입 *</h4>
+            <Controller
+              name="deviceType"
+              control={control}
+              rules={{ required: "기기타입을 입력해주세요." }}
+              render={({ field }) => (
+                <select {...field}>
+                  {/* <option value="" disabled>
+                    기기 타입
+                  </option> */}
+                  <option value="스마트폰">스마트폰</option>
+                  <option value="태블릿">태블릿</option>
+                  <option value="노트북">노트북</option>
+                  <option value="스마트워치">스마트워치</option>
+                </select>
+              )}
+            />
+            {errors.deviceName && (
+              <ErrorMessage>{errors.deviceType.message}</ErrorMessage>
+            )}
+          </div>
+          <div>
+            <h4>기기명 *</h4>
+            <Controller
+              name="deviceName"
+              control={control}
+              rules={{ required: "기기명을 입력해주세요." }}
+              render={({ field }) => <Input {...field} maxLength={50} />}
+            />
+            {errors.deviceName && (
+              <ErrorMessage>{errors.deviceName.message}</ErrorMessage>
+            )}
+          </div>
+          <div>
             <h4>이미지 등록 *</h4>
             <Controller
               name="deviceImage"
@@ -94,24 +129,12 @@ const AddMyDevice = ({ isOpen, onClose }) => {
             )}
           </div>
           <div>
-            <h4>기기명 *</h4>
-            <Controller
-              name="deviceName"
-              control={control}
-              rules={{ required: "기기명을 입력해주세요." }}
-              render={({ field }) => <Input {...field} />}
-            />
-            {errors.deviceName && (
-              <ErrorMessage>{errors.deviceName.message}</ErrorMessage>
-            )}
-          </div>
-          <div>
             <h4>사용 기간 *</h4>
             <Controller
-              name="usagePeriod"
+              name="usedDate"
               control={control}
               rules={{ required: "사용 기간을 입력해주세요." }}
-              render={({ field }) => <Input {...field} />}
+              render={({ field }) => <Input {...field} maxLength={100} />}
             />
             {errors.usagePeriod && (
               <ErrorMessage>{errors.usagePeriod.message}</ErrorMessage>
@@ -120,16 +143,27 @@ const AddMyDevice = ({ isOpen, onClose }) => {
           <div>
             <h4>상태 *</h4>
             <Controller
-              name="status"
+              name="condition"
               control={control}
               rules={{ required: "상태를 입력해주세요." }}
-              render={({ field }) => <Input {...field} />}
+              render={({ field }) => (
+                <select {...field}>
+                  {/* <option value="" disabled>
+                    기기 상태
+                  </option> */}
+                  <option value="1">최상</option>
+                  <option value="2">상</option>
+                  <option value="3">중</option>
+                  <option value="4">하</option>
+                  <option value="5">최하</option>
+                </select>
+              )}
             />
-            {errors.status && (
-              <ErrorMessage>{errors.status.message}</ErrorMessage>
+            {errors.deviceName && (
+              <ErrorMessage>{errors.condition.message}</ErrorMessage>
             )}
           </div>
-          <div>
+          {/* <div>
             <h4>세부 내용 * </h4>
             <Controller
               name="details"
@@ -145,7 +179,7 @@ const AddMyDevice = ({ isOpen, onClose }) => {
             {errors.details && (
               <ErrorMessage>{errors.details.message}</ErrorMessage>
             )}
-          </div>
+          </div> */}
           <ButtonWrapper>
             <ModalButton
               type="submit"
@@ -222,6 +256,13 @@ const ModalButton = styled.button`
   font-weight: bold;
   border-radius: 4px;
   cursor: pointer;
+`;
+
+const CustomSelect = styled.select`
+  padding: 2px;
+  font-size: 13px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 `;
 
 const ModalContainer = styled.main`
