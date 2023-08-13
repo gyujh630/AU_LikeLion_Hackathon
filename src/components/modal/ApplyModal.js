@@ -8,6 +8,12 @@ const ApplyModal = ({ isOpen, onClose, onConfirm }) => {
   const handleConfirm = () => {
     onConfirm();
     // 제출 시 작업
+    // try {
+    //   // status를 3(수령완료)로 업데이트하는 API 호출
+    //   await patchApplicationStatus(); // 예시 API 호출 (실제 API 함수명 및 호출 방식에 맞게 수정 필요)
+    //  } catch (error) {
+    // console.error("error);
+    //  }
     onClose();
   };
 
@@ -55,11 +61,7 @@ const ApplyModal = ({ isOpen, onClose, onConfirm }) => {
                 >
                   필요한 기기
                 </p>
-                <CustomSelect
-                  id="device-type"
-                  name="device-type"
-                  defaultValue="tablet"
-                >
+                <CustomSelect id="device-type" name="device-type">
                   <option value="phone">스마트폰</option>
                   <option value="tablet">태블릿</option>
                   <option value="laptop">노트북</option>
@@ -88,11 +90,11 @@ const ApplyModal = ({ isOpen, onClose, onConfirm }) => {
             수령위치
           </p>
           <p style={{ margin: 0, fontSize: "13px", marginBottom: "8px" }}>
-            가까운 주민센터를 입력해주세요.
+            가까운 행정복지센터를 입력해주세요.
           </p>
           <CustomInput />
         </div>
-        <ModalButton>제출</ModalButton>
+        <ModalButton onClick={handleConfirm}>제출</ModalButton>
       </CustomApply>
     </Modal>
   );
