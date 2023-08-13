@@ -1,16 +1,31 @@
 import { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import Modal from "react-modal";
+import { createApplication } from "../../services/PostListAPI";
 
 Modal.setAppElement("#root");
 
 const ApplyModal = ({ isOpen, onClose, onConfirm }) => {
+  const [content, setContent] = useState("");
+  const [address, setAddress] = useState("");
+  const [deviceType, setDeviceType] = useState("스마트폰");
+
   const handleConfirm = () => {
     onConfirm();
+    console.log(content, address, deviceType);
     // 제출 시 작업
+    const data = {
+      // userId: "", //유저 정보 토큰으로 조회해서..
+      deviceType: deviceType,
+      address: address,
+      content: content,
+      status: 1,
+    };
+
+    //
     // try {
-    //   // status를 3(수령완료)로 업데이트하는 API 호출
-    //   await patchApplicationStatus(); // 예시 API 호출 (실제 API 함수명 및 호출 방식에 맞게 수정 필요)
+    //   // 수혜신청 생성 api
+    //   await createApplication(data);
     //  } catch (error) {
     // console.error("error);
     //  }
@@ -61,7 +76,12 @@ const ApplyModal = ({ isOpen, onClose, onConfirm }) => {
                 >
                   필요한 기기
                 </p>
-                <CustomSelect id="device-type" name="device-type">
+                <CustomSelect
+                  id="device-type"
+                  name="device-type"
+                  value={deviceType}
+                  onChange={(e) => setDeviceType(e.target.value)}
+                >
                   <option value="phone">스마트폰</option>
                   <option value="tablet">태블릿</option>
                   <option value="laptop">노트북</option>
@@ -71,7 +91,10 @@ const ApplyModal = ({ isOpen, onClose, onConfirm }) => {
             </div>
           </div>
         </div>
-        <CustomTextArea examplePlaceHolder />
+        <CustomTextArea
+          value={content}
+          onChange={(e) => setContent(e.target.value)}
+        />
         <div
           id="address"
           style={{
@@ -92,7 +115,10 @@ const ApplyModal = ({ isOpen, onClose, onConfirm }) => {
           <p style={{ margin: 0, fontSize: "13px", marginBottom: "8px" }}>
             가까운 행정복지센터를 입력해주세요.
           </p>
-          <CustomInput />
+          <CustomInput
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+          />
         </div>
         <ModalButton onClick={handleConfirm}>제출</ModalButton>
       </CustomApply>
@@ -219,9 +245,11 @@ const CustomStyledTextArea = styled.textarea`
   resize: none;
 `;
 
-const CustomTextArea = ({ examplePlaceHolder }) => {
+const CustomTextArea = ({ value, onChange }) => {
   return (
     <CustomStyledTextArea
+      value={value}
+      onChange={onChange}
       placeholder={
         "예시) 안녕하세요. 저는 60대 노인이며 스마트폰을 통해 더 편리한 삶을 살고 싶습니다. 가족들과의 연락이나 건강 정보 접근 등을 위해 스마트폰이 필요합니다. 온라인 커뮤니티나 뉴스에도 쉽게 접근하며, 좀 더 다양한 취미를 즐길 수 있을 것 같습니다. 디지털 기기를 통해 더욱 활기찬 노후를 보낼 수 있다면 좋겠습니다. 혹시 도움을 주실 수 있다면 감사하겠습니다."
       }
