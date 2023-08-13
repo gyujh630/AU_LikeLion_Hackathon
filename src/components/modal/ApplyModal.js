@@ -11,9 +11,28 @@ const ApplyModal = ({ isOpen, onClose, onConfirm }) => {
     onClose();
   };
 
+  useEffect(() => {
+    document.body.style.cssText = `
+      position: fixed; 
+      top: -${window.scrollY}px;
+      overflow-y: scroll;
+      width: 100%;`;
+    return () => {
+      const scrollY = document.body.style.top;
+      document.body.style.cssText = "";
+      window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+    };
+  }, []);
+
   return (
     <Modal style={ModalStyles} isOpen={isOpen} onRequestClose={onClose}>
+      <div style={ModalHeader}>
+        <CloseButton type="button" className="close" onClick={onClose}>
+          <span aria-hidden="true">×</span>
+        </CloseButton>
+      </div>
       <CustomApply>
+        <div style={{ display: "flex", justifyContent: "flex-end" }}></div>
         <h2>수혜 신청</h2>
         <div id="apply">
           <div id="apply-top">
@@ -50,6 +69,7 @@ const ModalStyles = {
     zIndex: 1000,
     display: "flex",
     backgroundColor: "rgba(0, 0, 0, 0.3)", //모달 바깥 배경
+    overflow: "hidden",
   },
 
   content: {
@@ -72,6 +92,24 @@ const ModalStyles = {
     boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.3)",
   },
 };
+
+const ModalHeader = {
+  width: "100%",
+  display: "flex",
+  alignItems: "flex-end",
+  justifyContent: "flex-end",
+  padding: "1rem",
+};
+
+const CloseButton = styled.button`
+  padding: 12px;
+  background-color: transparent;
+  border: none;
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+`;
 
 const ModalButton = styled.button`
   margin-top: 10px;
