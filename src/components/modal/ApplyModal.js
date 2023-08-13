@@ -120,7 +120,12 @@ const ApplyModal = ({ isOpen, onClose, onConfirm }) => {
             onChange={(e) => setAddress(e.target.value)}
           />
         </div>
-        <ModalButton onClick={handleConfirm}>제출</ModalButton>
+        <SubmitButton
+          onClick={handleConfirm}
+          disabled={content === "" || address === ""}
+        >
+          제출
+        </SubmitButton>
       </CustomApply>
     </Modal>
   );
@@ -174,16 +179,18 @@ const CloseButton = styled.button`
   cursor: pointer;
 `;
 
-const ModalButton = styled.button`
+const SubmitButton = styled.button`
   margin-top: 30px;
   padding: 10px 20px;
-  background-color: #4caf50;
   color: white;
   border: none;
+  background-color: grey;
   font-size: 15px;
   font-weight: bold;
   border-radius: 4px;
-  cursor: pointer;
+  cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
+  background-color: ${({ disabled }) => (disabled ? "grey" : "#4caf50")};
+  transition: background-color 0.3s;
 `;
 
 const CustomSelect = styled.select`
