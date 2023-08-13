@@ -41,9 +41,8 @@ const ModalStyles = {
   },
 
   content: {
-    minHeight: "200px",
-    // width: "70%",
-    // height: "70%",
+    height: "200px",
+    width: "300px",
     borderRadius: "8px",
     padding: "20px",
     overflowY: "auto", //스크롤 허용

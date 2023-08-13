@@ -27,7 +27,12 @@ const ApplyModal = ({ isOpen, onClose, onConfirm }) => {
   return (
     <Modal style={ModalStyles} isOpen={isOpen} onRequestClose={onClose}>
       <div style={ModalHeader}>
-        <CloseButton type="button" className="close" onClick={onClose}>
+        <CloseButton
+          style={{ padding: 0 }}
+          type="button"
+          className="close"
+          onClick={onClose}
+        >
           <span aria-hidden="true">×</span>
         </CloseButton>
       </div>
@@ -58,6 +63,7 @@ const ApplyModal = ({ isOpen, onClose, onConfirm }) => {
         </div>
       </CustomApply>
       <CustomInput />
+      <CustomInput />
       <div id="address">수령위치</div>
       <ModalButton>제출</ModalButton>
     </Modal>
@@ -73,7 +79,7 @@ const ModalStyles = {
   },
 
   content: {
-    minHeight: "300px",
+    minHeight: "400px",
     width: "70%",
     height: "70%",
     borderRadius: "8px",
@@ -83,7 +89,7 @@ const ModalStyles = {
     flexDirection: "column",
     alignItems: "center",
     textAlign: "center",
-    justifyContent: "space-evenly",
+    // justifyContent: "space-evenly",
     backgroundColor: "white",
     position: "absolute",
     top: "50%",
@@ -96,9 +102,10 @@ const ModalStyles = {
 const ModalHeader = {
   width: "100%",
   display: "flex",
+  height: "20px",
   alignItems: "flex-end",
   justifyContent: "flex-end",
-  padding: "1rem",
+  padding: 0,
 };
 
 const CloseButton = styled.button`
