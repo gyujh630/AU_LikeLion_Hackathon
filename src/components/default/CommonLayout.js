@@ -1,6 +1,6 @@
 // CommonLayout.js
 import React from "react";
-import NavBar from ".//NavBar";
+import NavBar from "./NavBar";
 import Footer from "./Footer";
 import styled from "styled-components";
 

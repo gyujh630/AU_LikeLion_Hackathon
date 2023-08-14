@@ -1,9 +1,12 @@
 import styled from "styled-components";
-import { MyApplicationList } from "./sub/MyApplicationList";
-import { getMyApplicationList } from "../services/MyPageAPI";
-import { DeliveryStatusProvider } from "../contexts/DeliveryStatusContext";
+import { useState } from "react";
+import { MyApplicationList } from "../../components/sub/MyApplicationList";
+import { getMyApplicationList } from "../../services/MyPageAPI";
+import { DeliveryStatusProvider } from "../../contexts/DeliveryStatusContext";
+import ApplyModal from "../../components/modal/ApplyModal";
 
 const Application = () => {
+  const [modalIsOpen, setModalIsOpen] = useState(false); //modal 열고 닫는 상태
   const applicationDataList = [
     {
       userName: "홍길동",
@@ -38,7 +41,9 @@ const Application = () => {
     <StyleApplication>
       <div id="title-box">
         <h2>수혜 신청 목록</h2>
-        <button id="apply-btn">수혜 신청하기</button>
+        <button id="apply-btn" onClick={() => setModalIsOpen(true)}>
+          수혜 신청하기
+        </button>
       </div>
       <main>
         {/* DeliveryStatusProvider로 감싸기 */}
@@ -49,6 +54,14 @@ const Application = () => {
           ))}
         </DeliveryStatusProvider>
       </main>
+      {/* 모달 부분 */}
+      {modalIsOpen && (
+        <ApplyModal
+          isOpen={modalIsOpen}
+          onClose={() => setModalIsOpen(false)}
+          onConfirm={() => setModalIsOpen(false)}
+        />
+      )}
     </StyleApplication>
   );
 };

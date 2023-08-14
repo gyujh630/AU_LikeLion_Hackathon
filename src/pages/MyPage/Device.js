@@ -1,8 +1,8 @@
 // Device.js
 import Modal from "react-modal";
 import { useState, useEffect } from "react";
-import AddMyDevice from "./modal/AddMyDevice";
-import MyDeviceList from "./sub/MyDeviceList";
+import AddMyDevice from "../../components/modal/AddMyDevice";
+import MyDeviceList from "../../components/sub/MyDeviceList";
 import styled from "styled-components";
 import axios from "axios"; // Import axios
 

@@ -1,31 +1,36 @@
-import { useState } from "react";
+import { useLocation, Link } from "react-router-dom";
 import styled from "styled-components";
-import { useDeliveryStatus } from "../../contexts/DeliveryStatusContext";
-import DeliveryNumInputModal from "../modal/DeliveryNumInputModal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 
-export const MyDonationList = (props) => {
-  const [modalIsOpen, setModalIsOpen] = useState(false); //modal 열고 닫는 상태
-
-  // props.data에서 데이터 추출
-  const {
-    userName,
-    devicetype,
-    date,
-    status,
-    model,
-    image,
-    usedDate,
-    deliverNum,
-  } = props.data;
-
-  // DeliveryStatusContext 사용
-  const { status: contextStatus, setStatus } = useDeliveryStatus();
-
-  // 배송상태 string
+const PostDetail = () => {
+  const location = useLocation();
+  const postData = location.state; //받아온 apply data
+  const { date, status, userName, devicetype, content } = postData;
   const statusString = ["매칭 대기중", "매칭 완료", "배송중", "수령 완료"];
 
+  if (!postData) {
+    return <div>해당 항목을 찾을 수 없습니다.</div>;
+  }
+
   return (
-    <StyledMyDonation>
+    <CustomPostDetail>
+      <div
+        style={{
+          margin: "auto",
+          alignItems: "left",
+          textAlign: "left",
+        }}
+      >
+        <Link to="/postlist" style={{ color: "inherit" }}>
+          <FontAwesomeIcon
+            icon={faChevronLeft}
+            fontSize={"25px"}
+            style={{ padding: "20px", marginTop: "30px", marginBottom: "30px" }}
+          />
+        </Link>
+        <h2 style={{ padding: "30px 30px 30px 0" }}>상세정보</h2>
+      </div>
       <div id="apply-box">
         <div id="apply-top">
           <h3 id="apply-user-inform">수혜자 정보</h3>
@@ -33,9 +38,9 @@ export const MyDonationList = (props) => {
             <p>등록날짜: {date}</p>
           </div>
           <div id="status-btn-container">
-            <StyledStatusButton status={status}>
-              {statusString[status]}
-            </StyledStatusButton>
+            <StyledStatus status={status}>
+              <p style={{ margin: "auto" }}>{statusString[status]}</p>
+            </StyledStatus>
           </div>
         </div>
         <div id="apply-middle">
@@ -45,70 +50,58 @@ export const MyDonationList = (props) => {
             <p id="user-apply-name">{userName}</p>
             <p id="device-type">신청 기기 유형: {devicetype}</p>
           </div>
-          {status === 1 && (
-            <StyledDeliveryNumButton onClick={() => setModalIsOpen(true)}>
-              운송장 번호 입력하기
-            </StyledDeliveryNumButton>
-          )}
         </div>
-        <h3 id="donate-device-inform">기부한 기기</h3>
+        <h3 id="apply-content-title">신청 사유</h3>
         <div id="apply-bottom">
-          <div id="donate-image"></div>
-          {/* 추후 img로 변경*/}
-          <div id="donate-device-container">
-            <p id="model-name">{model}</p>
-            <p id="used-date">사용기간 {usedDate}</p>
+          <div id="apply-content">
+            <p id="content">{content}</p>
           </div>
         </div>
       </div>
-      {/* 모달 부분 */}
-      {modalIsOpen && (
-        <DeliveryNumInputModal
-          isOpen={modalIsOpen}
-          onClose={() => setModalIsOpen(false)}
-          onConfirm={() => setModalIsOpen(false)}
-        />
-      )}
-    </StyledMyDonation>
+      <CustomBtn>내 기기 기부하기</CustomBtn>
+    </CustomPostDetail>
   );
 };
 
-// style
-
-const StyledDeliveryNumButton = styled.button`
-  width: 100px;
-  padding: 8px 12px;
-  margin: 25px 25px 0px 25px;
-  height: 60px;
+const CustomBtn = styled.button`
+  width: 200px;
+  height: 50px;
   border: none;
   border-radius: 4px;
   color: white;
   background-color: #007bff;
   font-weight: bold;
+  font-size: 20px;
   cursor: pointer;
   transition: background-color 0.3s;
+  margin: 30px 10px;
 
   &:hover {
     background-color: #0056b3;
   }
 `;
 
-const StyledStatusButton = styled.button`
+const StyledStatus = styled.div`
   width: 100px;
-  padding: 8px 12px;
-  margin: 25px 25px 0px 25px;
+  margin: 20px;
   height: 30px;
   border: none;
   border-radius: 4px;
   color: white;
   background-color: #4caf50;
   font-weight: bold;
+  font-size: 13px;
 `;
 
-const StyledMyDonation = styled.div`
+const CustomPostDetail = styled.div`
+  margin-top: 80px;
+  width: 100%;
+  text-align: center;
+
   div {
     display: flex;
     max-width: 700px;
+    text-align: center;
   }
 
   div#status-btn-container {
@@ -122,12 +115,10 @@ const StyledMyDonation = styled.div`
     flex-direction: column;
     margin: auto;
     width: 80%;
-    margin-bottom: 30px;
   }
 
   div#apply-top,
   div#apply-bottom {
-    height: 50%;
     width: 100%;
     justify-content: space-around;
   }
@@ -176,34 +167,10 @@ const StyledMyDonation = styled.div`
     padding-right: 0;
   }
 
-  div#donate-image {
-    flex: none;
-    height: width;
-    margin: 30px;
-    width: 100px;
-    height: 100px;
-    background-color: white;
-  }
-
-  div#donate-device-container {
-    flex: 7;
-    flex-direction: column;
-    margin: 20px 0;
-    text-align: left;
-    justify-content: center;
-  }
-
   p#used-date {
     margin-top: 15px;
     font-size: 13px;
     color: gray;
-  }
-
-  h3#donate-device-inform {
-    margin-bottom: 0;
-    margin-left: 34px;
-    text-align: left;
-    font-size: 18px;
   }
 
   h3#apply-user-inform {
@@ -213,4 +180,29 @@ const StyledMyDonation = styled.div`
     text-align: left;
     font-size: 18px;
   }
+
+  div#apply-content {
+    text-align: center;
+    padding: 10px;
+    min-height: 140px;
+    width: 85%;
+    margin: 20px 0 30px 0;
+    border: none;
+    font-size: 12px;
+    color: #424242;
+    background-color: white;
+  }
+
+  p#content {
+    margin: auto;
+  }
+
+  h3#apply-content-title {
+    margin-bottom: 0;
+    margin-left: 34px;
+    text-align: left;
+    font-size: 18px;
+  }
 `;
+
+export default PostDetail;
