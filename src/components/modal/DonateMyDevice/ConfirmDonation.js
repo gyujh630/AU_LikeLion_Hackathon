@@ -53,6 +53,10 @@ const ConfirmDonation = ({ isOpen, onClose }) => {
 
   const [formIsValid, setFormIsValid] = useState(false);
 
+  const handleCheckboxChange = () => {
+    setFormIsValid(!formIsValid);
+  };
+
   return (
     <Modal style={ModalStyles} isOpen={isOpen} onRequestClose={onClose}>
       <div style={ModalHeader}>
@@ -104,7 +108,7 @@ const ConfirmDonation = ({ isOpen, onClose }) => {
           </DeviceBox>
 
           <div style={{ padding: "15px", justifyContent: "center" }}>
-            <input type="checkbox" onClick={() => setFormIsValid(true)} />
+            <input type="checkbox" onChange={handleCheckboxChange} />
             <div style={{ textAlign: "left" }}>
               위의 사항을 모두 확인하였습니다.
             </div>
