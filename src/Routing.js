@@ -7,7 +7,7 @@ import {
   Navigate,
 } from "react-router-dom";
 
-import CommonLayout from "./components/CommonLayout";
+import CommonLayout from "./components/default/CommonLayout";
 
 import Home from "./pages/Home";
 import PostList from "./pages/PostList";
