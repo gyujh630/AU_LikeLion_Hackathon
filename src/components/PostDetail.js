@@ -1,13 +1,17 @@
 import { useLocation, Link } from "react-router-dom";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import SelectMyDevice from "./modal/DonateMyDevice/SelectMyDevice";
 
 const PostDetail = () => {
   const location = useLocation();
   const postData = location.state; //받아온 apply data
   const { date, status, userName, devicetype, content } = postData;
   const statusString = ["매칭 대기중", "매칭 완료", "배송중", "수령 완료"];
+
+  const [DonationModalIsOpen, setDonationModalIsOpen] = useState(false);
 
   if (!postData) {
     return <div>해당 항목을 찾을 수 없습니다.</div>;
@@ -58,7 +62,16 @@ const PostDetail = () => {
           </div>
         </div>
       </div>
-      <CustomBtn>내 기기 기부하기</CustomBtn>
+      <CustomBtn onClick={() => setDonationModalIsOpen(true)}>
+        내 기기 기부하기
+      </CustomBtn>
+      {DonationModalIsOpen && (
+        <SelectMyDevice
+          isOpen={DonationModalIsOpen}
+          onClose={() => setDonationModalIsOpen(false)}
+          onConfirm={() => setDonationModalIsOpen(false)}
+        />
+      )}
     </CustomPostDetail>
   );
 };
