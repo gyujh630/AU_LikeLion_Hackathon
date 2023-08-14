@@ -3,6 +3,7 @@ import Modal from "react-modal";
 import styled from "styled-components";
 import { useForm, Controller, useFieldArray, reset } from "react-hook-form";
 import axios from "axios"; // Import axios
+import DonationSuccess from "./DonationSuccess";
 
 // TODO :: 마지막 모달(DonationSuccess)에서 모달 전체 닫히도록
 // TODO :: SelectMyDevice -> 선택한 값 넘겨 받고, ConfirmDonation에서 Put 요청
@@ -17,8 +18,6 @@ const ConfirmDonation = ({ isOpen, onClose }) => {
     reset,
     formState: { errors, isValid, isDirty },
   } = useForm();
-
-  //   const [SuccessModalIsOpen, SuccessModalIsOpen] = useState(false);
 
   useEffect(() => {
     document.body.style.cssText = `
@@ -56,6 +55,8 @@ const ConfirmDonation = ({ isOpen, onClose }) => {
   const handleCheckboxChange = () => {
     setFormIsValid(!formIsValid);
   };
+
+  const [SuccessModalIsOpen, setSuccessModalIsOpen] = useState(false);
 
   return (
     <Modal style={ModalStyles} isOpen={isOpen} onRequestClose={onClose}>
@@ -121,17 +122,17 @@ const ConfirmDonation = ({ isOpen, onClose }) => {
               backgroundColor: formIsValid ? "#4CAF50" : "#ccc",
               cursor: formIsValid ? "pointer" : "not-allowed",
             }}
-            // onClick={() => setSuccessModalIsOpen(true)}
+            onClick={() => setSuccessModalIsOpen(true)}
           >
             선택한 기기 기부하기
           </ModalButton>
-          {/* {SuccessModalIsOpen && (
+          {SuccessModalIsOpen && (
             <DonationSuccess
               isOpen={SuccessModalIsOpen}
               onClose={() => setSuccessModalIsOpen(false)}
               onConfirm={() => setSuccessModalIsOpen(false)}
             />
-          )} */}
+          )}
         </Form>
       </ModalContainer>
     </Modal>
