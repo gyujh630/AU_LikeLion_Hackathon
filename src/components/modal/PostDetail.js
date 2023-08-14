@@ -94,6 +94,7 @@ const StyledStatus = styled.div`
 `;
 
 const CustomPostDetail = styled.div`
+  margin-top: 80px;
   width: 100%;
   text-align: center;
 
