@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { useState } from "react";
-import { MyApplicationList } from "./sub/MyApplicationList";
-import { getMyApplicationList } from "../services/MyPageAPI";
-import { DeliveryStatusProvider } from "../contexts/DeliveryStatusContext";
-import ApplyModal from "../components/modal/ApplyModal";
+import { MyApplicationList } from "../../components/sub/MyApplicationList";
+import { getMyApplicationList } from "../../services/MyPageAPI";
+import { DeliveryStatusProvider } from "../../contexts/DeliveryStatusContext";
+import ApplyModal from "../../components/modal/ApplyModal";
 
 const Application = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false); //modal 열고 닫는 상태

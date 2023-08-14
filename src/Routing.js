@@ -11,23 +11,19 @@ import CommonLayout from "./components/CommonLayout";
 
 import Home from "./pages/Home";
 import PostList from "./pages/PostList";
-import PostDetail from "./components/modal/PostDetail";
+import PostDetail from "./components/PostDetail";
 import Login from "./pages/Login";
 
-import MyPage from "./pages/MyPage";
-import Application from "./components/Application";
-import Device from "./components/Device";
-import Donation from "./components/Donation";
-import Profile from "./components/Profile";
+import MyPage from "./pages/MyPage/MyPage";
+import Application from "./pages/MyPage/Application";
+import Device from "./pages/MyPage/Device";
+import Donation from "./pages/MyPage/Donation";
+import Profile from "./pages/MyPage/Profile";
 import DeviceDetails from "./components/DeviceDetails";
 
 import SignUp from "./pages/SignUp/SignUp";
 import SignUpReceiver from "./pages/SignUp/SignUpReceiver";
 import SignUpDonator from "./pages/SignUp/SignUpDonator";
-
-import NavBar from "./components/NavBar";
-import Footer from "./components/Footer"; // Import the Footer component
-import styled from "styled-components";
 
 const Routing = () => {
   return (
