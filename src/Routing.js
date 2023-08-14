@@ -11,6 +11,7 @@ import CommonLayout from "./components/CommonLayout";
 
 import Home from "./pages/Home";
 import PostList from "./pages/PostList";
+import PostDetail from "./components/modal/PostDetail";
 import Login from "./pages/Login";
 
 import MyPage from "./pages/MyPage";
@@ -90,6 +91,14 @@ const Routing = () => {
         element={
           <CommonLayout>
             <PostList />
+          </CommonLayout>
+        }
+      />
+      <Route
+        path="/postlist/:index"
+        element={
+          <CommonLayout>
+            <PostDetail />
           </CommonLayout>
         }
       />
