@@ -1,4 +1,3 @@
-//AddMyDevice.js
 import { useState, useEffect, useContext } from "react";
 import Modal from "react-modal";
 import styled from "styled-components";

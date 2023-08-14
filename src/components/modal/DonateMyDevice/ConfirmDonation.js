@@ -1,9 +1,11 @@
-//AddMyDevice.js
 import { useState, useEffect, useContext } from "react";
 import Modal from "react-modal";
 import styled from "styled-components";
 import { useForm, Controller, useFieldArray, reset } from "react-hook-form";
 import axios from "axios"; // Import axios
+
+// TODO :: 마지막 모달(DonationSuccess)에서 모달 전체 닫히도록
+// TODO :: SelectMyDevice -> 선택한 값 넘겨 받고, ConfirmDonation에서 Put 요청
 
 Modal.setAppElement("#root");
 
@@ -15,6 +17,8 @@ const ConfirmDonation = ({ isOpen, onClose }) => {
     reset,
     formState: { errors, isValid, isDirty },
   } = useForm();
+
+  //   const [SuccessModalIsOpen, SuccessModalIsOpen] = useState(false);
 
   useEffect(() => {
     document.body.style.cssText = `
@@ -29,25 +33,7 @@ const ConfirmDonation = ({ isOpen, onClose }) => {
     };
   }, []);
 
-  const onSubmit = async (data) => {
-    //     try {
-    //       const postData = {
-    //         deviceType: data.deviceType,
-    //         model: data.deviceModel,
-    //         condition: data.condition,
-    //         usedDate: data.usedDate,
-    //         // date: new Date().toISOString().slice(0, 10), // 현재 날짜를 "YYYY-MM-DD" 형태로 변환
-    //         image: data.deviceImage[0].name, // 이미지 파일 이름
-    //       };
-    //       // POST 요청 보내기
-    //       const response = await axios.post("/device", postData);
-    //       console.log("Device registered successfully:", response.data);
-    //       onClose();
-    //       reset(); // 입력값 초기화
-    //     } catch (error) {
-    //       console.error("Error registering device:", error);
-    //     }
-  };
+  const onSubmit = async (data) => {};
 
   const handleModalClose = () => {
     onClose();
@@ -63,37 +49,9 @@ const ConfirmDonation = ({ isOpen, onClose }) => {
       usedDate: "2년",
       image: "기기 사진",
     },
-    {
-      //   deviceType: "휴대폰",
-      model: "iphone12",
-      condition: 1,
-      usedDate: "3년",
-      image: "기기 사진",
-    },
   ];
 
-  //   useEffect(() => {
-  //     // GET 요청 보내기
-  //     axios
-  //       .get("/device", {
-  //         headers: {
-  //           Authorization: `Bearer ${token}`,
-  //         },
-  //       })
-  //       .then((response) => {
-  //         // 응답 데이터에서 필요한 필드 추출하여 state 업데이트
-  //         const extractedData = response.data.map((device) => ({
-  //           //   deviceType: device.deviceType,
-  //           model: device.model,
-  //           condition: device.condition,
-  //           image: device.image,
-  //         }));
-  //         setDeviceList(extractedData);
-  //       })
-  //       .catch((error) => {
-  //         console.error("Error fetching device data:", error);
-  //       });
-  //   }, []); // 컴포넌트 마운트 시에만 실행
+  const [formIsValid, setFormIsValid] = useState(false);
 
   return (
     <Modal style={ModalStyles} isOpen={isOpen} onRequestClose={onClose}>
@@ -109,6 +67,7 @@ const ConfirmDonation = ({ isOpen, onClose }) => {
       </div>
       <ModalContainer>
         <Form onSubmit={handleSubmit(onSubmit)}>
+          <h3>선택한 기기</h3>
           {dummyData.map((device, index) => (
             //   {deviceList.map((device, index) => (
             <DeviceBox key={index}>
@@ -124,24 +83,51 @@ const ConfirmDonation = ({ isOpen, onClose }) => {
               </DeviceContent>
             </DeviceBox>
           ))}
+          <h3>안내사항</h3>
+          <DeviceBox>
+            <DeviceContent>
+              <div style={{ padding: "15px" }}>
+                기부하기를 신청하면 수혜자가 등록한 행정복지센터 주소가
+                안내됩니다.
+                <br />
+                안내된 주소로 기부자가 직접 택배를 보내야 합니다.
+                <br />
+                택배가 도착하면 수혜자가 행정복지센터에 방문하여 물품을
+                수령합니다.
+                <br />
+                기부 신청 후 택배를 장기간 보내지 않을 시 기부가 취소되며
+                패널티가 발생할 수 있습니다.
+                <br />
+                기부된 기기는 다시 되돌려 받을 수 없습니다.
+              </div>
+            </DeviceContent>
+          </DeviceBox>
+
+          <div style={{ padding: "15px", justifyContent: "center" }}>
+            <input type="checkbox" onClick={() => setFormIsValid(true)} />
+            <div style={{ textAlign: "left" }}>
+              위의 사항을 모두 확인하였습니다.
+            </div>
+          </div>
+
           <ModalButton
             type="submit"
-            disabled={!isValid}
+            disabled={!formIsValid} // Use formIsValid here
             style={{
-              backgroundColor: isValid && isDirty ? "#4CAF50" : "#ccc",
-              cursor: isValid && isDirty ? "pointer" : "not-allowed",
+              backgroundColor: formIsValid ? "#4CAF50" : "#ccc",
+              cursor: formIsValid ? "pointer" : "not-allowed",
             }}
-            // onClick={() => setDonationModalIsOpen(true)}
+            // onClick={() => setSuccessModalIsOpen(true)}
           >
-            선택 완료!
+            선택한 기기 기부하기
           </ModalButton>
-          {/* {DonationModalIsOpen && (
-            <ConfirmDonation
-              isOpen={DonationModalIsOpen}
-              onClose={() => setDonationModalIsOpen(false)}
-              onConfirm={() => setDonationModalIsOpen(false)}
-            /> */}
-          {/* )} */}
+          {/* {SuccessModalIsOpen && (
+            <DonationSuccess
+              isOpen={SuccessModalIsOpen}
+              onClose={() => setSuccessModalIsOpen(false)}
+              onConfirm={() => setSuccessModalIsOpen(false)}
+            />
+          )} */}
         </Form>
       </ModalContainer>
     </Modal>
