@@ -35,11 +35,17 @@ const DonationSuccess = ({ isOpen, onClose }) => {
       </div>
       <ModalContainer>
         <h1>기부 신청이 완료되었습니다!</h1>
+        <div
+          style={{
+            marginBottom: "20px",
+            justifyContent: "center",
+          }}
+        >
+          기술의 힘을 모두가 누리기 위한 발걸음에 동참해 주셔서 감사합니다.
+        </div>
         <DeviceBox style={{ marginTop: "40px" }}>
           <div>
             <br />
-            기술의 힘을 모두가 누리기 위한 발걸음에 동참해 주셔서 감사합니다.{" "}
-            <br /> <br />
             기한 내에 해당 주소로 택배를 발송하고, 운송장 번호를 입력해주세요.{" "}
             <br /> <br />
             [우만동 행정복지센터]
