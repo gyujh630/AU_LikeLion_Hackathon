@@ -46,3 +46,18 @@ export const getUserInfo = async () => {
     throw error;
   }
 };
+
+// 유저 정보 수정
+export const updateUserInfo = async () => {
+  try {
+    const response = await axios.patch(`${apiUrl}/users/update`, {
+      headers: {
+        // Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching user info:", error);
+    throw error;
+  }
+};
