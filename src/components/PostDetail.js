@@ -139,6 +139,7 @@ const CustomPostDetail = styled.div`
     flex-direction: column;
     margin: auto;
     width: 80%;
+    margin-bottom: 50px;
   }
 
   div#apply-top,

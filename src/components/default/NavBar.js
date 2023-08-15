@@ -5,11 +5,12 @@ import styled from "styled-components";
 import { setLogOut, isLogin } from "../../constants/auth";
 
 const NavBar = () => {
+  const navigate = useNavigate();
   const targetRef = useRef(null);
   const handleScroll = () => {
     console.log("scrolling");
     if (window.scrollY > 50) {
-      targetRef.current.style.borderBottom = "0.5px solid #ececec";
+      targetRef.current.style.borderBottom = "0.5px solid #dfdfdf";
     } else {
       targetRef.current.style.borderBottom = "";
     }
@@ -35,7 +36,14 @@ const NavBar = () => {
 
   return (
     <StyledNav ref={targetRef}>
-      <img id="logo" src={process.env.PUBLIC_URL + "/imgs/logo3.jpg"} />
+      {/* <img
+        onClick={() => {
+          navigate("/");
+        }}
+        style={{ cursor: "pointer" }}
+        id="logo"
+        src={process.env.PUBLIC_URL + "/imgs/logo3.jpg"}
+      /> */}
       <ul>
         <li>
           <Button to="/">Home</Button>
@@ -81,7 +89,7 @@ const StyledNav = styled.nav`
   height: 80px; /* Increase the height of the navigation bar */
 
   img#logo {
-    width: 100px;
+    width: 80px;
     position: absolute;
     left: 30px;
   }
@@ -105,35 +113,41 @@ const StyledNav = styled.nav`
 
 const Button = styled(NavLink)`
   text-decoration: none;
-  padding: 10px 20px;
-  border: 2px solid #333;
+  padding: 4px 12px;
+  // border: 2px solid #333;
   border-radius: 5px;
   color: #333;
-  font-weight: bold;
-  transition: background-color 0.3s;
+  font-weight: semi-bold;
+  // transition: background-color 0.3s;
 
   &:hover {
-    background-color: #333;
-    color: white;
+    background-color: #616161;
+    color: #333;
   }
   &.active {
-    background-color: #333;
-    color: white;
+    // background-color: #333;
+    color: #333;
+    font-weight: bold;
   }
 `;
 
 const LogoutButton = styled(NavLink)`
   text-decoration: none;
-  padding: 10px 20px;
-  border: 2px solid #333;
+  padding: 4px 12px;
+  // border: 2px solid #333;
   border-radius: 5px;
-  color: #333 !important;
-  font-weight: bold;
-  transition: background-color 0.3s;
+  color: #333;
+  font-weight: semi-bold;
+  // transition: background-color 0.3s;
 
   &:hover {
-    background-color: #333;
-    color: white !important;
+    background-color: #616161;
+    color: #333;
+  }
+  &.active {
+    // background-color: #333;
+    color: #333;
+    // font-weight: bold;
   }
 `;
 
