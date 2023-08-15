@@ -27,14 +27,22 @@ const PostDetail = () => {
           textAlign: "left",
         }}
       >
-        <Link to="/postlist" style={{ color: "inherit" }}>
+        <Link
+          to="/postlist"
+          style={{
+            color: "inherit",
+            display: "flex",
+            alignItems: "center",
+            textDecoration: "none",
+          }}
+        >
           <FontAwesomeIcon
             icon={faChevronLeft}
             fontSize={"25px"}
             style={{ padding: "20px", marginTop: "30px", marginBottom: "30px" }}
           />
+          <h2 style={{ padding: "0px", margin: "0" }}>상세정보</h2>
         </Link>
-        <h2 style={{ padding: "30px 30px 30px 0" }}>상세정보</h2>
       </div>
       <div id="apply-box">
         <div id="apply-top">

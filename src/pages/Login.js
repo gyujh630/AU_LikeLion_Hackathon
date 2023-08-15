@@ -4,6 +4,11 @@ import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { setLogin } from "../constants/auth";
 
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
+const MySwal = withReactContent(Swal);
+
 function Login() {
   const navigate = useNavigate();
   const formSchema = yup.object({
@@ -22,28 +27,43 @@ function Login() {
   });
 
   const onSubmit = async (data) => {
-    // try {
-    //   const response = await fetch("/users/login", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify(data),
-    //   });
+    try {
+      const response = await fetch("/users/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
 
-    //   if (response.ok) {
-    //     // 로그인 성공 처리
-    // setLogin("12345", 1); //수혜자 로그인 예시 테스트
-    setLogin("12345", 0); //기부자 로그인 예시 테스트
+      //   if (response.ok) {
+      //     // 로그인 성공 처리
+      // setLogin("12345", 1); //수혜자 로그인 예시 테스트
+      setLogin("12345", 0); //기부자 로그인 예시 테스트
 
-    // localStorage.setItem("category", 1); //예시 (수혜자)
-    navigate("/");
-    //   } else {
-    //     // 로그인 실패 처리
-    //   }
-    // } catch (error) {
-    //   console.error("Error during sign up:", error);
-    // }
+      // localStorage.setItem("category", 1); //예시 (수혜자)
+      navigate("/");
+      //   } else {
+      //     // 로그인 실패 처리
+      //   }
+
+      // swal
+
+      if (response.ok) {
+      } else if (response.status === 401) {
+        MySwal.fire({
+          icon: "error",
+          text: "회원 정보가 맞지 않습니다.",
+        });
+      } else {
+        MySwal.fire({
+          icon: "error",
+          text: "알 수 없는 오류가 발생했습니다.",
+        });
+      }
+    } catch (error) {
+      console.error("Error during sign up:", error);
+    }
   };
 
   return (

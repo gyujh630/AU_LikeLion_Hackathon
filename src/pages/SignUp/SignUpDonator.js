@@ -2,6 +2,11 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
+const MySwal = withReactContent(Swal);
+
 function SignUpDonator() {
   const formSchema = yup.object({
     name: yup
@@ -49,10 +54,25 @@ function SignUpDonator() {
         method: "POST",
         body: formData, // FormData 사용
       });
+
       if (response.ok) {
-        // 회원가입 성공 처리
+        MySwal.fire({
+          icon: "success",
+          title: "가입 성공",
+          text: "회원가입이 성공적으로 완료되었습니다.",
+        });
+      } else if (response.status === 409) {
+        MySwal.fire({
+          icon: "error",
+          title: "가입 실패",
+          text: "중복된 아이디입니다.",
+        });
       } else {
-        // 회원가입 실패 처리
+        MySwal.fire({
+          icon: "error",
+          title: "가입 실패",
+          text: "알 수 없는 오류가 발생했습니다.",
+        });
       }
     } catch (error) {
       console.error("Error during sign up:", error);
