@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import SelectMyDevice from "./modal/DonateMyDevice/SelectMyDevice";
+import { isLogin, getUserCategory } from "../constants/auth";
 
 const PostDetail = () => {
   const location = useLocation();
@@ -62,9 +63,11 @@ const PostDetail = () => {
           </div>
         </div>
       </div>
-      <CustomBtn onClick={() => setDonationModalIsOpen(true)}>
-        내 기기 기부하기
-      </CustomBtn>
+      {isLogin() && getUserCategory() === "0" && (
+        <CustomBtn onClick={() => setDonationModalIsOpen(true)}>
+          내 기기 기부하기
+        </CustomBtn>
+      )}
       {DonationModalIsOpen && (
         <SelectMyDevice
           isOpen={DonationModalIsOpen}
