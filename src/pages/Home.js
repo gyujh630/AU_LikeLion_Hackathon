@@ -1,7 +1,91 @@
 // Home.js
-import React from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { getDeviceCount } from "../services/HomeAPI";
+
+const Home = () => {
+  // TODO :: api 연결 후 하드코딩 숫자 지워야 함
+
+  // device 수 가져오기
+  const [deviceCounts, setDeviceCounts] = useState(null);
+
+  useEffect(() => {
+    fetchDeviceCounts();
+  }, []);
+
+  const fetchDeviceCounts = async () => {
+    try {
+      const counts = await getDeviceCount();
+      setDeviceCounts(counts);
+    } catch (error) {
+      console.error("Error fetching device counts:", error);
+    }
+  };
+
+  return (
+    <div style={{ marginTop: "100px" }}>
+      <StyledHome>
+        <header>
+          <h1>
+            기부자와 수혜자를 연결해
+            <br />
+            기술의 힘을 모두가 누리는 세상을 꿈꿉니다.
+          </h1>
+          <nav>
+            <Link to="/postlist">
+              <button>등록된 글 보기</button>
+            </Link>
+            <Link to="/mypage/application">
+              <button>수혜 신청하기</button>
+            </Link>
+          </nav>
+        </header>
+        <main>
+          <section style={{ marginBottom: "50px" }}>
+            <div className="circle-container">
+              <div className="circle">
+                <span>
+                  스마트폰
+                  <br />
+                  <span className="count">
+                    {deviceCounts?.smartphoneNum}99대
+                  </span>
+                </span>
+              </div>
+              <div className="circle">
+                <span>
+                  태블릿
+                  <br />
+                  <span className="count">{deviceCounts?.tabletNum}36대</span>
+                </span>
+              </div>
+              <div className="circle">
+                <span>
+                  노트북
+                  <br />
+                  <span className="count">{deviceCounts?.laptopNum}72대</span>
+                </span>
+              </div>
+            </div>
+          </section>
+          <h2>
+            총{" "}
+            <span style={{ fontSize: "2em" }}>
+              {deviceCounts?.laptopNum}207
+            </span>
+            대가 새 주인을 찾았어요!
+          </h2>
+          <section>
+            <Link to="/mypage/device">
+              <button>내 기기 새 주인 찾아주기</button>
+            </Link>
+          </section>
+        </main>
+      </StyledHome>
+    </div>
+  );
+};
 
 const StyledHome = styled.div`
   display: flex;
@@ -97,65 +181,5 @@ const StyledHome = styled.div`
     font-weight: normal;
   }
 `;
-
-const Home = () => {
-  return (
-    <div style={{ marginTop: "100px" }}>
-      <StyledHome>
-        <header>
-          <h1>
-            기부자와 수혜자를 연결해
-            <br />
-            기술의 힘을 모두가 누리는 세상을 꿈꿉니다.
-          </h1>
-          <nav>
-            <Link to="/postlist">
-              <button>등록된 글 보기</button>
-            </Link>
-            <Link to="/mypage/application">
-              <button>수혜 신청하기</button>
-            </Link>
-          </nav>
-        </header>
-        <main>
-          <section style={{ marginBottom: "50px" }}>
-            <div className="circle-container">
-              <div className="circle">
-                <span>
-                  스마트폰
-                  <br />
-                  <span className="count">112대</span>
-                </span>
-              </div>
-              <div className="circle">
-                <span>
-                  태블릿
-                  <br />
-                  <span className="count">52대</span>
-                </span>
-              </div>
-              <div className="circle">
-                <span>
-                  노트북
-                  <br />
-                  <span className="count">43대</span>
-                </span>
-              </div>
-            </div>
-          </section>
-          <h2>
-            총 <span style={{ fontSize: "2em" }}>207</span>대가 새 주인을
-            찾았어요!
-          </h2>
-          <section>
-            <Link to="/mypage/device">
-              <button>내 기기 새 주인 찾아주기</button>
-            </Link>
-          </section>
-        </main>
-      </StyledHome>
-    </div>
-  );
-};
 
 export default Home;
