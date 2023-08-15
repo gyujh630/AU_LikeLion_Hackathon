@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import Modal from "react-modal";
-import styled from "styled-components";
+import styled, { keyframes, css } from "styled-components"; // Import styled-components
 import { useForm, Controller, useFieldArray, reset } from "react-hook-form";
 import axios from "axios"; // Import axios
 import DonationSuccess from "./DonationSuccess";
@@ -58,6 +58,9 @@ const ConfirmDonation = ({ isOpen, onClose }) => {
 
   const [SuccessModalIsOpen, setSuccessModalIsOpen] = useState(false);
 
+  // new
+  const [showDonationSuccess, setShowDonationSuccess] = useState(false); // Add state for the second modal
+
   return (
     <Modal style={ModalStyles} isOpen={isOpen} onRequestClose={onClose}>
       <div style={ModalHeader}>
@@ -70,7 +73,7 @@ const ConfirmDonation = ({ isOpen, onClose }) => {
           <span aria-hidden="true">×</span>
         </CloseButton>
       </div>
-      <ModalContainer>
+      <ModalContainer slide={isOpen}>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <h3>선택한 기기</h3>
           {dummyData.map((device, index) => (
@@ -122,15 +125,14 @@ const ConfirmDonation = ({ isOpen, onClose }) => {
               backgroundColor: formIsValid ? "#4CAF50" : "#ccc",
               cursor: formIsValid ? "pointer" : "not-allowed",
             }}
-            onClick={() => setSuccessModalIsOpen(true)}
+            onClick={() => setShowDonationSuccess(true)}
           >
             선택한 기기 기부하기
           </ModalButton>
-          {SuccessModalIsOpen && (
+          {showDonationSuccess && (
             <DonationSuccess
-              isOpen={SuccessModalIsOpen}
-              onClose={() => setSuccessModalIsOpen(false)}
-              onConfirm={() => setSuccessModalIsOpen(false)}
+              isOpen={showDonationSuccess}
+              onClose={() => setShowDonationSuccess(false)} // Close the second modal
             />
           )}
         </Form>
@@ -247,6 +249,17 @@ const CustomSelect = styled.select`
   border-radius: 4px;
 `;
 
+const slideIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+`;
+
 const ModalContainer = styled.main`
   div {
     display: flex;
@@ -308,6 +321,11 @@ const ModalContainer = styled.main`
     color: red;
     font-size: 12px;
   }
+  ${(props) =>
+    props.slide &&
+    css`
+      animation: ${slideIn} 0.3s ease-in-out;
+    `}
 `;
 
 // // Styled components

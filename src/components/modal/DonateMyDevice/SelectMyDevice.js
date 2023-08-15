@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import Modal from "react-modal";
-import styled from "styled-components";
+import styled, { keyframes, css } from "styled-components"; // Import styled-components
 import { useForm, Controller, useFieldArray, reset } from "react-hook-form";
 import axios from "axios"; // Import axios
 import ConfirmDonation from "./ConfirmDonation";
@@ -17,6 +17,7 @@ const SelectMyDevice = ({ isOpen, onClose }) => {
   } = useForm();
 
   const [ConfirmModalIsOpen, setConfirmModalIsOpen] = useState(false);
+  const [showConfirmModal, setShowConfirmModal] = useState(false); // Add state for the second modal
 
   useEffect(() => {
     document.body.style.cssText = `
@@ -128,7 +129,7 @@ const SelectMyDevice = ({ isOpen, onClose }) => {
           <span aria-hidden="true">×</span>
         </CloseButton>
       </div>
-      <ModalContainer>
+      <ModalContainer slide={showConfirmModal}>
         <h2>등록된 기기 목록</h2>
         <div
           style={{
@@ -166,15 +167,15 @@ const SelectMyDevice = ({ isOpen, onClose }) => {
               backgroundColor: formIsValid ? "#4CAF50" : "#ccc",
               cursor: formIsValid ? "pointer" : "not-allowed",
             }}
-            onClick={() => setConfirmModalIsOpen(true)}
+            onClick={() => setShowConfirmModal(true)}
           >
             선택 완료!
           </ModalButton>
-          {ConfirmModalIsOpen && (
+          {showConfirmModal && (
             <ConfirmDonation
-              isOpen={ConfirmModalIsOpen}
-              onClose={() => setConfirmModalIsOpen(false)}
-              onConfirm={() => setConfirmModalIsOpen(false)}
+              isOpen={showConfirmModal}
+              onClose={() => setShowConfirmModal(false)}
+              onConfirm={() => setShowConfirmModal(false)}
             />
           )}
         </Form>
@@ -292,6 +293,17 @@ const CustomSelect = styled.select`
   border-radius: 4px;
 `;
 
+const slideIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+`;
+
 const ModalContainer = styled.main`
   div {
     display: flex;
@@ -353,6 +365,12 @@ const ModalContainer = styled.main`
     color: red;
     font-size: 12px;
   }
+
+  ${(props) =>
+    props.slide &&
+    css`
+      animation: ${slideIn} 0.3s ease-in-out;
+    `}
 `;
 
 // // Styled components

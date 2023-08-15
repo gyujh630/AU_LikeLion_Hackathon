@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from "react";
 import Modal from "react-modal";
-import styled from "styled-components";
+import styled, { keyframes, css } from "styled-components"; // Import styled-components
 import axios from "axios"; // Import axios
 Modal.setAppElement("#root");
 
@@ -33,7 +33,7 @@ const DonationSuccess = ({ isOpen, onClose }) => {
           <span aria-hidden="true">×</span>
         </CloseButton>
       </div>
-      <ModalContainer>
+      <ModalContainer slide={isOpen}>
         <h1>기부 신청이 완료되었습니다!</h1>
         <div
           style={{
@@ -187,6 +187,17 @@ const CustomSelect = styled.select`
   border-radius: 4px;
 `;
 
+const slideIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+`;
+
 const ModalContainer = styled.main`
   div {
     display: flex;
@@ -248,6 +259,11 @@ const ModalContainer = styled.main`
     color: red;
     font-size: 12px;
   }
+  ${(props) =>
+    props.slide &&
+    css`
+      animation: ${slideIn} 0.3s ease-in-out;
+    `}
 `;
 
 // // Styled components
