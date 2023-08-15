@@ -32,8 +32,9 @@ function Login() {
 
     //   if (response.ok) {
     //     // 로그인 성공 처리
-    localStorage.setItem("token", "12345"); //예시
+    localStorage.setItem("token", "12345"); //토큰값 예시
     localStorage.setItem("category", 0); //예시 (기부자)
+    // localStorage.setItem("category", 1); //예시 (수혜자)
     navigate("/");
     //   } else {
     //     // 로그인 실패 처리
