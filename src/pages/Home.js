@@ -37,10 +37,18 @@ const Home = () => {
             <Link to="/postlist">
               <button>등록된 글 보기</button>
             </Link>
-            {isLogin() && getUserCategory() === "1" && (
-              <Link to="/mypage/application">
-                <button>수혜 신청하기</button>
-              </Link>
+            {isLogin() && (
+              <>
+                {getUserCategory() === "1" ? (
+                  <Link to="/mypage/application">
+                    <button>수혜 신청하기</button>
+                  </Link>
+                ) : (
+                  <Link to="/mypage/device">
+                    <button>내 기기 새 주인 찾아주기</button>
+                  </Link>
+                )}
+              </>
             )}
           </nav>
         </header>
@@ -79,13 +87,7 @@ const Home = () => {
             </span>
             대가 새 주인을 찾았어요!
           </h2>
-          <section>
-            {isLogin() && getUserCategory() == "0" && (
-              <Link to="/mypage/device">
-                <button>내 기기 새 주인 찾아주기</button>
-              </Link>
-            )}
-          </section>
+          <section></section>
         </main>
       </StyledHome>
     </div>
@@ -138,16 +140,15 @@ const StyledHome = styled.div`
       margin-bottom: 20px;
     }
 
-    section {
-      button {
-        background-color: #007bff;
-        margin-right: 10px;
-      }
+    // section {
+    //   button {
+    //     margin-right: 10px;
+    //   }
 
-      button:last-child {
-        margin-right: 0;
-      }
-    }
+    //   button:last-child {
+    //     margin-right: 0;
+    //   }
+    // }
   }
   .circle-container {
     display: flex;

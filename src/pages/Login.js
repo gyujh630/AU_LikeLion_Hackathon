@@ -33,7 +33,8 @@ function Login() {
 
     //   if (response.ok) {
     //     // 로그인 성공 처리
-    setLogin("12345", 1); //token값, 카테고리넘버
+    // setLogin("12345", 1); //수혜자 로그인 예시 테스트
+    setLogin("12345", 0); //기부자 로그인 예시 테스트
 
     // localStorage.setItem("category", 1); //예시 (수혜자)
     navigate("/");
