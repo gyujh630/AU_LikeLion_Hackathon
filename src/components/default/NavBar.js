@@ -7,10 +7,11 @@ const NavBar = () => {
   const navigate = useNavigate();
   const handleLogout = async () => {
     // 로그아웃 처리 로직
-    // api 호출
-    // 성공 시 -> localStorage 토큰 삭제, 로그인 상태 업데이트
+    // <api 호출 부분>
+    // 성공 시 -> localStorage 토큰과 category 삭제,
     localStorage.removeItem("token");
-    navigate("/");
+    localStorage.removeItem("category");
+    document.location.href = "/"; // navigate로 이동이 안돼서 일단 이걸로 구현함
   };
 
   return (
