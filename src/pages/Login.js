@@ -1,3 +1,5 @@
+// 로그인 페이지
+
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -77,6 +79,7 @@ function Login() {
                 style={{
                   display: "inline-block",
                   width: "100px",
+                  textAlign: "center",
                   marginRight: "10px",
                 }}
               >
@@ -103,6 +106,7 @@ function Login() {
                 style={{
                   display: "inline-block",
                   width: "100px",
+                  textAlign: "center",
                   marginRight: "10px",
                 }}
               >
