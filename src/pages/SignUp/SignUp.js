@@ -30,7 +30,7 @@ const styles = {
   },
   button: {
     margin: "40px",
-    minHeight: "400px",
+    minHeight: "300px",
     padding: "10px 20px",
     fontSize: "16px",
     backgroundColor: "white",

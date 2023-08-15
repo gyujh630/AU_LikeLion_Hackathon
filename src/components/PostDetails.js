@@ -98,7 +98,7 @@ const CustomBtn = styled.button`
   font-size: 20px;
   cursor: pointer;
   transition: background-color 0.3s;
-  margin: 30px 10px;
+  margin: 0px 10px 50px 10px;
 
   &:hover {
     background-color: #0056b3;
@@ -139,6 +139,7 @@ const CustomPostDetail = styled.div`
     flex-direction: column;
     margin: auto;
     width: 80%;
+    margin-bottom: 50px;
   }
 
   div#apply-top,
