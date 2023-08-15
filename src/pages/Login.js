@@ -1,8 +1,10 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
+  const navigate = useNavigate();
   const formSchema = yup.object({
     id: yup.string().required("아이디을 입력해주세요."),
     password: yup.string().required("비밀번호를 입력해주세요."),
@@ -19,23 +21,27 @@ function Login() {
   });
 
   const onSubmit = async (data) => {
-    try {
-      const response = await fetch("/users/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+    // try {
+    //   const response = await fetch("/users/login", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(data),
+    //   });
 
-      if (response.ok) {
-        // 회원가입 성공 처리
-      } else {
-        // 회원가입 실패 처리
-      }
-    } catch (error) {
-      console.error("Error during sign up:", error);
-    }
+    //   if (response.ok) {
+    //     // 로그인 성공 처리
+    localStorage.setItem("token", "12345"); //토큰값 예시
+    localStorage.setItem("category", 0); //예시 (기부자)
+    // localStorage.setItem("category", 1); //예시 (수혜자)
+    navigate("/");
+    //   } else {
+    //     // 로그인 실패 처리
+    //   }
+    // } catch (error) {
+    //   console.error("Error during sign up:", error);
+    // }
   };
 
   return (
