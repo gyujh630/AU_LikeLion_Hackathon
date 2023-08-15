@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
+import { getUserCategory } from "../constants/auth";
 
 const SubNavigation = styled.ul`
   display: flex;
@@ -31,7 +32,7 @@ const SubNavigationItem = styled(NavLink)`
 
 const MyPageNavBar = () => {
   // localStorage에서 category 값을 가져옴
-  const category = localStorage.getItem("category");
+  const category = getUserCategory();
 
   return (
     <SubNavigation>

@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
+import { setLogin } from "../constants/auth";
 
 function Login() {
   const navigate = useNavigate();
@@ -32,8 +33,8 @@ function Login() {
 
     //   if (response.ok) {
     //     // 로그인 성공 처리
-    localStorage.setItem("token", "12345"); //토큰값 예시
-    localStorage.setItem("category", 0); //예시 (기부자)
+    setLogin("12345", 0); //token값, 카테고리넘버
+
     // localStorage.setItem("category", 1); //예시 (수혜자)
     navigate("/");
     //   } else {

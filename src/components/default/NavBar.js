@@ -2,6 +2,7 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import React from "react";
 import styled from "styled-components";
+import { setLogOut, isLogin } from "../../constants/auth";
 
 const NavBar = () => {
   const navigate = useNavigate();
@@ -9,8 +10,7 @@ const NavBar = () => {
     // 로그아웃 처리 로직
     // <api 호출 부분>
     // 성공 시 -> localStorage 토큰과 category 삭제,
-    localStorage.removeItem("token");
-    localStorage.removeItem("category");
+    setLogOut();
     document.location.href = "/"; // navigate로 이동이 안돼서 일단 이걸로 구현함
   };
 
@@ -24,7 +24,7 @@ const NavBar = () => {
           <Button to="/postlist">PostList</Button>
         </li>
         {/* login 여부에 따른 조건부 렌더링 */}
-        {localStorage.getItem("token") ? (
+        {isLogin() ? (
           <>
             <li>
               <LogoutButton onClick={handleLogout}>Logout</LogoutButton>
