@@ -5,7 +5,6 @@ import { useForm, Controller, useFieldArray, reset } from "react-hook-form";
 import axios from "axios"; // Import axios
 import DonationSuccess from "./DonationSuccess";
 
-// TODO :: 마지막 모달(DonationSuccess)에서 모달 전체 닫히도록
 // TODO :: SelectMyDevice -> 선택한 값 넘겨 받고, ConfirmDonation에서 Put 요청
 
 Modal.setAppElement("#root");
@@ -185,7 +184,7 @@ const ModalStyles = {
   overlay: {
     zIndex: 1000,
     display: "flex",
-    backgroundColor: "rgba(0, 0, 0, 0.3)", //모달 바깥 배경
+    backgroundColor: "rgba(0, 0, 0, 0)", //모달 바깥 배경
     overflow: "hidden",
   },
 

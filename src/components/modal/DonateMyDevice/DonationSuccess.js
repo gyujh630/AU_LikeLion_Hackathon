@@ -2,9 +2,13 @@ import { useState, useEffect, useContext } from "react";
 import Modal from "react-modal";
 import styled, { keyframes, css } from "styled-components"; // Import styled-components
 import axios from "axios"; // Import axios
+import { useNavigate } from "react-router-dom";
+
 Modal.setAppElement("#root");
 
 const DonationSuccess = ({ isOpen, onClose }) => {
+  const navigate = useNavigate();
+
   useEffect(() => {
     document.body.style.cssText = `
           position: fixed; 
@@ -21,6 +25,12 @@ const DonationSuccess = ({ isOpen, onClose }) => {
   const handleModalClose = () => {
     onClose();
   };
+
+  const handleConfirm = () => {
+    onClose();
+    navigate("/mypage/donation"); // /mypage/donation으로 이동합니다
+  };
+
   return (
     <Modal style={ModalStyles} isOpen={isOpen} onRequestClose={onClose}>
       <div style={ModalHeader}>
@@ -28,7 +38,7 @@ const DonationSuccess = ({ isOpen, onClose }) => {
           style={{ padding: 0 }}
           type="button"
           className="close"
-          onClick={onClose}
+          onClick={handleConfirm}
         >
           <span aria-hidden="true">×</span>
         </CloseButton>
@@ -55,7 +65,7 @@ const DonationSuccess = ({ isOpen, onClose }) => {
             <br />
           </div>
         </DeviceBox>
-        <ConfirmButton style={{ padding: 0 }} onClick={onClose}>
+        <ConfirmButton style={{ padding: 0 }} onClick={handleConfirm}>
           확인
         </ConfirmButton>
       </ModalContainer>
@@ -109,7 +119,7 @@ const ModalStyles = {
   overlay: {
     zIndex: 1000,
     display: "flex",
-    backgroundColor: "rgba(0, 0, 0, 0.3)", //모달 바깥 배경
+    backgroundColor: "rgba(0, 0, 0, 0)", //모달 바깥 배경
     overflow: "hidden",
   },
 

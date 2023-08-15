@@ -16,8 +16,16 @@ const SelectMyDevice = ({ isOpen, onClose }) => {
     formState: { errors, isValid, isDirty },
   } = useForm();
 
-  const [ConfirmModalIsOpen, setConfirmModalIsOpen] = useState(false);
   const [showConfirmModal, setShowConfirmModal] = useState(false); // Add state for the second modal
+  const [showDonationSuccess, setShowDonationSuccess] = useState(false);
+
+  const openConfirmModal = () => {
+    setShowConfirmModal(true);
+  };
+
+  const closeConfirmModal = () => {
+    setShowConfirmModal(false);
+  };
 
   useEffect(() => {
     document.body.style.cssText = `
@@ -167,7 +175,7 @@ const SelectMyDevice = ({ isOpen, onClose }) => {
               backgroundColor: formIsValid ? "#4CAF50" : "#ccc",
               cursor: formIsValid ? "pointer" : "not-allowed",
             }}
-            onClick={() => setShowConfirmModal(true)}
+            onClick={openConfirmModal}
           >
             선택 완료!
           </ModalButton>
@@ -175,7 +183,10 @@ const SelectMyDevice = ({ isOpen, onClose }) => {
             <ConfirmDonation
               isOpen={showConfirmModal}
               onClose={() => setShowConfirmModal(false)}
-              onConfirm={() => setShowConfirmModal(false)}
+              onConfirm={() => {
+                closeConfirmModal();
+                setShowDonationSuccess(true);
+              }}
             />
           )}
         </Form>
