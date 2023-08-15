@@ -1,40 +1,10 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { Switch, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ApplyModal from "../components/modal/ApplyModal";
 import ApplicationList from "../components/sub/ApplicationList";
 import { DeliveryStatusProvider } from "../contexts/DeliveryStatusContext";
-
-const applicationDataList = [
-  {
-    userName: "홍길동",
-    devicetype: "노트북",
-    content: "너무 필요합니다",
-    date: "2023-08-02",
-    status: 0,
-  },
-  {
-    userName: "홍길동",
-    devicetype: "스마트폰",
-    content: "안녕하세요~",
-    date: "2023-08-03",
-    status: 0,
-  },
-  {
-    userName: "홍길동",
-    devicetype: "태블릿",
-    content: "아이패드 주세요",
-    date: "2023-08-04",
-    status: 0,
-  },
-  {
-    userName: "홍길동",
-    devicetype: "스마트폰",
-    content: "폰이 없어요",
-    date: "2023-08-04",
-    status: 0,
-  },
-];
+import { getUserCategory, isLogin } from "../constants/auth";
 
 const PostList = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false); //modal 열고 닫는 상태
@@ -46,13 +16,15 @@ const PostList = () => {
           <h1>수혜 신청 목록</h1>
           <div id="postlist-top">
             <div id="postlist-filter">필터</div>
-            <button
-              id="apply-btn"
-              onClick={() => setModalIsOpen(true)}
-              style={styles.button}
-            >
-              수혜 신청하기
-            </button>
+            {isLogin() && getUserCategory() === "1" && (
+              <button
+                id="apply-btn"
+                onClick={() => setModalIsOpen(true)}
+                style={styles.button}
+              >
+                수혜 신청하기
+              </button>
+            )}
           </div>
           <main>
             <DeliveryStatusProvider>
@@ -121,5 +93,36 @@ const CustomPostList = styled.div`
     }
   }
 `;
+
+const applicationDataList = [
+  {
+    userName: "홍길동",
+    devicetype: "노트북",
+    content: "너무 필요합니다",
+    date: "2023-08-02",
+    status: 0,
+  },
+  {
+    userName: "홍길동",
+    devicetype: "스마트폰",
+    content: "안녕하세요~",
+    date: "2023-08-03",
+    status: 0,
+  },
+  {
+    userName: "홍길동",
+    devicetype: "태블릿",
+    content: "아이패드 주세요",
+    date: "2023-08-04",
+    status: 0,
+  },
+  {
+    userName: "홍길동",
+    devicetype: "스마트폰",
+    content: "폰이 없어요",
+    date: "2023-08-04",
+    status: 0,
+  },
+];
 
 export default PostList;

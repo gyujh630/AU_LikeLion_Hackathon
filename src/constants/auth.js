@@ -9,11 +9,11 @@ export const setLogOut = () => {
 };
 
 export const isLogin = () => {
-  if (localStorage.getItem("token")) {
-    return true;
-  } else return false;
+  const token = localStorage.getItem("token");
+  return !!token;
 };
 
 export const getUserCategory = () => {
-  return localStorage.getItem("category");
+  const userCategory = localStorage.getItem("category");
+  return userCategory;
 };

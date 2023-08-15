@@ -31,9 +31,6 @@ const SubNavigationItem = styled(NavLink)`
 `;
 
 const MyPageNavBar = () => {
-  // localStorage에서 category 값을 가져옴
-  const category = getUserCategory();
-
   return (
     <SubNavigation>
       <li>
@@ -49,7 +46,7 @@ const MyPageNavBar = () => {
         <SubNavigationItem
           to="/mypage/application"
           activeClassName="active"
-          style={{ display: category === "0" ? "none" : "block" }}
+          style={{ display: getUserCategory() === "0" ? "none" : "block" }}
         >
           수혜 신청 목록
         </SubNavigationItem>
@@ -58,7 +55,7 @@ const MyPageNavBar = () => {
         <SubNavigationItem
           to="/mypage/donation"
           activeClassName="active"
-          style={{ display: category === "0" ? "block" : "none" }}
+          style={{ display: getUserCategory() === "0" ? "block" : "none" }}
         >
           기부 목록
         </SubNavigationItem>
@@ -67,7 +64,7 @@ const MyPageNavBar = () => {
         <SubNavigationItem
           to="/mypage/device"
           activeClassName="active"
-          style={{ display: category === "0" ? "block" : "none" }}
+          style={{ display: getUserCategory() === "0" ? "block" : "none" }}
         >
           등록된 기기
         </SubNavigationItem>

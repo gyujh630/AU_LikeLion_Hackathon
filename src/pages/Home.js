@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { getDeviceCount } from "../services/HomeAPI";
+import { isLogin, getUserCategory } from "../constants/auth";
 
 const Home = () => {
   // TODO :: api 연결 후 하드코딩 숫자 지워야 함
@@ -36,9 +37,11 @@ const Home = () => {
             <Link to="/postlist">
               <button>등록된 글 보기</button>
             </Link>
-            <Link to="/mypage/application">
-              <button>수혜 신청하기</button>
-            </Link>
+            {isLogin() && getUserCategory() === "1" && (
+              <Link to="/mypage/application">
+                <button>수혜 신청하기</button>
+              </Link>
+            )}
           </nav>
         </header>
         <main>
@@ -77,9 +80,11 @@ const Home = () => {
             대가 새 주인을 찾았어요!
           </h2>
           <section>
-            <Link to="/mypage/device">
-              <button>내 기기 새 주인 찾아주기</button>
-            </Link>
+            {isLogin() && getUserCategory() == "0" && (
+              <Link to="/mypage/device">
+                <button>내 기기 새 주인 찾아주기</button>
+              </Link>
+            )}
           </section>
         </main>
       </StyledHome>
