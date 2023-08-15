@@ -27,15 +27,15 @@ const Device = () => {
   const dummyDevices = [
     {
       id: 1,
-      model: "ipad3",
-      usedDate: "3년",
+      model: "아이패드 에어 2 wifi 128GB",
+      usedDate: "4년",
       condition: "2",
       date: "2023-07-07",
       image: "기기사진1",
     },
     {
       id: 2,
-      model: "iphone12",
+      model: "아이패드 XR 64GB",
       usedDate: "1년",
       condition: "5",
       date: "2023-07-08",
@@ -43,13 +43,21 @@ const Device = () => {
     },
     {
       id: 3,
-      model: "galaxy21",
+      model: "아이폰 XR 64GB",
       usedDate: "2년",
       condition: "4",
       date: "2023-07-09",
       image: "기기사진3",
     },
   ];
+
+  const conditionMap = {
+    1: "최상",
+    2: "상",
+    3: "중",
+    4: "하",
+    5: "최하",
+  };
 
   // new modal style 반영 코드
   const [modalIsOpen, setModalIsOpen] = useState(false); //modal 열고 닫는 상태
@@ -88,7 +96,13 @@ const Device = () => {
           <MyDeviceList key={index} deviceInfo={deviceInfo} />
         ))} */}
         {dummyDevices.map((device) => (
-          <MyDeviceList key={device.id} deviceInfo={device} />
+          <MyDeviceList
+            key={device.id}
+            deviceInfo={{
+              ...device,
+              condition: conditionMap[device.condition],
+            }}
+          />
         ))}
       </main>
     </StyleApplication>
