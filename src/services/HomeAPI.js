@@ -1,3 +1,4 @@
+//HomeAPI.js
 import axios from "axios";
 
 const apiUrl = ""; //연동 후 수정 필요

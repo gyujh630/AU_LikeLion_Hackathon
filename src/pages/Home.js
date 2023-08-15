@@ -11,7 +11,8 @@ const StyledHome = styled.div`
   text-align: center;
 
   header {
-    margin-bottom: 40px;
+    margin-top: 30px;
+    margin-bottom: 10px;
   }
 
   h1 {
@@ -59,6 +60,42 @@ const StyledHome = styled.div`
       }
     }
   }
+  .circle-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 40px;
+  }
+
+  .circle-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 40px;
+  }
+
+  .circle {
+    width: 130px;
+    height: 130px;
+    background-color: white; /* 배경색 변경 */
+    border: 2px solid black; /* 검정색 border 추가 */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+  }
+
+  .circle span {
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 5px;
+  }
+
+  .circle .count {
+    font-size: 20px;
+    font-weight: normal;
+  }
 `;
 
 const Home = () => {
@@ -81,6 +118,31 @@ const Home = () => {
           </nav>
         </header>
         <main>
+          <section style={{ marginBottom: "50px" }}>
+            <div className="circle-container">
+              <div className="circle">
+                <span>
+                  스마트폰
+                  <br />
+                  <span className="count">112대</span>
+                </span>
+              </div>
+              <div className="circle">
+                <span>
+                  태블릿
+                  <br />
+                  <span className="count">52대</span>
+                </span>
+              </div>
+              <div className="circle">
+                <span>
+                  노트북
+                  <br />
+                  <span className="count">43대</span>
+                </span>
+              </div>
+            </div>
+          </section>
           <h2>
             총 <span style={{ fontSize: "2em" }}>207</span>대가 새 주인을
             찾았어요!
