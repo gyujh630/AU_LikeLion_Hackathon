@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { getUserInfo } from "../../services/MyPageAPI";
 import styled from "styled-components";
+import { updateUserInfo } from "../../services/MyPageAPI";
 
 // TODO : api 연결 후 수정 필요
 const tempUserInfo = {
@@ -26,21 +27,6 @@ const Profile = () => {
   const getCategoryText = (category) => {
     return category === 0 ? "기부자" : "수혜자"; // 숫자로 비교
   };
-
-  const ProfileImage = styled.img`
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    margin: 30px 0px;
-    border: 1px solid #d4d4d4;
-  `;
-
-  const ProfileImageContainer = styled.div`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
-  `;
 
   return (
     <div
@@ -68,5 +54,13 @@ const Profile = () => {
     </div>
   );
 };
+
+const ProfileImage = styled.img`
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  margin: 30px 0px;
+  border: 1px solid #d4d4d4;
+`;
 
 export default Profile;
