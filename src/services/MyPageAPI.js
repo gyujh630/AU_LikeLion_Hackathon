@@ -31,3 +31,18 @@ export const getDonationList = async () => {
     throw error;
   }
 };
+
+// 사용자 정보 가져오기 - request url은 /users, get 요청, Authorization 헤더 필요
+export const getUserInfo = async () => {
+  try {
+    const response = await axios.get(`${apiUrl}/users`, {
+      headers: {
+        // Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching user info:", error);
+    throw error;
+  }
+};
