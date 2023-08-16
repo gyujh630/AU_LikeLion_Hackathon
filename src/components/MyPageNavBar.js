@@ -13,61 +13,68 @@ const SubNavigation = styled.ul`
   list-style-type: none;
 `;
 
-const SubNavigationItem = styled(NavLink)`
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: bold;
-  padding: 8px 16px;
-  margin-right: 10px;
-  border-bottom: 2px solid transparent;
-  transition: border-color 0.3s;
-  list-style-type: none;
-  text-decoration: none;
-  color: #333;
+const activeStyle = {
+  display: "block",
+  color: "black",
+  fontWeight: "bold",
+  textDecoration: "none",
+  padding: "8px 16px",
+  margin: "0px 5px",
+};
 
-  &.active {
-    border-color: #007bff;
-  }
-`;
+const deactiveStyle = {
+  display: "block",
+  color: "black",
+  textDecoration: "none",
+  padding: "8px 16px",
+  margin: "0px 5px",
+};
 
 const MyPageNavBar = () => {
   return (
     <SubNavigation>
       <li>
-        <SubNavigationItem
+        <NavLink
           to="/mypage/profile"
-          activeClassName="active"
-          style={{ display: "block" }}
+          style={({ isActive }) => {
+            return isActive ? activeStyle : deactiveStyle;
+          }}
         >
           내 정보
-        </SubNavigationItem>
+        </NavLink>
       </li>
-      <li>
-        <SubNavigationItem
+      <li style={{ display: getUserCategory() === "1" ? "block" : "none" }}>
+        <NavLink
           to="/mypage/application"
           activeClassName="active"
-          style={{ display: getUserCategory() === "0" ? "none" : "block" }}
+          style={({ isActive }) => {
+            return isActive ? activeStyle : deactiveStyle;
+          }}
         >
           수혜 신청 목록
-        </SubNavigationItem>
+        </NavLink>
       </li>
-      <li>
-        <SubNavigationItem
+      <li style={{ display: getUserCategory() === "0" ? "block" : "none" }}>
+        <NavLink
           to="/mypage/donation"
           activeClassName="active"
-          style={{ display: getUserCategory() === "0" ? "block" : "none" }}
+          style={({ isActive }) => {
+            return isActive ? activeStyle : deactiveStyle;
+          }}
         >
           기부 목록
-        </SubNavigationItem>
+        </NavLink>
       </li>
-      <li>
-        <SubNavigationItem
+      <li style={{ display: getUserCategory() === "0" ? "block" : "none" }}>
+        <NavLink
           to="/mypage/device"
           activeClassName="active"
-          style={{ display: getUserCategory() === "0" ? "block" : "none" }}
+          style={({ isActive }) => {
+            return isActive ? activeStyle : deactiveStyle;
+          }}
         >
           등록된 기기
-        </SubNavigationItem>
+        </NavLink>
       </li>
     </SubNavigation>
   );

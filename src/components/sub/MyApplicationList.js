@@ -65,9 +65,9 @@ const StyledStatusButton = styled.button`
   margin: ${(props) => (props.status === 2 ? "20px 20px 0px 20px" : "20px")};
   height: 30px;
   border: none;
-  border-radius: 4px;
+  border-radius: 50px;
   color: white;
-  background-color: #4caf50;
+  background-color: #6296bb;
   font-weight: bold;
 `;
 
@@ -83,7 +83,7 @@ const StyledMyApplication = styled.div`
 
   div#apply-box {
     border: none;
-    border-radius: 12px;
+    border-radius: 30px;
     background-color: #f2f2f2;
     flex-direction: column;
     margin: auto;
@@ -123,7 +123,7 @@ const StyledMyApplication = styled.div`
 
   p#user-apply-name {
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 600;
     margin-bottom: 8px;
   }
 
@@ -156,6 +156,7 @@ const StyledMyApplication = styled.div`
     font-size: 12px;
     color: #424242;
     background-color: white;
+    border-radius: 20px;
   }
 
   p#content {

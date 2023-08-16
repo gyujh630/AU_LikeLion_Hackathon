@@ -93,36 +93,44 @@ const ConfirmDonation = ({ isOpen, onClose }) => {
           <h3>안내사항</h3>
           <DeviceBox>
             <DeviceContent>
-              <div style={{ padding: "15px" }}>
-                기부하기를 신청하면 수혜자가 등록한 행정복지센터 주소가
-                안내됩니다.
-                <br />
-                안내된 주소로 기부자가 직접 택배를 보내야 합니다.
-                <br />
-                택배가 도착하면 수혜자가 행정복지센터에 방문하여 물품을
-                수령합니다.
-                <br />
-                기부 신청 후 택배를 장기간 보내지 않을 시 기부가 취소되며
-                패널티가 발생할 수 있습니다.
-                <br />
-                기부된 기기는 다시 되돌려 받을 수 없습니다.
+              <div>
+                <p style={{ fontSize: "15px" }}>
+                  기부하기를 신청하면 수혜자가 등록한 행정복지센터 주소가
+                  안내됩니다.
+                  <br />
+                  안내된 주소로 기부자가 직접 택배를 보내야 합니다.
+                  <br />
+                  택배가 도착하면 수혜자가 행정복지센터에 방문하여 물품을
+                  수령합니다.
+                  <br />
+                  기부 신청 후 택배를 장기간 보내지 않을 시 기부가 취소되며
+                  패널티가 발생할 수 있습니다.
+                  <br />
+                  기부된 기기는 다시 되돌려 받을 수 없습니다.
+                </p>
               </div>
             </DeviceContent>
           </DeviceBox>
 
-          <div style={{ padding: "15px", justifyContent: "center" }}>
-            <input type="checkbox" onChange={handleCheckboxChange} />
-            <div style={{ textAlign: "left" }}>
-              위의 사항을 모두 확인하였습니다.
-            </div>
+          <div style={{}}>
+            <input
+              type="checkbox"
+              style={{ width: "10%" }}
+              onChange={handleCheckboxChange}
+            />
+            <div style={{}}>위의 사항을 모두 확인하였습니다.</div>
           </div>
 
           <ModalButton
             type="submit"
             disabled={!formIsValid} // Use formIsValid here
             style={{
-              backgroundColor: formIsValid ? "#4CAF50" : "#ccc",
+              backgroundColor: formIsValid ? "#6296bb" : "#ccc",
               cursor: formIsValid ? "pointer" : "not-allowed",
+              width: "200px",
+              margin: "auto",
+              marginTop: "20px",
+              borderRadius: "50px",
             }}
             onClick={() => setShowDonationSuccess(true)}
           >
@@ -164,20 +172,13 @@ const DeviceInfo = styled.div`
 
 const DeviceBox = styled.div`
   background-color: #f0f0f0;
-  border-radius: 8px;
+  border-radius: 30px;
   padding: 15px;
   margin-bottom: 10px;
   display: flex;
   align-items: flex-start;
   /* width: 100%; */
   width: 500px;
-
-  input[type="checkbox"] {
-    margin: 0px 10px;
-    width: 40px;
-    height: 40px;
-    transform: scale(2);
-  }
 `;
 
 const ModalStyles = {
@@ -193,7 +194,7 @@ const ModalStyles = {
     maxWidth: "900px",
     width: "70%",
     height: "50%",
-    borderRadius: "8px",
+    borderRadius: "30px",
     padding: "20px",
     overflowY: "auto", //스크롤 허용
     display: "flex",
@@ -206,7 +207,6 @@ const ModalStyles = {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.3)",
   },
 };
 

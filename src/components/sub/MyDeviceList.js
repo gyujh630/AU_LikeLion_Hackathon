@@ -8,7 +8,14 @@ const MyDeviceList = ({ deviceInfo }) => {
           <div id="donate-image"></div>
           {/* 추후 img로 변경*/}
           <div id="donate-device-container">
-            <p id="model-name">{deviceInfo.model}</p>
+            <p
+              id="model-name"
+              style={{
+                fontWeight: 500,
+              }}
+            >
+              {deviceInfo.model}
+            </p>
             <p id="used-date">사용기간 {deviceInfo.usedDate}</p>
             <p id="used-date">상태: {deviceInfo.condition}</p>
           </div>
@@ -55,7 +62,7 @@ const StyledStatusButton = styled.button`
   margin: 25px 25px 0px 25px;
   height: 30px;
   border: none;
-  border-radius: 4px;
+  border-radius: 50px;
   color: white;
   background-color: #4caf50;
   font-weight: bold;
@@ -73,7 +80,7 @@ const StyledMyDevice = styled.div`
 
   div#apply-box {
     border: none;
-    border-radius: 12px;
+    border-radius: 30px;
     background-color: #f2f2f2;
     flex-direction: column;
     margin: auto;

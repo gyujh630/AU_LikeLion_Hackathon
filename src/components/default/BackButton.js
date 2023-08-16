@@ -14,8 +14,8 @@ const BackButton = () => {
       onClick={onClickBtn}
       style={{
         padding: "20px",
-        marginTop: "30px",
-        marginBottom: "30px",
+        marginTop: "10px",
+        marginBottom: "12px",
         cursor: "pointer",
       }}
     />

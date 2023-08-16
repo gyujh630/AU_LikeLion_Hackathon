@@ -49,7 +49,7 @@ const ModalStyles = {
   content: {
     height: "200px",
     width: "300px",
-    borderRadius: "8px",
+    borderRadius: "30px",
     padding: "20px",
     overflowY: "auto", //스크롤 허용
     display: "flex",
@@ -84,12 +84,12 @@ const ButtonContainer = styled.div`
 const ModalButton = styled.button`
   margin-top: 10px;
   padding: 10px 20px;
-  background-color: #4caf50;
+  background-color: #6296bb;
   color: white;
   border: none;
   font-size: 15px;
   font-weight: bold;
-  border-radius: 4px;
+  border-radius: 20px;
   cursor: pointer;
 `;
 

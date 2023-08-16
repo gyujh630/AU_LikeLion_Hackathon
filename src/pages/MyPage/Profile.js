@@ -71,12 +71,43 @@ const Profile = () => {
         alignItems: "center",
       }}
     >
-      <h2>내 정보</h2>
+      {/* <h2>내 정보</h2> */}
       <ProfileImage src={tempUserInfo.profile} alt="프로필이미지" />
-      <p>이름: {tempUserInfo.name}</p>
-      <p>ID: {tempUserInfo.id}</p>
-      <p>카테고리: {getCategoryText(tempUserInfo.category)}</p>
-
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <h2 style={{ margin: 0, marginBottom: "20px" }}>
+            {tempUserInfo.name}
+          </h2>
+        </div>
+        <div
+          style={{
+            width: "100px",
+            margin: "4px 4px 4px 0",
+            fontSize: "12px",
+            padding: "3px",
+            border: "2px solid #336ba3",
+            fontWeight: "800",
+            color: "#336ba3",
+            borderRadius: "50px",
+          }}
+        >
+          @{tempUserInfo.id}
+        </div>
+        <div
+          style={{
+            width: "100px",
+            margin: "4px 4px 4px 0",
+            fontSize: "12px",
+            padding: "3px",
+            border: "2px solid #336ba3",
+            fontWeight: "800",
+            color: "#336ba3",
+            borderRadius: "50px",
+          }}
+        >
+          {getCategoryText(tempUserInfo.category)}
+        </div>
+      </div>
       {/* api 연결 응답 부분 */}
       {/* {userInfo && (
         <div>
@@ -100,19 +131,19 @@ const ProfileImage = styled.img`
 `;
 
 const WithdrawButton = styled.button`
-  background-color: white;
-  color: #333;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 14px;
+  background-color: grey;
+  color: white;
+  font-weight: bold;
+  border-radius: 50px;
+  font-size: 15 px;
+  border: none;
   padding: 10px 20px;
-  margin-top: 40px;
+  margin-top: 100px;
   cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
+  transition: all 300ms ease;
 
   &:hover {
     background-color: #333;
-    color: white;
   }
 `;
 

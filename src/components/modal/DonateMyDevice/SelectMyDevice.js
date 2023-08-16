@@ -172,8 +172,11 @@ const SelectMyDevice = ({ isOpen, onClose }) => {
             type="submit"
             disabled={!formIsValid} // Use formIsValid here
             style={{
-              backgroundColor: formIsValid ? "#4CAF50" : "#ccc",
+              backgroundColor: formIsValid ? "#6296bb" : "#ccc",
               cursor: formIsValid ? "pointer" : "not-allowed",
+              width: "200px",
+              margin: "auto",
+              borderRadius: "50px",
             }}
             onClick={openConfirmModal}
           >
@@ -220,9 +223,9 @@ const DeviceInfo = styled.div`
 
 const DeviceBox = styled.div`
   background-color: #f0f0f0;
-  border-radius: 8px;
+  border-radius: 30px;
   padding: 15px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
   display: flex;
   align-items: flex-start;
   /* width: 100%; */
@@ -249,7 +252,7 @@ const ModalStyles = {
     maxWidth: "900px",
     width: "70%",
     height: "50%",
-    borderRadius: "8px",
+    borderRadius: "30px",
     padding: "20px",
     overflowY: "auto", //스크롤 허용
     display: "flex",
@@ -301,7 +304,7 @@ const CustomSelect = styled.select`
   padding: 2px;
   font-size: 13px;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 10px;
 `;
 
 const slideIn = keyframes`

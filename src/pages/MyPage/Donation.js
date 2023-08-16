@@ -40,9 +40,7 @@ const Donation = () => {
 
   return (
     <StyleDonation>
-      <div id="title-box">
-        <h2>기부 목록</h2>
-      </div>
+      <div id="title-box">{/* <h2>기부 목록</h2> */}</div>
       <main>
         {/* DeliveryStatusProvider로 감싸기 */}
         <DeliveryStatusProvider>

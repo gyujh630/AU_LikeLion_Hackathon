@@ -45,9 +45,9 @@ const StyledStatus = styled.div`
   margin: 20px;
   height: 30px;
   border: none;
-  border-radius: 4px;
+  border-radius: 50px;
   color: white;
-  background-color: #4caf50;
+  background-color: #6296bb;
   font-weight: bold;
   font-size: 13px;
 `;
@@ -64,7 +64,7 @@ const StyledApplication = styled.div`
 
   div#apply-box {
     border: none;
-    border-radius: 12px;
+    border-radius: 30px;
     background-color: #f2f2f2;
     flex-direction: column;
     margin: auto;
@@ -105,7 +105,7 @@ const StyledApplication = styled.div`
 
   p#user-apply-name {
     font-size: 16px;
-    font-weight: bold;
+    font-weight: 600;
     margin-bottom: 8px;
   }
 
@@ -135,6 +135,7 @@ const StyledApplication = styled.div`
     width: 90%;
     margin-bottom: 20px;
     border: none;
+    border-radius: 20px;
     font-size: 12px;
     color: #424242;
     background-color: white;

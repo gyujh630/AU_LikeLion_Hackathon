@@ -142,7 +142,7 @@ const ModalStyles = {
     minHeight: "400px",
     width: "70%",
     height: "70%",
-    borderRadius: "8px",
+    borderRadius: "30px",
     padding: "20px",
     overflowY: "auto", //스크롤 허용
     display: "flex",
@@ -185,10 +185,11 @@ const SubmitButton = styled.button`
   border: none;
   background-color: grey;
   font-size: 15px;
+  width: 150px;
   font-weight: bold;
-  border-radius: 4px;
+  border-radius: 50px;
   cursor: ${({ disabled }) => (disabled ? "not-allowed" : "pointer")};
-  background-color: ${({ disabled }) => (disabled ? "grey" : "#4caf50")};
+  background-color: ${({ disabled }) => (disabled ? "grey" : "#6296bb")};
   transition: background-color 0.3s;
 `;
 

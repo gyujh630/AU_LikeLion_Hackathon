@@ -78,7 +78,7 @@ const Device = () => {
   return (
     <StyleApplication>
       <div id="title-box">
-        <h2>등록된 기기</h2>
+        {/* <h2>등록된 기기</h2> */}
         <button id="add-btn" onClick={() => setModalIsOpen(true)}>
           새 기기 추가
         </button>{" "}
@@ -132,19 +132,23 @@ const StyleApplication = styled.section`
   }
 
   button#add-btn {
-    // font-weight: bold;
-    position: absolute;
+    font-weight: bold;
+    width: 300px;
     right: 25px;
     margin: auto;
     padding: 10px 20px;
     font-size: 16px;
-    background-color: #007bff;
+    background-color: #336ba3;
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 50px;
     cursor: pointer;
-    width: 150px;
     margin: 20px 0;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: #afcce1;
+    }
   }
 `;
 

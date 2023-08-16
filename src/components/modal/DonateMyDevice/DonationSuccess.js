@@ -65,7 +65,17 @@ const DonationSuccess = ({ isOpen, onClose }) => {
             <br />
           </div>
         </DeviceBox>
-        <ConfirmButton style={{ padding: 0 }} onClick={handleConfirm}>
+        <ConfirmButton
+          style={{
+            padding: 0,
+            borderRadius: "50px",
+            width: "200px",
+            backgroundColor: "#6296bb",
+            color: "white",
+            border: "none",
+          }}
+          onClick={handleConfirm}
+        >
           확인
         </ConfirmButton>
       </ModalContainer>
@@ -128,7 +138,7 @@ const ModalStyles = {
     maxWidth: "900px",
     width: "70%",
     height: "50%",
-    borderRadius: "8px",
+    borderRadius: "30px",
     padding: "20px",
     overflowY: "auto", //스크롤 허용
     display: "flex",
@@ -141,7 +151,6 @@ const ModalStyles = {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.3)",
   },
 };
 

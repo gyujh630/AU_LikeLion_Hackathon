@@ -160,18 +160,11 @@ const StyledHome = styled.div`
     margin-top: 40px;
   }
 
-  .circle-container {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 40px;
-  }
-
   .circle {
     width: 130px;
     height: 130px;
     background-color: white; /* 배경색 변경 */
-    border: 1px solid black; /* 검정색 border 추가 */
+    border: 1px solid black;
     border-radius: 50%;
     display: flex;
     align-items: center;

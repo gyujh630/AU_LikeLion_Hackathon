@@ -30,6 +30,7 @@ const PostDetail = () => {
       >
         <div
           style={{
+            marginBottom: "20px",
             color: "inherit",
             display: "flex",
             alignItems: "center",
@@ -37,7 +38,7 @@ const PostDetail = () => {
           }}
         >
           <BackButton />
-          <h2 style={{ padding: "0px", margin: "0" }}>상세정보</h2>
+          <h2>상세정보</h2>
         </div>
       </div>
       <div id="apply-box">
@@ -68,9 +69,9 @@ const PostDetail = () => {
         </div>
       </div>
       {isLogin() && getUserCategory() === "0" && (
-        <CustomBtn onClick={() => setDonationModalIsOpen(true)}>
+        <DonateBtn onClick={() => setDonationModalIsOpen(true)}>
           내 기기 기부하기
-        </CustomBtn>
+        </DonateBtn>
       )}
       {DonationModalIsOpen && (
         <SelectMyDevice
@@ -83,13 +84,13 @@ const PostDetail = () => {
   );
 };
 
-const CustomBtn = styled.button`
+const DonateBtn = styled.button`
   width: 200px;
   height: 50px;
   border: none;
-  border-radius: 4px;
+  border-radius: 50px;
   color: white;
-  background-color: #007bff;
+  background-color: #336ba3;
   font-weight: bold;
   font-size: 20px;
   cursor: pointer;
@@ -97,7 +98,7 @@ const CustomBtn = styled.button`
   margin: 0px 10px 50px 10px;
 
   &:hover {
-    background-color: #0056b3;
+    background-color: #afcce1;
   }
 `;
 
@@ -106,9 +107,9 @@ const StyledStatus = styled.div`
   margin: 20px;
   height: 30px;
   border: none;
-  border-radius: 4px;
+  border-radius: 50px;
   color: white;
-  background-color: #4caf50;
+  background-color: #6296bb;
   font-weight: bold;
   font-size: 13px;
 `;
@@ -130,7 +131,7 @@ const CustomPostDetail = styled.div`
 
   div#apply-box {
     border: none;
-    border-radius: 12px;
+    border-radius: 30px;
     background-color: #f2f2f2;
     flex-direction: column;
     margin: auto;
@@ -164,7 +165,7 @@ const CustomPostDetail = styled.div`
 
   p#user-apply-name {
     font-size: 17px;
-    font-weight: bold;
+    font-weight: 600;
     margin-bottom: 8px;
   }
 
@@ -210,6 +211,7 @@ const CustomPostDetail = styled.div`
     width: 85%;
     margin: 20px 0 30px 0;
     border: none;
+    border-radius: 20px;
     font-size: 12px;
     color: #424242;
     background-color: white;

@@ -5,6 +5,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
 import { setLogin } from "../constants/auth";
+import "../styles/global.css";
 
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
@@ -71,16 +72,16 @@ function Login() {
   return (
     <div className="login" style={{ marginTop: "100px" }}>
       <div style={styles.container}>
-        <h1>로그인</h1>
+        <h1 style={{ fontSize: "28px" }}>로그인</h1>
         <form onSubmit={handleSubmit(onSubmit)} style={styles.form}>
           <div style={styles.inputGroup}>
             <label htmlFor="username" style={styles.label}>
               <span
                 style={{
                   display: "inline-block",
-                  width: "100px",
+                  width: "60px",
+                  marginRight: "20px",
                   textAlign: "center",
-                  marginRight: "10px",
                 }}
               >
                 아이디
@@ -105,9 +106,9 @@ function Login() {
               <span
                 style={{
                   display: "inline-block",
-                  width: "100px",
+                  width: "60px",
                   textAlign: "center",
-                  marginRight: "10px",
+                  marginRight: "20px",
                 }}
               >
                 비밀번호
@@ -133,7 +134,8 @@ function Login() {
             disabled={!isValid} // Disable the button based on form validity
             style={{
               ...styles.button,
-              backgroundColor: isValid && isDirty ? "#4CAF50" : "#ccc",
+              backgroundColor:
+                isValid && isDirty ? "var(--color-blue)" : "#ccc",
               cursor: isValid && isDirty ? "pointer" : "not-allowed",
             }}
           />
@@ -154,7 +156,8 @@ const styles = {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    marginTop: "20px",
+    justifyContent: "center",
+    marginTop: "30px",
   },
   inputGroup: {
     marginBottom: "40px",
@@ -166,15 +169,15 @@ const styles = {
     padding: "8px 12px",
     border: "1px solid #ccc",
     borderRadius: "4px",
-    width: "250px",
+    width: "200px",
   },
   button: {
+    marginTop: "10px",
     padding: "10px 20px",
     fontSize: "16px",
-    backgroundColor: "#4CAF50",
     color: "white",
     border: "none",
-    borderRadius: "4px",
+    borderRadius: "50px",
     cursor: "pointer",
     width: "250px",
   },

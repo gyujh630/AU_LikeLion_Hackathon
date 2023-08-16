@@ -44,34 +44,38 @@ const NavBar = () => {
         id="logo"
         src={process.env.PUBLIC_URL + "/imgs/logo2.png"}
       />
-      <ul>
-        <li>
-          <Button to="/">Home</Button>
-        </li>
-        <li>
-          <Button to="/postlist">PostList</Button>
-        </li>
-        {/* login 여부에 따른 조건부 렌더링 */}
-        {isLogin() ? (
-          <>
-            <li>
-              <LogoutButton onClick={handleLogout}>Logout</LogoutButton>
-            </li>
-            <li>
-              <Button to="/mypage">MyPage</Button>
-            </li>
-          </>
-        ) : (
-          <>
-            <li>
-              <Button to="/login">Login</Button>
-            </li>
-            <li>
-              <Button to="/signup">Sign Up</Button>
-            </li>
-          </>
-        )}
-      </ul>
+      <div id="nav-container">
+        <ul id="ul-left">
+          <li>
+            <Button to="/">Home</Button>
+          </li>
+          <li>
+            <Button to="/postlist">PostList</Button>
+          </li>
+          {/* login 여부에 따른 조건부 렌더링 */}
+        </ul>
+        <ul id="ul-right">
+          {isLogin() ? (
+            <>
+              <li>
+                <LogoutButton onClick={handleLogout}>Logout</LogoutButton>
+              </li>
+              <li>
+                <Button to="/mypage">MyPage</Button>
+              </li>
+            </>
+          ) : (
+            <>
+              <li>
+                <Button to="/login">Login</Button>
+              </li>
+              <li>
+                <Button to="/signup">Sign Up</Button>
+              </li>
+            </>
+          )}
+        </ul>
+      </div>
     </StyledNav>
   );
 };
@@ -89,15 +93,36 @@ const StyledNav = styled.nav`
   height: 80px; /* Increase the height of the navigation bar */
 
   img#logo {
+    flex: 2;
     width: 50px;
     position: absolute;
     left: 30px;
+  }
+
+  div#nav-container {
+    width: 100%;
+    display: flex;
+    // justify-content: space-between;
   }
 
   ul {
     display: flex;
     list-style: none;
     padding: 0;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+  }
+
+  ul#ul-left {
+    flex: 1;
+    margin-left: 100px;
+  }
+
+  ul#ul-right {
+    flex: 3;
+    justify-content: right;
+    margin-right: 20px;
   }
 
   li {

@@ -82,7 +82,6 @@ function SignUpDonator() {
   return (
     <div className="SignUpDonator" style={{ marginTop: "100px" }}>
       <div style={styles.container}>
-        <h1>회원가입</h1>
         <h2>기부자 회원가입</h2>
         <form onSubmit={handleSubmit(onSubmit)} style={styles.form}>
           <div style={styles.inputGroup}>
@@ -210,7 +209,7 @@ function SignUpDonator() {
             disabled={!isValid} // Disable the button based on form validity
             style={{
               ...styles.button,
-              backgroundColor: isValid && isDirty ? "#4CAF50" : "#ccc",
+              backgroundColor: isValid && isDirty ? "#6296bb" : "#ccc",
               cursor: isValid && isDirty ? "pointer" : "not-allowed",
             }}
           />
@@ -248,10 +247,9 @@ const styles = {
   button: {
     padding: "10px 20px",
     fontSize: "16px",
-    backgroundColor: "#4CAF50",
     color: "white",
     border: "none",
-    borderRadius: "4px",
+    borderRadius: "50px",
     cursor: "pointer",
     width: "250px",
   },

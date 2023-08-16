@@ -40,7 +40,6 @@ const Application = () => {
   return (
     <StyleApplication>
       <div id="title-box">
-        <h2>수혜 신청 목록</h2>
         <button id="apply-btn" onClick={() => setModalIsOpen(true)}>
           수혜 신청하기
         </button>
@@ -90,29 +89,25 @@ const StyleApplication = styled.section`
   }
 
   div#title-box {
-    width: 100%;
-    justify-content: center;
     margin-bottom: 20px;
   }
 
   button#apply-btn {
     font-weight: bold;
-    position: absolute;
-    right: 100px;
     margin: auto;
     padding: 10px 20px;
     font-size: 16px;
-    background-color: #007bff;
+    background-color: #336ba3;
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 50px;
     cursor: pointer;
-    width: 150px;
+    width: 300px;
     margin: 20px 0;
     transition: background-color 0.3s;
 
     &:hover {
-      background-color: #0056b3;
+      background-color: #afcce1;
     }
   }
 `;

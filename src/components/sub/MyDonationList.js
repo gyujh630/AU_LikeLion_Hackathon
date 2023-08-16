@@ -76,20 +76,20 @@ export const MyDonationList = (props) => {
 // style
 
 const StyledDeliveryNumButton = styled.button`
-  width: 100px;
+  width: 150px;
   padding: 8px 12px;
   margin: 25px 25px 0px 25px;
-  height: 60px;
+  height: 30px;
   border: none;
-  border-radius: 4px;
+  border-radius: 50px;
   color: white;
-  background-color: #007bff;
+  background-color: #336ba3;
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s;
 
   &:hover {
-    background-color: #0056b3;
+    background-color: #afcce1;
   }
 `;
 
@@ -99,9 +99,9 @@ const StyledStatusButton = styled.button`
   margin: 25px 25px 0px 25px;
   height: 30px;
   border: none;
-  border-radius: 4px;
+  border-radius: 50px;
   color: white;
-  background-color: #4caf50;
+  background-color: #6296bb;
   font-weight: bold;
 `;
 
@@ -117,7 +117,7 @@ const StyledMyDonation = styled.div`
 
   div#apply-box {
     border: none;
-    border-radius: 12px;
+    border-radius: 30px;
     background-color: #f2f2f2;
     flex-direction: column;
     margin: auto;
@@ -152,7 +152,7 @@ const StyledMyDonation = styled.div`
 
   p#user-apply-name {
     font-size: 17px;
-    font-weight: bold;
+    font-weight: 600;
     margin-bottom: 8px;
   }
 

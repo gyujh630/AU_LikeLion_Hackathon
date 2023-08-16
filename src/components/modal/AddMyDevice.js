@@ -80,7 +80,7 @@ const AddMyDevice = ({ isOpen, onClose }) => {
       </div>
 
       <ModalContainer>
-        <h2>새 기기 추가</h2>
+        <h2 style={{ marginBottom: "40px" }}>새 기기 추가</h2>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <div className="input-row">
             <h4>기기타입 *</h4>
@@ -195,7 +195,10 @@ const AddMyDevice = ({ isOpen, onClose }) => {
               type="submit"
               disabled={!isValid}
               style={{
-                backgroundColor: isValid && isDirty ? "#4CAF50" : "#ccc",
+                margin: "auto",
+                width: "150px",
+                borderRadius: "50px",
+                backgroundColor: isValid && isDirty ? "#6296bb" : "#ccc",
                 cursor: isValid && isDirty ? "pointer" : "not-allowed",
               }}
             >
@@ -220,8 +223,8 @@ const ModalStyles = {
     minHeight: "400px",
     maxWidth: "700px",
     width: "70%",
-    height: "50%",
-    borderRadius: "8px",
+    height: "60%",
+    borderRadius: "30px",
     padding: "20px",
     overflowY: "auto", //스크롤 허용
     display: "flex",

@@ -13,7 +13,7 @@ const PostList = () => {
     <CustomPostList>
       <div style={{ marginTop: "100px" }}>
         <div style={styles.container}>
-          <h1>수혜 신청 목록</h1>
+          <h1 style={{ fontSize: "28px" }}>수혜 신청 목록</h1>
           <div id="postlist-top">
             <div id="postlist-filter">필터</div>
             {isLogin() && getUserCategory() === "1" && (
@@ -71,7 +71,7 @@ const CustomPostList = styled.div`
   }
 
   div#postlist-top {
-    width: 80%;
+    width: 85%;
     display: flex;
     justify-content: space-between;
   }
@@ -80,16 +80,16 @@ const CustomPostList = styled.div`
     font-weight: bold;
     padding: 10px 20px;
     font-size: 16px;
-    background-color: #007bff;
+    background-color: #336ba3;
     color: white;
     border: none;
-    border-radius: 4px;
+    border-radius: 50px;
     cursor: pointer;
     width: 150px;
     transition: background-color 0.3s;
 
     &:hover {
-      background-color: #0056b3;
+      background-color: #afcce1;
     }
   }
 `;
