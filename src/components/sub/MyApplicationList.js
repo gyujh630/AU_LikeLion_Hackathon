@@ -6,10 +6,7 @@ export const MyApplicationList = (props) => {
   const [modalIsOpen, setModalIsOpen] = useState(false); //modal 열고 닫는 상태
 
   // props.data에서 데이터 추출
-  const { userName, devicetype, content, date, status } = props.data;
-
-  // DeliveryStatusContext 사용
-  const { status: contextStatus, setStatus } = useDeliveryStatus();
+  const { userName, deviceType, content, date, status, address } = props.data;
 
   // 배송상태 string
   const statusString = ["매칭 대기중", "매칭 완료", "배송중", "수령 완료"];
@@ -22,7 +19,7 @@ export const MyApplicationList = (props) => {
           {/* 추후 img로 변경*/}
           <div id="apply-profile">
             <p id="user-apply-name">{userName}</p>
-            <p id="device-type">신청 기기 유형: {devicetype}</p>
+            <p id="device-type">신청 기기 유형: {deviceType}</p>
           </div>
           <div id="apply-date">
             <p>등록날짜: {date}</p>
@@ -51,13 +48,6 @@ export const MyApplicationList = (props) => {
     </StyledMyApplication>
   );
 };
-
-const Atag = styled.a`
-  margin: 10px;
-  font-size: 12px;
-  text-decoration: none;
-  color: blue;
-`;
 
 const StyledStatusButton = styled.button`
   width: 100px;

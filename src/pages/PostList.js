@@ -8,7 +8,6 @@ import { getUserCategory, isLogin } from "../constants/auth";
 
 const PostList = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false); //modal 열고 닫는 상태
-  console.log(applicationDataList[0]);
   return (
     <CustomPostList>
       <div style={{ marginTop: "100px" }}>

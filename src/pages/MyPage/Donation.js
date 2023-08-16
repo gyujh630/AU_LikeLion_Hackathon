@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { MyDonationList } from "../../components/sub/MyDonationList";
 import { getDonationList } from "../../services/MyPageAPI";
-import { DeliveryStatusProvider } from "../../contexts/DeliveryStatusContext";
 
 const Donation = () => {
   const exampleDonateListData = [
@@ -43,12 +42,10 @@ const Donation = () => {
       <div id="title-box">{/* <h2>기부 목록</h2> */}</div>
       <main>
         {/* DeliveryStatusProvider로 감싸기 */}
-        <DeliveryStatusProvider>
-          {/* data 배열을 반복 -> 컴포넌트 생성 */}
-          {exampleDonateListData.map((data, index) => (
-            <MyDonationList key={index} data={data} />
-          ))}
-        </DeliveryStatusProvider>
+        {/* data 배열을 반복 -> 컴포넌트 생성 */}
+        {exampleDonateListData.map((data, index) => (
+          <MyDonationList key={index} data={data} />
+        ))}
       </main>
     </StyleDonation>
   );

@@ -4,6 +4,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import Routing from "./Routing";
 import ScrollToTop from "./constants/scrollTop";
+import { DeliveryStatusProvider } from "./contexts/DeliveryStatusContext";
 import "./index.css";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
