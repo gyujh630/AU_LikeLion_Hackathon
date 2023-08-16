@@ -31,15 +31,6 @@ export const MyApplicationList = (props) => {
             <StyledStatusButton status={status}>
               {statusString[status]}
             </StyledStatusButton>
-            {status === 2 && (
-              <Atag
-                id="change-status"
-                href="#"
-                onClick={() => setModalIsOpen(true)}
-              >
-                수령 완료로 변경
-              </Atag>
-            )}
           </div>
         </div>
         <div id="apply-bottom">

@@ -10,6 +10,8 @@ const Application = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false); //modal 열고 닫는 상태
   const applicationDataList = [
     {
+      applyId: "n3nnkds2kj11a",
+      userId: "16",
       userName: "홍길동",
       devicetype: "노트북",
       content: "너무 필요합니다",
@@ -17,6 +19,8 @@ const Application = () => {
       status: 2,
     },
     {
+      applyId: "n3nnkds2kj11a",
+      userId: "16",
       userName: "홍길동",
       devicetype: "스마트폰",
       content: "안녕하세요~",
@@ -24,6 +28,8 @@ const Application = () => {
       status: 1,
     },
     {
+      applyId: "n3nnkds2kj11a",
+      userId: "16",
       userName: "홍길동",
       devicetype: "태블릿",
       content: "아이패드 주세요",
