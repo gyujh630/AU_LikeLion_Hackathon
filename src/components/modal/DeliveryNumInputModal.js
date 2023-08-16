@@ -1,12 +1,10 @@
 import { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import Modal from "react-modal";
-import { useDeliveryStatus } from "../../contexts/DeliveryStatusContext";
 
 Modal.setAppElement("#root");
 
 const DeliveryNumInputModal = ({ isOpen, onClose, onConfirm }) => {
-  const { status, setStatus } = useDeliveryStatus(); // DeliveryStatusContext 사용
   const [deliveryNum, setDeliveryNum] = useState(""); // 송장번호 상태
 
   const handleConfirm = () => {

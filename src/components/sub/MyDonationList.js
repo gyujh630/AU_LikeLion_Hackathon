@@ -18,9 +18,6 @@ export const MyDonationList = (props) => {
     deliverNum,
   } = props.data;
 
-  // DeliveryStatusContext 사용
-  const { status: contextStatus, setStatus } = useDeliveryStatus();
-
   // 배송상태 string
   const statusString = ["매칭 대기중", "매칭 완료", "배송중", "수령 완료"];
 
