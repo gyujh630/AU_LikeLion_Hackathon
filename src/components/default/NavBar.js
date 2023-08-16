@@ -36,14 +36,14 @@ const NavBar = () => {
 
   return (
     <StyledNav ref={targetRef}>
-      {/* <img
+      <img
         onClick={() => {
           navigate("/");
         }}
         style={{ cursor: "pointer" }}
         id="logo"
-        src={process.env.PUBLIC_URL + "/imgs/logo3.jpg"}
-      /> */}
+        src={process.env.PUBLIC_URL + "/imgs/logo2.png"}
+      />
       <ul>
         <li>
           <Button to="/">Home</Button>
@@ -89,7 +89,7 @@ const StyledNav = styled.nav`
   height: 80px; /* Increase the height of the navigation bar */
 
   img#logo {
-    width: 80px;
+    width: 50px;
     position: absolute;
     left: 30px;
   }

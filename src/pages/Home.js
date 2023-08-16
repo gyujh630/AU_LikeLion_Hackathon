@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { getDeviceCount } from "../services/HomeAPI";
 import { isLogin, getUserCategory } from "../constants/auth";
+import "../styles/global.css";
 
 const Home = () => {
   // TODO :: api 연결 후 하드코딩 숫자 지워야 함
@@ -29,7 +30,7 @@ const Home = () => {
       <StyledHome>
         <header>
           <h1>
-            기부자와 수혜자를 연결해
+            DA가치는 기부자와 수혜자를 연결해
             <br />
             기술의 힘을 모두가 누리는 세상을 꿈꿉니다.
           </h1>
@@ -109,6 +110,7 @@ const StyledHome = styled.div`
   h1 {
     font-size: 24px;
     line-height: 1.5;
+    font-weight: 800;
   }
 
   nav {
@@ -120,18 +122,19 @@ const StyledHome = styled.div`
 
   button {
     padding: 10px 20px;
-    background-color: #333;
+    background-color: var(--color-blue);
     color: white;
     border: none;
-    border-radius: 5px;
-    font-size: 16px;
+    margin-top: 10px;
+    border-radius: 50px;
+    font-size: 18px;
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s;
   }
 
   button:hover {
-    background-color: #555;
+    background-color: var(--color-light-blue);
   }
 
   main {
@@ -168,7 +171,7 @@ const StyledHome = styled.div`
     width: 130px;
     height: 130px;
     background-color: white; /* 배경색 변경 */
-    border: 2px solid black; /* 검정색 border 추가 */
+    border: 1px solid black; /* 검정색 border 추가 */
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -178,8 +181,7 @@ const StyledHome = styled.div`
 
   .circle span {
     font-weight: bold;
-    font-size: 20px;
-    margin-bottom: 5px;
+    font-size: 24px;
   }
 
   .circle .count {
