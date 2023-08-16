@@ -111,7 +111,11 @@ function SignUpDonator() {
             />
             {errors.name && (
               <div
-                style={{ marginLeft: "100px", marginTop: "10px", color: "red" }}
+                style={{
+                  marginLeft: "100px",
+                  marginTop: "10px",
+                  color: "#336ba3",
+                }}
               >
                 {errors.name.message}
               </div>
@@ -137,7 +141,11 @@ function SignUpDonator() {
             />
             {errors.id && (
               <div
-                style={{ marginLeft: "100px", marginTop: "10px", color: "red" }}
+                style={{
+                  marginLeft: "100px",
+                  marginTop: "10px",
+                  color: "#336ba3",
+                }}
               >
                 {errors.id.message}
               </div>
@@ -164,7 +172,11 @@ function SignUpDonator() {
             />
             {errors.password && (
               <div
-                style={{ marginLeft: "100px", marginTop: "10px", color: "red" }}
+                style={{
+                  marginLeft: "100px",
+                  marginTop: "10px",
+                  color: "#336ba3",
+                }}
               >
                 {errors.password.message}
               </div>
@@ -191,7 +203,11 @@ function SignUpDonator() {
             />
             {errors.passwordConfirm && (
               <div
-                style={{ marginLeft: "100px", marginTop: "10px", color: "red" }}
+                style={{
+                  marginLeft: "100px",
+                  marginTop: "10px",
+                  color: "#336ba3",
+                }}
               >
                 {errors.passwordConfirm.message}
               </div>

@@ -99,7 +99,11 @@ function Login() {
             />
             {errors.id && (
               <div
-                style={{ marginLeft: "100px", marginTop: "10px", color: "red" }}
+                style={{
+                  marginLeft: "100px",
+                  marginTop: "10px",
+                  color: "#336ba3",
+                }}
               >
                 {errors.id.message}
               </div>
@@ -127,7 +131,11 @@ function Login() {
             />
             {errors.password && (
               <div
-                style={{ marginLeft: "100px", marginTop: "10px", color: "red" }}
+                style={{
+                  marginLeft: "100px",
+                  marginTop: "10px",
+                  color: "#336ba3",
+                }}
               >
                 {errors.password.message}
               </div>
