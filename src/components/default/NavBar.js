@@ -8,7 +8,6 @@ const NavBar = () => {
   const navigate = useNavigate();
   const targetRef = useRef(null);
   const handleScroll = () => {
-    console.log("scrolling");
     if (window.scrollY > 50) {
       targetRef.current.style.borderBottom = "0.5px solid #dfdfdf";
     } else {

@@ -75,3 +75,33 @@ export const deleteUser = async () => {
     throw error;
   }
 };
+
+//수혜신청 취소
+export const cancelApplication = async () => {
+  try {
+    const response = await axios.delete(`${apiUrl}/:applyId`, {
+      headers: {
+        // Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error deleting application:", error);
+    throw error;
+  }
+};
+
+//수혜신청 수정
+export const updateApplication = async (body) => {
+  try {
+    const response = await axios.patch(`${apiUrl}/:applyId`, body, {
+      headers: {
+        // Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error update application:", error);
+    throw error;
+  }
+};

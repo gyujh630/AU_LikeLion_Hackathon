@@ -5,7 +5,7 @@ const DeliveryStatusContext = createContext();
 
 // Provider 생성
 export const DeliveryStatusProvider = ({ children }) => {
-  const [status, setStatus] = useState("");
+  const [status, setStatus] = useState(0);
 
   return (
     <DeliveryStatusContext.Provider value={{ status, setStatus }}>

@@ -20,6 +20,7 @@ import Device from "./pages/MyPage/Device";
 import Donation from "./pages/MyPage/Donation";
 import Profile from "./pages/MyPage/Profile";
 import DeviceDetails from "./components/DeviceDetails";
+import MyPostDetails from "./components/MyPostDetails";
 
 import SignUp from "./pages/SignUp/SignUp";
 import SignUpReceiver from "./pages/SignUp/SignUpReceiver";
@@ -94,7 +95,7 @@ const Routing = () => {
         path="/mypage/application/:apply_id"
         element={
           <CommonLayout>
-            <PostDetails />
+            <MyPostDetails />
           </CommonLayout>
         }
       />
