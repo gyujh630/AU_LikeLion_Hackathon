@@ -147,9 +147,9 @@ const CustomPostDetail = styled.div`
   div#apply-profile-image {
     flex: none;
     height: width;
-    width: 50px;
-    height: 50px;
-    margin: 30px 0 30px 30px;
+    width: 70px;
+    height: 70px;
+    margin: 30px 20px 30px 30px;
     background-color: white;
     border-radius: 50%;
   }
@@ -158,18 +158,19 @@ const CustomPostDetail = styled.div`
     flex: 4;
     flex-direction: column;
     margin: auto;
-    padding-left: 15px;
+    justify-content: center;
     text-align: left;
   }
 
   p#user-apply-name {
-    font-size: 16px;
+    font-size: 17px;
     font-weight: bold;
     margin-bottom: 8px;
   }
 
   p#device-type {
-    font-size: 12px;
+    font-size: 14px;
+    margin-top: 5px;
   }
 
   p {
