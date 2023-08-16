@@ -5,6 +5,7 @@ import { updateUserInfo } from "../../services/MyPageAPI";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { deleteUser } from "../../services/MyPageAPI";
+import "../../styles/global.css";
 
 const MySwal = withReactContent(Swal);
 
@@ -38,6 +39,9 @@ const Profile = () => {
       title: "정말로 탈퇴하시겠습니까?",
       text: "탈퇴 시 모든 정보가 삭제됩니다.",
       icon: "warning",
+      confirmButtonColor: "var(--color-blue)",
+      cancelButtonColor: "gray",
+      iconColor: "var(--color-blue)",
       showCancelButton: true,
       confirmButtonText: "네, 탈퇴하겠습니다.",
       cancelButtonText: "취소",
@@ -52,13 +56,34 @@ const Profile = () => {
         try {
           const response = await deleteUser();
           if (response.status === 204 || response.status === 200) {
-            MySwal.fire("탈퇴 완료", "회원 탈퇴가 완료되었습니다.", "success");
+            MySwal.fire({
+              title: "탈퇴 완료",
+              text: "회원 탈퇴가 완료되었습니다.",
+              icon: "success",
+              confirmButtonColor: "var(--color-blue)",
+              cancelButtonColor: "gray",
+              iconColor: "var(--color-blue)",
+            });
           } else {
-            MySwal.fire("실패", "회원 탈퇴를 실패하였습니다.", "error");
+            MySwal.fire({
+              title: "실패",
+              text: "회원 탈퇴를 실패하였습니다.",
+              icon: "error",
+              confirmButtonColor: "var(--color-blue)",
+              cancelButtonColor: "gray",
+              iconColor: "var(--color-blue)",
+            });
           }
         } catch (error) {
           console.error("Error deleting user:", error);
-          MySwal.fire("에러", "회원 탈퇴 중 에러가 발생하였습니다.", "error");
+          MySwal.fire({
+            title: "에러",
+            text: "회원 탈퇴 중 에러가 발생하였습니다.",
+            icon: "error",
+            confirmButtonColor: "var(--color-blue)",
+            cancelButtonColor: "gray",
+            iconColor: "var(--color-blue)",
+          });
         }
       }
     });

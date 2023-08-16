@@ -4,6 +4,7 @@ import * as yup from "yup";
 
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import "../../styles/global.css";
 
 const MySwal = withReactContent(Swal);
 
@@ -60,18 +61,24 @@ function SignUpDonator() {
           icon: "success",
           title: "가입 성공",
           text: "회원가입이 성공적으로 완료되었습니다.",
+          confirmButtonColor: "var(--color-blue)",
+          iconColor: "var(--color-blue)",
         });
       } else if (response.status === 409) {
         MySwal.fire({
           icon: "error",
           title: "가입 실패",
           text: "중복된 아이디입니다.",
+          confirmButtonColor: "var(--color-blue)",
+          iconColor: "var(--color-blue)",
         });
       } else {
         MySwal.fire({
           icon: "error",
           title: "가입 실패",
           text: "알 수 없는 오류가 발생했습니다.",
+          confirmButtonColor: "var(--color-blue)",
+          iconColor: "var(--color-blue)",
         });
       }
     } catch (error) {

@@ -57,11 +57,15 @@ function Login() {
         MySwal.fire({
           icon: "error",
           text: "회원 정보가 맞지 않습니다.",
+          confirmButtonColor: "var(--color-blue)",
+          iconColor: "var(--color-blue)",
         });
       } else {
         MySwal.fire({
           icon: "error",
           text: "알 수 없는 오류가 발생했습니다.",
+          confirmButtonColor: "var(--color-blue)",
+          iconColor: "var(--color-blue)",
         });
       }
     } catch (error) {
