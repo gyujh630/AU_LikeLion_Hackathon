@@ -79,6 +79,14 @@ const Routing = () => {
         <Route index element={<Navigate to="Profile" />} />
         <Route path="profile" element={<Profile />} />
         <Route path="application" element={<Application />} />
+        <Route
+          path="/mypage/application/:apply_id"
+          element={
+            <CommonLayout>
+              <PostDetails />
+            </CommonLayout>
+          }
+        />
         <Route path="donation" element={<Donation />} />
         <Route path="device" element={<Device />} />
       </Route>
@@ -91,7 +99,7 @@ const Routing = () => {
         }
       />
       <Route
-        path="/postlist/:index"
+        path="/postlist/:apply_id"
         element={
           <CommonLayout>
             <PostDetails />

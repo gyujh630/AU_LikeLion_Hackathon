@@ -98,6 +98,11 @@ const StyledMyApplication = styled.div`
     margin: auto;
     width: 80%;
     margin-bottom: 30px;
+    transition: all 200ms ease;
+    &:hover {
+      box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+    }
   }
 
   div#apply-top,

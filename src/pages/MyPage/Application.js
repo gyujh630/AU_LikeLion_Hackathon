@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { MyApplicationList } from "../../components/sub/MyApplicationList";
 import { getMyApplicationList } from "../../services/MyPageAPI";
 import { DeliveryStatusProvider } from "../../contexts/DeliveryStatusContext";
@@ -29,13 +30,6 @@ const Application = () => {
       date: "2023-08-04",
       status: 0,
     },
-    {
-      userName: "홍길동",
-      devicetype: "스마트폰",
-      content: "폰이 없어요",
-      date: "2023-08-04",
-      status: 2,
-    },
   ];
   return (
     <StyleApplication>
@@ -46,11 +40,18 @@ const Application = () => {
         </button>
       </div>
       <main>
-        {/* DeliveryStatusProvider로 감싸기 */}
         <DeliveryStatusProvider>
           {/* data 배열을 반복 -> 컴포넌트 생성 */}
           {applicationDataList.map((data, index) => (
-            <MyApplicationList key={index} data={data} />
+            <Link
+              key={index}
+              to={`/mypage/application/${data.applyId}`}
+              state={data}
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              {/* 클릭하면 해당 항목의 상세 페이지로 이동 */}
+              <MyApplicationList data={data} />
+            </Link>
           ))}
         </DeliveryStatusProvider>
       </main>

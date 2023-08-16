@@ -32,7 +32,7 @@ const PostList = () => {
               {applicationDataList.map((data, index) => (
                 <Link
                   key={index}
-                  to={`/postlist/${index}`}
+                  to={`/postlist/${data.applyId}`}
                   state={data}
                   style={{ textDecoration: "none", color: "inherit" }}
                 >
@@ -96,6 +96,7 @@ const CustomPostList = styled.div`
 
 const applicationDataList = [
   {
+    applyId: "n3nnkds2kj11a",
     userName: "홍길동",
     devicetype: "노트북",
     content: "너무 필요합니다",
@@ -103,6 +104,7 @@ const applicationDataList = [
     status: 0,
   },
   {
+    applyId: "n3nnkds2kj11a",
     userName: "홍길동",
     devicetype: "스마트폰",
     content: "안녕하세요~",
@@ -110,6 +112,7 @@ const applicationDataList = [
     status: 0,
   },
   {
+    applyId: "n3nnkds2kj11a",
     userName: "홍길동",
     devicetype: "태블릿",
     content: "아이패드 주세요",
@@ -117,6 +120,7 @@ const applicationDataList = [
     status: 0,
   },
   {
+    applyId: "n3nnkds2kj11a",
     userName: "홍길동",
     devicetype: "스마트폰",
     content: "폰이 없어요",

@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import SelectMyDevice from "./modal/DonateMyDevice/SelectMyDevice";
 import { isLogin, getUserCategory } from "../constants/auth";
+import BackButton from "../components/default/BackButton";
 
 const PostDetail = () => {
   const location = useLocation();
@@ -27,8 +28,7 @@ const PostDetail = () => {
           textAlign: "left",
         }}
       >
-        <Link
-          to="/postlist"
+        <div
           style={{
             color: "inherit",
             display: "flex",
@@ -36,13 +36,9 @@ const PostDetail = () => {
             textDecoration: "none",
           }}
         >
-          <FontAwesomeIcon
-            icon={faChevronLeft}
-            fontSize={"25px"}
-            style={{ padding: "20px", marginTop: "30px", marginBottom: "30px" }}
-          />
+          <BackButton />
           <h2 style={{ padding: "0px", margin: "0" }}>상세정보</h2>
-        </Link>
+        </div>
       </div>
       <div id="apply-box">
         <div id="apply-top">
