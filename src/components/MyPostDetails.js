@@ -20,8 +20,7 @@ const MyPostDetail = () => {
   //   status: 0,
   // };
   const { date, status, address, userName, deviceType, content } = postData; //  api get 요청으로 데이터 받아오도록 수정
-  const statusString = ["매칭 대기중", "매칭 완료", "배송중", "수령 완료"];
-
+  const statusString = ["", "매칭 대기중", "매칭 완료", "배송중", "수령 완료"];
   const [modalIsOpen, setModalIsOpen] = useState(false); //modal 열고 닫는 상태
   const [updateModalIsOpen, setUpdateModalIsOpen] = useState(false); //modal 열고 닫는 상태
   // 모달 닫기 함수
@@ -89,7 +88,7 @@ const MyPostDetail = () => {
           </div>
         </div>
         <div id="device-container">
-          {status > 0 ? <p>매칭된 기기 정보 표시</p> : null}
+          {status > 1 ? <p>매칭된 기기 정보 표시</p> : null}
         </div>
         <div id="btn-container">
           {status === 2 ? (
@@ -100,7 +99,7 @@ const MyPostDetail = () => {
               수령 확인
             </BottomBtn>
           ) : null}
-          {status === 0 ? (
+          {status === 1 ? (
             <BottomBtn
               onClick={() => setUpdateModalIsOpen(true)}
               style={{ width: "200px" }}
@@ -108,7 +107,7 @@ const MyPostDetail = () => {
               신청내용 수정
             </BottomBtn>
           ) : null}
-          {status === 0 ? (
+          {status === 1 ? (
             <BottomBtn style={{ width: "200px" }}>신청 취소</BottomBtn>
           ) : null}
         </div>

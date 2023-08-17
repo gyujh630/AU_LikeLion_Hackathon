@@ -11,7 +11,7 @@ const PostDetail = () => {
   const location = useLocation();
   const postData = location.state; //받아온 apply data
   const { date, status, userName, devicetype, content } = postData;
-  const statusString = ["매칭 대기중", "매칭 완료", "배송중", "수령 완료"];
+  const statusString = ["", "매칭 대기중", "매칭 완료", "배송중", "수령 완료"];
 
   const [DonationModalIsOpen, setDonationModalIsOpen] = useState(false);
 

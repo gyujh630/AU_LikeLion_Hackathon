@@ -19,7 +19,7 @@ export const MyDonationList = (props) => {
   } = props.data;
 
   // 배송상태 string
-  const statusString = ["매칭 대기중", "매칭 완료", "배송중", "수령 완료"];
+  const statusString = ["", "매칭 대기중", "매칭 완료", "배송중", "수령 완료"];
 
   return (
     <StyledMyDonation>

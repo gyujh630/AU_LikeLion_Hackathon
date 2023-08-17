@@ -61,7 +61,18 @@ const Application = () => {
       const response = await getMyApplicationList();
 
       if (response && Array.isArray(response.apply)) {
-        setApplicationDataList(response.apply);
+        // user 정보를 객체의 userId를 기반으로 찾아서 추가
+        const updatedList = response.apply.map((item) => {
+          const user = response.user; // user 정보
+          const matchedUser = user && user.userId === item.userId ? user : null;
+
+          return {
+            ...item,
+            userName: matchedUser ? matchedUser.name : "Unknown", // userName 추가
+          };
+        });
+
+        setApplicationDataList(updatedList);
       } else {
         console.error("Invalid data format:", response);
       }

@@ -15,10 +15,10 @@ const ApplyModal = ({ isOpen, onClose, onConfirm }) => {
     console.log(content, address, deviceType);
     // 제출 시 작업
     const data = {
-      // userId: "", //유저 정보 토큰으로 조회해서..
       deviceType: deviceType,
       address: address,
       content: content,
+      // status: 0,
     };
 
     try {
