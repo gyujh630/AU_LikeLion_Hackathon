@@ -30,7 +30,7 @@ const Device = () => {
     fetchDevices();
   }, []);
 
-  const conditionMap = {
+  const conditionsMap = {
     1: "최상",
     2: "상",
     3: "중",
@@ -76,7 +76,7 @@ const Device = () => {
             key={device.id}
             deviceInfo={{
               ...device,
-              condition: conditionMap[device.condition],
+              conditions: conditionsMap[device.conditions],
             }}
           />
         ))}
