@@ -104,9 +104,9 @@ export const createApplication = async (dataSet) => {
 };
 
 //수혜신청 취소
-export const cancelApplication = async () => {
+export const cancelApplication = async (applyId) => {
   try {
-    const response = await axios.delete(`${apiUrl}/:applyId`, {
+    const response = await axios.delete(`${apiUrl}/apply/${applyId}/delete`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -119,13 +119,17 @@ export const cancelApplication = async () => {
 };
 
 //수혜신청 수정
-export const updateApplication = async (dataSet) => {
+export const updateApplication = async (applyId, dataSet) => {
   try {
-    const response = await axios.patch(`${apiUrl}/:applyId/update`, dataSet, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await axios.patch(
+      `${apiUrl}/apply/${applyId}/update`,
+      dataSet,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     return response.data;
   } catch (error) {
     console.error("Error update application:", error);

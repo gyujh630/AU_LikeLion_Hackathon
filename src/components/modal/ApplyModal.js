@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Modal from "react-modal";
 import { createApplication } from "../../services/MyPageAPI";
@@ -6,6 +7,7 @@ import { createApplication } from "../../services/MyPageAPI";
 Modal.setAppElement("#root");
 
 const ApplyModal = ({ isOpen, onClose, onConfirm }) => {
+  const navigate = useNavigate();
   const [content, setContent] = useState("");
   const [address, setAddress] = useState("");
   const [deviceType, setDeviceType] = useState("스마트폰");
@@ -18,7 +20,6 @@ const ApplyModal = ({ isOpen, onClose, onConfirm }) => {
       deviceType: deviceType,
       address: address,
       content: content,
-      // status: 0,
     };
 
     try {
@@ -28,6 +29,7 @@ const ApplyModal = ({ isOpen, onClose, onConfirm }) => {
       console.error(error);
     }
     onClose();
+    window.location.href = "/mypage/Application";
   };
 
   useEffect(() => {

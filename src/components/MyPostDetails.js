@@ -1,15 +1,16 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
 import BackButton from "./default/BackButton";
 import DeliveryConfirmModal from "./modal/DeliveryConfirmModal";
 import UpdateApplyModal from "./modal/UpdateApplyModal";
-import { getApplication } from "../services/MyPageAPI";
+import { getApplication, cancelApplication } from "../services/MyPageAPI";
+import { deleteAlert } from "./swal/deleteSwal";
 
 const MyPostDetail = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const applyId = location.state; //받아온 apply id
-
   const [applicationData, setApplicationData] = useState();
   const [modalIsOpen, setModalIsOpen] = useState(false); //modal 열고 닫는 상태
   const [updateModalIsOpen, setUpdateModalIsOpen] = useState(false); //modal 열고 닫는 상태
@@ -18,17 +19,31 @@ const MyPostDetail = () => {
     fetchMyApplication();
   }, []);
 
+  const handleCancel = async (applyId, navigate) => {
+    deleteAlert(applyId);
+    try {
+      const response = await cancelApplication(applyId);
+      if (response.status === 200) {
+        console.log("취소 완료");
+        // 취소가 성공한 경우에 실행할 로직
+      } else {
+        console.log("취소 실패");
+        // 취소가 실패한 경우에 실행할 로직
+      }
+    } catch (error) {
+      console.log("Error deleting application:", error);
+    }
+  };
+
   const fetchMyApplication = async () => {
     try {
       const postData = await getApplication(applyId);
-      console.log(postData);
 
       const newData = {
         ...postData.apply,
         ...postData.user,
       };
       setApplicationData(newData);
-      console.log(newData);
     } catch (error) {
       console.error("Error fetching application detail:", error);
     }
@@ -93,6 +108,7 @@ const MyPostDetail = () => {
           <div id="apply-profile">
             <p id="user-apply-name">{name}</p>
             <p id="device-type">신청 기기 유형: {deviceType}</p>
+            <p id="device-type">수령위치: {address}</p>
           </div>
         </div>
         <h3 id="apply-content-title">신청 사유</h3>
@@ -122,7 +138,12 @@ const MyPostDetail = () => {
             </BottomBtn>
           ) : null}
           {status === 1 ? (
-            <BottomBtn style={{ width: "200px" }}>신청 취소</BottomBtn>
+            <BottomBtn
+              onClick={() => handleCancel(applyId)}
+              style={{ width: "200px" }}
+            >
+              신청 취소
+            </BottomBtn>
           ) : null}
         </div>
       </div>
@@ -228,11 +249,11 @@ const CustomPostDetail = styled.div`
   p#user-apply-name {
     font-size: 17px;
     font-weight: 600;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
   }
 
   p#device-type {
-    font-size: 14px;
+    font-size: 12px;
     margin-top: 5px;
   }
 

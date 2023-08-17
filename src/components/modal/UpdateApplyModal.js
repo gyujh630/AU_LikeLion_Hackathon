@@ -23,7 +23,7 @@ const UpdateApplyModal = ({ isOpen, onClose, onConfirm, props }) => {
 
     try {
       // 수혜신청 생성 api
-      await updateApplication(data);
+      await updateApplication(props.applyId, data);
     } catch (error) {
       console.error(error);
     }
@@ -62,7 +62,7 @@ const UpdateApplyModal = ({ isOpen, onClose, onConfirm, props }) => {
             <div id="apply-profile-image"></div>
             {/* 추후 img로 변경*/}
             <div id="apply-profile">
-              <p id="user-apply-name">홍길동</p>
+              <p id="user-apply-name">{props.name}</p>
               <div id="select-box">
                 <p
                   style={{

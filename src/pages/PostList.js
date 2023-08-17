@@ -18,7 +18,6 @@ const PostList = () => {
   const fetchApplicationList = async () => {
     try {
       const response = await getApplicationList();
-      console.log(response);
       const newlist = [];
 
       response.forEach((data) => {
@@ -28,8 +27,6 @@ const PostList = () => {
         };
         newlist.push(mergedData);
       });
-
-      console.log(newlist);
 
       setApplicationDataList(newlist);
     } catch (error) {

@@ -14,6 +14,7 @@ const Application = () => {
   }, []);
 
   const fetchMyApplicationList = async () => {
+    console.log("실행");
     try {
       const response = await getMyApplicationList();
 
@@ -36,6 +37,13 @@ const Application = () => {
     } catch (error) {
       console.error("Error fetching application list:", error);
     }
+  };
+
+  const handleModalConfirm = async () => {
+    // 모달 확인 버튼을 누를 때의 동작을 처리합니다.
+    // 수혜 신청 완료 후 상태 업데이트를 진행하고, 리스트를 다시 불러옵니다.
+    setModalIsOpen(false); // 모달을 닫습니다.
+    await fetchMyApplicationList();
   };
 
   return (
@@ -64,7 +72,7 @@ const Application = () => {
         <ApplyModal
           isOpen={modalIsOpen}
           onClose={() => setModalIsOpen(false)}
-          onConfirm={() => setModalIsOpen(false)}
+          onConfirm={handleModalConfirm}
         />
       )}
     </StyleApplication>
