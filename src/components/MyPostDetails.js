@@ -21,35 +21,24 @@ const MyPostDetail = () => {
   const fetchMyApplication = async () => {
     try {
       const postData = await getApplication(applyId);
-      setApplicationData(postData);
+      console.log(postData);
+
+      const newData = {
+        ...postData.apply,
+        ...postData.user,
+      };
+      setApplicationData(newData);
+      console.log(newData);
     } catch (error) {
       console.error("Error fetching application detail:", error);
     }
   };
 
-  console.log(applicationData);
-
   if (!applicationData) {
     return <div>해당 항목을 찾을 수 없습니다.</div>;
   }
 
-  // user 정보를 객체 내의 userId를 기반으로 찾아서 추가
-  const { apply, user } = applicationData;
-  const updatedApplyList = apply.map((item) => {
-    const matchedUser = user && user.userId === item.userId ? user : null;
-
-    return {
-      ...item,
-      userName: matchedUser ? matchedUser.name : "Unknown", // userName 추가
-    };
-  });
-
-  if (!applicationData) {
-    return <div>해당 항목을 찾을 수 없습니다.</div>;
-  }
-
-  const { date, status, address, userName, deviceType, content } =
-    applicationData; //  api get 요청으로 데이터 받아오도록 수정
+  const { date, status, address, name, deviceType, content } = applicationData; //  api get 요청으로 데이터 받아오도록 수정
   const statusString = ["", "매칭 대기중", "매칭 완료", "배송중", "수령 완료"];
 
   // 모달 닫기 함수
@@ -102,7 +91,7 @@ const MyPostDetail = () => {
           <div id="apply-profile-image"></div>
           {/* 추후 img로 변경*/}
           <div id="apply-profile">
-            <p id="user-apply-name">{userName}</p>
+            <p id="user-apply-name">{name}</p>
             <p id="device-type">신청 기기 유형: {deviceType}</p>
           </div>
         </div>
