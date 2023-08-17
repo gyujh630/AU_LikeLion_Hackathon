@@ -6,6 +6,8 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import "../../styles/global.css";
 
+import SERVER_URL from "../../constants/serverUrl";
+
 const MySwal = withReactContent(Swal);
 
 function SignUpReceiver() {
@@ -37,6 +39,7 @@ function SignUpReceiver() {
     register,
     handleSubmit,
     watch,
+    setValue,
     formState: { errors, isValid, isDirty },
   } = useForm({
     mode: "onChange",
@@ -47,15 +50,25 @@ function SignUpReceiver() {
 
   const onSubmit = async (data) => {
     try {
-      const formData = new FormData();
-      for (const key in data) {
-        formData.append(key, data[key]);
-      }
+      // * NEW
+      const { passwordConfirm, certification, profile, ...jsonData } = data;
 
-      const response = await fetch("/users/join/receiver", {
+      // FormData를 생성, profileImg가 있는 경우에만 추가
+      const formData = new FormData();
+      if (profile && profile[0]) {
+        formData.append("profile", profile[0]);
+      }
+      if (certification && certification[0]) {
+        formData.append("certification", certification[0]);
+      }
+      // 나머지 데이터(JSON)를 FormData에 JSON 문자열로 추가
+      formData.append("data", JSON.stringify(jsonData));
+
+      const response = await fetch(`${SERVER_URL}/users/join/receiver`, {
         method: "POST",
-        body: formData, // FormData 사용
+        body: formData,
       });
+
       if (response.ok) {
         MySwal.fire({
           icon: "success",
@@ -214,7 +227,7 @@ function SignUpReceiver() {
             )}
           </div>
           <div style={styles.inputGroup}>
-            <label htmlFor="profileImg" style={styles.label}>
+            <label htmlFor="profile" style={styles.label}>
               <span
                 style={{
                   display: "inline-block",
@@ -225,7 +238,19 @@ function SignUpReceiver() {
                 프로필 사진
               </span>
             </label>
-            <input type="file" placeholder="프로필 사진" style={styles.input} />
+            <input
+              type="file"
+              name="profile"
+              placeholder="프로필 사진"
+              {...register("profile")}
+              // onChange={(e) => {
+              //   if (e.target.files && e.target.files[0]) {
+              //     // 선택된 이미지 파일을 상태에 저장
+              //     setValue("profile", e.target.files[0]);
+              //   }
+              // }}
+              style={styles.input}
+            />{" "}
           </div>
           <div style={styles.inputGroup}>
             <label htmlFor="certification" style={styles.label}>
