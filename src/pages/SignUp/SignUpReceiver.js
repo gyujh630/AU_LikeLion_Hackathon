@@ -32,7 +32,8 @@ function SignUpReceiver() {
     passwordConfirm: yup
       .string()
       .oneOf([yup.ref("password")], "비밀번호가 다릅니다."),
-    certification: yup.string().required("수혜자 인증 파일을 등록해주세요."),
+    // certification: yup.string().required("수혜자 인증 파일을 등록해주세요."),
+    // TODO :: yup - 파일 required 검증 수정해야함
   });
 
   const {
@@ -52,9 +53,15 @@ function SignUpReceiver() {
     try {
       // * NEW
       const { passwordConfirm, certification, profile, ...jsonData } = data;
+      console.log(jsonData);
 
-      // FormData를 생성, profileImg가 있는 경우에만 추가
       const formData = new FormData();
+
+      formData.append(
+        "user",
+        new Blob([JSON.stringify(jsonData)], { type: "application/json" })
+      );
+
       if (profile && profile[0]) {
         formData.append("profile", profile[0]);
       }
@@ -62,12 +69,13 @@ function SignUpReceiver() {
         formData.append("certification", certification[0]);
       }
       // 나머지 데이터(JSON)를 FormData에 JSON 문자열로 추가
-      formData.append("user", JSON.stringify(jsonData));
 
       const response = await fetch(`${SERVER_URL}/users/join/receiver`, {
         method: "POST",
         body: formData,
       });
+
+      console.log(response.status);
 
       if (response.ok) {
         MySwal.fire({
@@ -295,13 +303,12 @@ function SignUpReceiver() {
           </div>
           <input
             type="submit"
-
-            // disabled={!isValid || !isDirty} // Disable the button based on form validity
-            // style={{
-            //   ...styles.button,
-            //   backgroundColor: isValid && isDirty ? "#6296bb" : "#ccc",
-            //   cursor: isValid && isDirty ? "pointer" : "not-allowed",
-            // }}
+            disabled={!isValid} // Disable the button based on form validity
+            style={{
+              ...styles.button,
+              backgroundColor: isValid && isDirty ? "#6296bb" : "#ccc",
+              cursor: isValid && isDirty ? "pointer" : "not-allowed",
+            }}
           />
         </form>
       </div>
