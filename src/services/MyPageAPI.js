@@ -36,7 +36,7 @@ export const getDonationList = async () => {
 // 사용자 정보 가져오기 - request url은 /users, get 요청, Authorization 헤더 필요
 export const getUserInfo = async () => {
   try {
-    const response = await axios.get(`${apiUrl}/users`, {
+    const response = await axios.get(`${apiUrl}/myinfo`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

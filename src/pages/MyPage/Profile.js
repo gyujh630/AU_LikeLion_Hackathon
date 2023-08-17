@@ -10,12 +10,6 @@ import "../../styles/global.css";
 const MySwal = withReactContent(Swal);
 
 // TODO : api 연결 후 수정 필요
-const tempUserInfo = {
-  name: "홍길동",
-  id: "likelion123",
-  profile: "image",
-  category: 0,
-};
 
 const Profile = () => {
   const [userInfo, setUserInfo] = useState(null);
@@ -97,12 +91,16 @@ const Profile = () => {
       }}
     >
       {/* <h2>내 정보</h2> */}
-      <ProfileImage src={tempUserInfo.profile} alt="프로필이미지" />
+      {userInfo &&
+        userInfo.profile !== null && ( // userInfo가 있고 "profile"이 null이 아닌 경우에만 렌더링
+          <ProfileImage src={userInfo.profile} alt="프로필이미지" />
+        )}
+
       <div style={{ display: "flex", flexDirection: "column" }}>
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <h2 style={{ margin: 0, marginBottom: "20px" }}>
-            {tempUserInfo.name}
-          </h2>
+          {userInfo && ( // userInfo가 있을 때만 렌더링
+            <h2 style={{ margin: 0, marginBottom: "20px" }}>{userInfo.name}</h2>
+          )}{" "}
         </div>
         <div
           style={{
@@ -116,22 +114,25 @@ const Profile = () => {
             borderRadius: "50px",
           }}
         >
-          @{tempUserInfo.id}
+          {userInfo && userInfo.id}
         </div>
-        <div
-          style={{
-            width: "100px",
-            margin: "4px 4px 4px 0",
-            fontSize: "12px",
-            padding: "3px",
-            border: "2px solid #336ba3",
-            fontWeight: "800",
-            color: "#336ba3",
-            borderRadius: "50px",
-          }}
-        >
-          {getCategoryText(tempUserInfo.category)}
-        </div>
+        {userInfo &&
+          userInfo.profile !== null && ( // userInfo가 있고 "profile"이 null이 아닌 경우에만 렌더링
+            <div
+              style={{
+                width: "100px",
+                margin: "4px 4px 4px 0",
+                fontSize: "12px",
+                padding: "3px",
+                border: "2px solid #336ba3",
+                fontWeight: "800",
+                color: "#336ba3",
+                borderRadius: "50px",
+              }}
+            >
+              {userInfo.category !== null && getCategoryText(userInfo.category)}
+            </div>
+          )}
       </div>
       {/* api 연결 응답 부분 */}
       {/* {userInfo && (
