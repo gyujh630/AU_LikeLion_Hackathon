@@ -1,4 +1,5 @@
 import axios from "axios";
+axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
 
 const apiUrl = "http://3.34.86.186:8080";
 const token = localStorage.getItem("token");
@@ -120,7 +121,22 @@ export const cancelApplication = async () => {
 //수혜신청 수정
 export const updateApplication = async (dataSet) => {
   try {
-    const response = await axios.patch(`${apiUrl}/:applyId`, dataSet, {
+    const response = await axios.patch(`${apiUrl}/:applyId/update`, dataSet, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error update application:", error);
+    throw error;
+  }
+};
+
+//수혜신청 조회
+export const getApplication = async (applyId) => {
+  try {
+    const response = await axios.get(`${apiUrl}/apply/${applyId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

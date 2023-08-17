@@ -1,28 +1,57 @@
 import { useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import BackButton from "./default/BackButton";
 import DeliveryConfirmModal from "./modal/DeliveryConfirmModal";
 import UpdateApplyModal from "./modal/UpdateApplyModal";
+import { getApplication } from "../services/MyPageAPI";
 
 const MyPostDetail = () => {
   const location = useLocation();
-  const postData = location.state; //받아온 apply data
-  // const postData = {
-  //   //  api get 요청으로 데이터 받아오도록 수정
-  //   applyId: "1",
-  //   userId: "16",
-  //   userName: "홍길동",
-  //   deviceType: "노트북",
-  //   content: "너무 필요합니다",
-  //   address: "우만동 행정복지센터",
-  //   date: "2023-08-02",
-  //   status: 0,
-  // };
-  const { date, status, address, userName, deviceType, content } = postData; //  api get 요청으로 데이터 받아오도록 수정
-  const statusString = ["", "매칭 대기중", "매칭 완료", "배송중", "수령 완료"];
+  const applyId = location.state; //받아온 apply id
+
+  const [applicationData, setApplicationData] = useState();
   const [modalIsOpen, setModalIsOpen] = useState(false); //modal 열고 닫는 상태
   const [updateModalIsOpen, setUpdateModalIsOpen] = useState(false); //modal 열고 닫는 상태
+
+  useEffect(() => {
+    fetchMyApplication();
+  }, []);
+
+  const fetchMyApplication = async () => {
+    try {
+      const postData = await getApplication(applyId);
+      setApplicationData(postData);
+    } catch (error) {
+      console.error("Error fetching application detail:", error);
+    }
+  };
+
+  console.log(applicationData);
+
+  if (!applicationData) {
+    return <div>해당 항목을 찾을 수 없습니다.</div>;
+  }
+
+  // user 정보를 객체 내의 userId를 기반으로 찾아서 추가
+  const { apply, user } = applicationData;
+  const updatedApplyList = apply.map((item) => {
+    const matchedUser = user && user.userId === item.userId ? user : null;
+
+    return {
+      ...item,
+      userName: matchedUser ? matchedUser.name : "Unknown", // userName 추가
+    };
+  });
+
+  if (!applicationData) {
+    return <div>해당 항목을 찾을 수 없습니다.</div>;
+  }
+
+  const { date, status, address, userName, deviceType, content } =
+    applicationData; //  api get 요청으로 데이터 받아오도록 수정
+  const statusString = ["", "매칭 대기중", "매칭 완료", "배송중", "수령 완료"];
+
   // 모달 닫기 함수
   const closeModal = () => {
     // 모달이 닫힐 때 MyPostDetail 컴포넌트를 리렌더링하도록 상태 업데이트
@@ -34,10 +63,6 @@ const MyPostDetail = () => {
     setModalIsOpen(false);
     // 상태 업데이트를 통해 리렌더링 발생
   };
-
-  if (!postData) {
-    return <div>해당 항목을 찾을 수 없습니다.</div>;
-  }
 
   return (
     <CustomPostDetail>
@@ -124,7 +149,7 @@ const MyPostDetail = () => {
           isOpen={updateModalIsOpen}
           onClose={() => setUpdateModalIsOpen(false)}
           onConfirm={() => setUpdateModalIsOpen(false)}
-          props={postData}
+          props={applicationData}
         />
       )}
     </CustomPostDetail>

@@ -1,13 +1,42 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import ApplyModal from "../components/modal/ApplyModal";
 import ApplicationList from "../components/sub/ApplicationList";
 import { DeliveryStatusProvider } from "../contexts/DeliveryStatusContext";
 import { getUserCategory, isLogin } from "../constants/auth";
+import { getApplicationList } from "../services/PostListAPI";
 
 const PostList = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false); //modal 열고 닫는 상태
+  const [applicationDataList, setApplicationDataList] = useState([]);
+
+  useEffect(() => {
+    fetchApplicationList();
+  }, []);
+
+  const fetchApplicationList = async () => {
+    try {
+      const response = await getApplicationList();
+      console.log(response);
+      const newlist = [];
+
+      response.forEach((data) => {
+        const mergedData = {
+          ...data.apply,
+          ...data.user,
+        };
+        newlist.push(mergedData);
+      });
+
+      console.log(newlist);
+
+      setApplicationDataList(newlist);
+    } catch (error) {
+      console.error("Error fetching application list:", error);
+    }
+  };
+
   return (
     <CustomPostList>
       <div style={{ marginTop: "100px" }}>
