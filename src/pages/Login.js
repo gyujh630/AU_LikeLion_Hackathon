@@ -10,6 +10,8 @@ import "../styles/global.css";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
+import SERVER_URL from "../constants/serverUrl";
+
 const MySwal = withReactContent(Swal);
 
 function Login() {
@@ -31,31 +33,20 @@ function Login() {
 
   const onSubmit = async (data) => {
     try {
-      const response = await fetch("/users/login", {
+      const response = await fetch(`${SERVER_URL}/users/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(data),
       });
-
-      //   if (response.ok) {
-      //     // 로그인 성공 처리
-      // setLogin("12345", 1); //수혜자 로그인 예시 테스트
-      setLogin(
-        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJham91bGlvbiIsImlhdCI6MTY5MjI3NjMwMCwiZXhwIjoxNjkyMzYyNzAwLCJzdWIiOiIzNyJ9.osC9o-1QlnO9m2dBHzxdJK-oAXNNdI1IXbo-J2ZxRLU",
-        1
-      ); //기부자 로그인 예시 테스트
-
-      // localStorage.setItem("category", 1); //예시 (수혜자)
-      navigate("/");
-      //   } else {
-      //     // 로그인 실패 처리
-      //   }
-
-      // swal
-
       if (response.ok) {
+        const jwtToken = response.headers.get("Authorization");
+        if (jwtToken !== null) {
+          localStorage.setItem("jwt", jwtToken); // JWT 토큰을 localStorage에 저장
+        }
+        navigate("/");
+        // localStorage.setItem("category", 1); // 예시 (수혜자)
       } else if (response.status === 401) {
         MySwal.fire({
           icon: "error",
