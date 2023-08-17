@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { deleteUser } from "../../services/MyPageAPI";
 import "../../styles/global.css";
+import { setLogOut, isLogin } from "../../constants/auth";
 
 const MySwal = withReactContent(Swal);
 

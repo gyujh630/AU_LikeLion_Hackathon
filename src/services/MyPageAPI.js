@@ -68,6 +68,7 @@ export const updateUserInfo = async () => {
 //유저 정보 삭제
 export const deleteUser = async () => {
   try {
+    const token = localStorage.getItem("token");
     const response = await axios.delete(`${apiUrl}/users/delete`, {
       headers: {
         Authorization: `Bearer ${token}`,

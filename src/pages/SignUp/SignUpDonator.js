@@ -58,7 +58,7 @@ function SignUpDonator() {
         formData.append("profile", profile[0]);
       }
       // 나머지 데이터(JSON)를 FormData에 JSON 문자열로 추가
-      formData.append("data", JSON.stringify(jsonData));
+      formData.append("user", JSON.stringify(jsonData));
 
       const response = await fetch(`${SERVER_URL}/users/join/donator`, {
         method: "POST",

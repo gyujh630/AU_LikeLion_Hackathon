@@ -32,7 +32,7 @@ function SignUpReceiver() {
     passwordConfirm: yup
       .string()
       .oneOf([yup.ref("password")], "비밀번호가 다릅니다."),
-    certification: yup.mixed().required("수혜자 인증 파일을 등록해주세요."),
+    certification: yup.string().required("수혜자 인증 파일을 등록해주세요."),
   });
 
   const {
@@ -40,7 +40,7 @@ function SignUpReceiver() {
     handleSubmit,
     watch,
     setValue,
-    formState: { errors, isValid, isDirty },
+    formState: { errors, isValid, isDirty, isSubmitting },
   } = useForm({
     mode: "onChange",
     resolver: yupResolver(formSchema),
@@ -62,7 +62,7 @@ function SignUpReceiver() {
         formData.append("certification", certification[0]);
       }
       // 나머지 데이터(JSON)를 FormData에 JSON 문자열로 추가
-      formData.append("data", JSON.stringify(jsonData));
+      formData.append("user", JSON.stringify(jsonData));
 
       const response = await fetch(`${SERVER_URL}/users/join/receiver`, {
         method: "POST",
@@ -266,6 +266,7 @@ function SignUpReceiver() {
             </label>
             <input
               type="file"
+              name="certification"
               placeholder="수혜자 인증 파일"
               {...register("certification")}
               style={styles.input}
@@ -294,7 +295,9 @@ function SignUpReceiver() {
           </div>
           <input
             type="submit"
-            disabled={!isValid || !isDirty} // Disable the button based on form validity
+            disabled={
+              !isValid || (isSubmitting && !isDirty) || errors.certification
+            }
             style={{
               ...styles.button,
               backgroundColor: isValid && isDirty ? "#6296bb" : "#ccc",
