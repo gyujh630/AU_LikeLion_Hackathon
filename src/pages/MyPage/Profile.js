@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { deleteUser } from "../../services/MyPageAPI";
 import "../../styles/global.css";
+import { setLogOut } from "../../constants/auth";
 
 const MySwal = withReactContent(Swal);
 
@@ -27,19 +28,17 @@ const Profile = () => {
   const getCategoryText = (category) => {
     return category === 0 ? "기부자" : "수혜자"; // 숫자로 비교
   };
-
-  const handleWithdrawal = () => {
+  const handleWithdrawal = async () => {
     MySwal.fire({
-      title: "정말로 탈퇴하시겠습니까?",
-      text: "탈퇴 시 모든 정보가 삭제됩니다.",
+      title: "신청을 취소하시겠습니까?",
+      text: "취소 시 복구할 수 없습니다..",
       icon: "warning",
       confirmButtonColor: "var(--color-blue)",
       cancelButtonColor: "gray",
       iconColor: "var(--color-blue)",
       showCancelButton: true,
-      confirmButtonText: "네, 탈퇴하겠습니다.",
+      confirmButtonText: "확인",
       cancelButtonText: "취소",
-      reverseButtons: true,
       focusCancel: true,
       customClass: {
         confirmButton: "swal-confirm-button",
@@ -48,8 +47,8 @@ const Profile = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          const response = await deleteUser();
-          if (response.status === 204 || response.status === 200) {
+          const responseStatus = await deleteUser();
+          if (responseStatus === 204 || responseStatus === 200) {
             MySwal.fire({
               title: "탈퇴 완료",
               text: "회원 탈퇴가 완료되었습니다.",
@@ -57,11 +56,14 @@ const Profile = () => {
               confirmButtonColor: "var(--color-blue)",
               cancelButtonColor: "gray",
               iconColor: "var(--color-blue)",
+            }).then(() => {
+              setLogOut(); // 로그아웃 처리
+              window.location.href = "/"; // 홈으로 이동
             });
           } else {
             MySwal.fire({
               title: "실패",
-              text: "회원 탈퇴를 실패하였습니다.",
+              text: "취소를 실패하였습니다.",
               icon: "error",
               confirmButtonColor: "var(--color-blue)",
               cancelButtonColor: "gray",
@@ -72,7 +74,7 @@ const Profile = () => {
           console.error("Error deleting user:", error);
           MySwal.fire({
             title: "에러",
-            text: "회원 탈퇴 중 에러가 발생하였습니다.",
+            text: "취소 중 에러가 발생하였습니다.",
             icon: "error",
             confirmButtonColor: "var(--color-blue)",
             cancelButtonColor: "gray",
@@ -82,6 +84,7 @@ const Profile = () => {
       }
     });
   };
+
   return (
     <div
       style={{

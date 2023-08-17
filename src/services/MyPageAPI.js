@@ -76,7 +76,7 @@ export const deleteUser = async () => {
         Authorization: `Bearer ${token}`,
       },
     });
-    return response.data;
+    return response.status;
   } catch (error) {
     console.error("Error deleting user:", error);
     throw error;
