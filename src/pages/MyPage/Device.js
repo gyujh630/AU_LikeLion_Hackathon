@@ -5,14 +5,21 @@ import AddMyDevice from "../../components/modal/AddMyDevice";
 import MyDeviceList from "../../components/sub/MyDeviceList";
 import styled from "styled-components";
 import axios from "axios"; // Import axios
+import SERVER_URL from "../../constants/serverUrl";
 
 const Device = () => {
   const [deviceList, setDeviceList] = useState([]);
 
   // 기기 데이터 가져오기
-  const fetchDevices = async (userId) => {
+  const fetchDevices = async () => {
     try {
-      const response = await axios.get(`/device/${userId}`);
+      const token = localStorage.getItem("token");
+
+      const response = await axios.get(`${SERVER_URL}/device`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setDeviceList(response.data); // Update the state with fetched data
     } catch (error) {
       console.error("Error fetching device data:", error);
@@ -20,36 +27,8 @@ const Device = () => {
   };
   useEffect(() => {
     // user_id 변경 필요
-    fetchDevices("user_id");
+    fetchDevices();
   }, []);
-
-  // dummy데이터 예시
-  const dummyDevices = [
-    {
-      id: 1,
-      model: "아이패드 에어 2 wifi 128GB",
-      usedDate: "4년",
-      condition: "2",
-      date: "2023-07-07",
-      image: "기기사진1",
-    },
-    {
-      id: 2,
-      model: "아이패드 XR 64GB",
-      usedDate: "1년",
-      condition: "5",
-      date: "2023-07-08",
-      image: "기기사진2",
-    },
-    {
-      id: 3,
-      model: "아이폰 XR 64GB",
-      usedDate: "2년",
-      condition: "4",
-      date: "2023-07-09",
-      image: "기기사진3",
-    },
-  ];
 
   const conditionMap = {
     1: "최상",
@@ -92,10 +71,7 @@ const Device = () => {
         {/* <AddMyDevice isOpen={isModalOpen} onClose={handleModalClose} /> */}
       </div>
       <main>
-        {/* {deviceList.map((deviceInfo, index) => (
-          <MyDeviceList key={index} deviceInfo={deviceInfo} />
-        ))} */}
-        {dummyDevices.map((device) => (
+        {deviceList.map((device) => (
           <MyDeviceList
             key={device.id}
             deviceInfo={{
