@@ -14,7 +14,6 @@ const Application = () => {
   }, []);
 
   const fetchMyApplicationList = async () => {
-    console.log("실행");
     try {
       const response = await getMyApplicationList();
 

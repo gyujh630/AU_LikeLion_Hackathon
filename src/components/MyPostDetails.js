@@ -6,6 +6,10 @@ import DeliveryConfirmModal from "./modal/DeliveryConfirmModal";
 import UpdateApplyModal from "./modal/UpdateApplyModal";
 import { getApplication, cancelApplication } from "../services/MyPageAPI";
 import { deleteAlert } from "./swal/deleteSwal";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
+const swalAlert = withReactContent(Swal);
 
 const MyPostDetail = () => {
   const location = useLocation();
@@ -19,11 +23,11 @@ const MyPostDetail = () => {
     fetchMyApplication();
   }, []);
 
-  const handleCancel = async (applyId, navigate) => {
-    deleteAlert(applyId);
+  const handleCancel = async (applyId) => {
     try {
-      const response = await cancelApplication(applyId);
-      if (response.status === 200) {
+      const responseStatus = await cancelApplication(applyId);
+
+      if (responseStatus === 204) {
         console.log("취소 완료");
         // 취소가 성공한 경우에 실행할 로직
       } else {

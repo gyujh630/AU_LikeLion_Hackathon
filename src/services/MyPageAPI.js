@@ -2,10 +2,10 @@ import axios from "axios";
 axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
 
 const apiUrl = "http://3.34.86.186:8080";
-const token = localStorage.getItem("token");
 
 //user token으로 user의 수혜신청목록 가져오기
 export const getMyApplicationList = async () => {
+  const token = localStorage.getItem("token");
   try {
     const response = await axios.get(`${apiUrl}/apply`, {
       headers: {
@@ -21,6 +21,7 @@ export const getMyApplicationList = async () => {
 
 //user의 기부목록 가져오기
 export const getDonationList = async () => {
+  const token = localStorage.getItem("token");
   try {
     const response = await axios.get(`${apiUrl}/donatelist`, {
       headers: {
@@ -36,6 +37,7 @@ export const getDonationList = async () => {
 
 // 사용자 정보 가져오기 - request url은 /users, get 요청, Authorization 헤더 필요
 export const getUserInfo = async () => {
+  const token = localStorage.getItem("token");
   try {
     const response = await axios.get(`${apiUrl}/myinfo`, {
       headers: {
@@ -51,6 +53,7 @@ export const getUserInfo = async () => {
 
 // 유저 정보 수정
 export const updateUserInfo = async () => {
+  const token = localStorage.getItem("token");
   try {
     const response = await axios.patch(`${apiUrl}/users/update`, {
       headers: {
@@ -66,6 +69,7 @@ export const updateUserInfo = async () => {
 
 //유저 정보 삭제
 export const deleteUser = async () => {
+  const token = localStorage.getItem("token");
   try {
     const response = await axios.delete(`${apiUrl}/users/delete`, {
       headers: {
@@ -81,6 +85,7 @@ export const deleteUser = async () => {
 
 //수혜신청
 export const createApplication = async (dataSet) => {
+  const token = localStorage.getItem("token");
   try {
     const response = await axios.post(`${apiUrl}/apply/post`, dataSet, {
       headers: {
@@ -105,13 +110,15 @@ export const createApplication = async (dataSet) => {
 
 //수혜신청 취소
 export const cancelApplication = async (applyId) => {
+  const token = localStorage.getItem("token");
   try {
     const response = await axios.delete(`${apiUrl}/apply/${applyId}/delete`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
-    return response.data;
+    console.log(response.status);
+    return response.status;
   } catch (error) {
     console.error("Error deleting application:", error);
     throw error;
@@ -120,6 +127,7 @@ export const cancelApplication = async (applyId) => {
 
 //수혜신청 수정
 export const updateApplication = async (applyId, dataSet) => {
+  const token = localStorage.getItem("token");
   try {
     const response = await axios.patch(
       `${apiUrl}/apply/${applyId}/update`,
@@ -139,6 +147,7 @@ export const updateApplication = async (applyId, dataSet) => {
 
 //수혜신청 조회
 export const getApplication = async (applyId) => {
+  const token = localStorage.getItem("token");
   try {
     const response = await axios.get(`${apiUrl}/apply/${applyId}`, {
       headers: {

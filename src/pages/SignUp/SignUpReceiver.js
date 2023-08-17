@@ -294,12 +294,12 @@ function SignUpReceiver() {
           </div>
           <input
             type="submit"
-            disabled={!isValid || !isDirty} // Disable the button based on form validity
-            style={{
-              ...styles.button,
-              backgroundColor: isValid && isDirty ? "#6296bb" : "#ccc",
-              cursor: isValid && isDirty ? "pointer" : "not-allowed",
-            }}
+            // disabled={!isValid || !isDirty} // Disable the button based on form validity
+            // style={{
+            //   ...styles.button,
+            //   backgroundColor: isValid && isDirty ? "#6296bb" : "#ccc",
+            //   cursor: isValid && isDirty ? "pointer" : "not-allowed",
+            // }}
           />
         </form>
       </div>
