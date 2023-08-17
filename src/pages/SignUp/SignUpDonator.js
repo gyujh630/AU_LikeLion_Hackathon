@@ -49,21 +49,32 @@ function SignUpDonator() {
 
   const onSubmit = async (data) => {
     try {
-      // * NEW
-      const { passwordConfirm, profile, ...jsonData } = data;
+      const { passwordConfirm, profile, certification, ...jsonData } = data;
+      console.log(jsonData);
 
-      // FormData를 생성, profileImg가 있는 경우에만 추가
       const formData = new FormData();
+
+      formData.append(
+        "user",
+        new Blob([JSON.stringify(jsonData)], { type: "application/json" })
+      );
+
+      // profile 이미지가 있는 경우에만 추가
       if (profile && profile[0]) {
         formData.append("profile", profile[0]);
       }
-      // 나머지 데이터(JSON)를 FormData에 JSON 문자열로 추가
-      formData.append("data", JSON.stringify(jsonData));
+
+      // certification 파일이 있는 경우에만 추가
+      if (certification && certification[0]) {
+        formData.append("certification", certification[0]);
+      }
 
       const response = await fetch(`${SERVER_URL}/users/join/donator`, {
         method: "POST",
         body: formData,
       });
+
+      console.log(response.status);
 
       // // * 이전
       // const formData = new FormData();
