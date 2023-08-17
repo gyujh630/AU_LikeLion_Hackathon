@@ -1,8 +1,9 @@
 import axios from "axios";
 
-const apiUrl = ""; //연동 후 수정 필요
+const apiUrl = "http://3.34.86.186:8080";
+const token = localStorage.getItem("token");
 
-//user token으로 user의 수혜신청목록 가져오기 - endpoint 수정 필요
+//user token으로 user의 수혜신청목록 가져오기
 export const getMyApplicationList = async () => {
   try {
     const response = await axios.get(`${apiUrl}/myApplications`, {
@@ -17,12 +18,12 @@ export const getMyApplicationList = async () => {
   }
 };
 
-//user의 기부목록 가져오기 - endpoint 수정 필요
+//user의 기부목록 가져오기
 export const getDonationList = async () => {
   try {
-    const response = await axios.get(`${apiUrl}/`, {
+    const response = await axios.get(`${apiUrl}/donatelist`, {
       headers: {
-        // Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
     return response.data;
@@ -37,7 +38,7 @@ export const getUserInfo = async () => {
   try {
     const response = await axios.get(`${apiUrl}/users`, {
       headers: {
-        // Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
     return response.data;
@@ -52,7 +53,7 @@ export const updateUserInfo = async () => {
   try {
     const response = await axios.patch(`${apiUrl}/users/update`, {
       headers: {
-        // Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
     return response.data;
@@ -62,11 +63,12 @@ export const updateUserInfo = async () => {
   }
 };
 
+//유저 정보 삭제
 export const deleteUser = async () => {
   try {
     const response = await axios.delete(`${apiUrl}/users/delete`, {
       headers: {
-        // Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
     return response.data;
@@ -76,12 +78,35 @@ export const deleteUser = async () => {
   }
 };
 
+//수혜신청
+export const createApplication = async (dataSet) => {
+  try {
+    const response = await axios.post(`${apiUrl}/apply/post`, dataSet, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    if (response.status === 200) {
+      return response.data;
+    } else {
+      console.error(
+        "Create application request failed with status:",
+        response.status
+      );
+      throw new Error("Create application request failed");
+    }
+  } catch (error) {
+    console.error("Error fetching create application:", error);
+    throw error;
+  }
+};
+
 //수혜신청 취소
 export const cancelApplication = async () => {
   try {
     const response = await axios.delete(`${apiUrl}/:applyId`, {
       headers: {
-        // Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
     return response.data;
@@ -92,11 +117,11 @@ export const cancelApplication = async () => {
 };
 
 //수혜신청 수정
-export const updateApplication = async (body) => {
+export const updateApplication = async (dataSet) => {
   try {
-    const response = await axios.patch(`${apiUrl}/:applyId`, body, {
+    const response = await axios.patch(`${apiUrl}/:applyId`, dataSet, {
       headers: {
-        // Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
     return response.data;

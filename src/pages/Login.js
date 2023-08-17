@@ -42,7 +42,10 @@ function Login() {
       //   if (response.ok) {
       //     // 로그인 성공 처리
       // setLogin("12345", 1); //수혜자 로그인 예시 테스트
-      setLogin("12345", 1); //기부자 로그인 예시 테스트
+      setLogin(
+        "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJham91bGlvbiIsImlhdCI6MTY5MjI3NjMwMCwiZXhwIjoxNjkyMzYyNzAwLCJzdWIiOiIzNyJ9.osC9o-1QlnO9m2dBHzxdJK-oAXNNdI1IXbo-J2ZxRLU",
+        1
+      ); //기부자 로그인 예시 테스트
 
       // localStorage.setItem("category", 1); //예시 (수혜자)
       navigate("/");

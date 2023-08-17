@@ -1,7 +1,7 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import Modal from "react-modal";
-import { createApplication } from "../../services/PostListAPI";
+import { createApplication } from "../../services/MyPageAPI";
 
 Modal.setAppElement("#root");
 
@@ -10,7 +10,7 @@ const ApplyModal = ({ isOpen, onClose, onConfirm }) => {
   const [address, setAddress] = useState("");
   const [deviceType, setDeviceType] = useState("스마트폰");
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     onConfirm();
     console.log(content, address, deviceType);
     // 제출 시 작업
@@ -19,16 +19,14 @@ const ApplyModal = ({ isOpen, onClose, onConfirm }) => {
       deviceType: deviceType,
       address: address,
       content: content,
-      status: 1,
     };
 
-    //
-    // try {
-    //   // 수혜신청 생성 api
-    //   await createApplication(data);
-    //  } catch (error) {
-    // console.error("error);
-    //  }
+    try {
+      // 수혜신청 생성 api
+      await createApplication(data);
+    } catch (error) {
+      console.error(error);
+    }
     onClose();
   };
 

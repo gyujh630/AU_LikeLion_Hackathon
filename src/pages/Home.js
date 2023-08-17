@@ -19,6 +19,7 @@ const Home = () => {
   const fetchDeviceCounts = async () => {
     try {
       const counts = await getDeviceCount();
+      console.log(counts);
       setDeviceCounts(counts);
     } catch (error) {
       console.error("Error fetching device counts:", error);
@@ -60,31 +61,29 @@ const Home = () => {
                 <span>
                   스마트폰
                   <br />
-                  <span className="count">
-                    {deviceCounts?.smartphoneNum}99대
-                  </span>
+                  <span className="count">{deviceCounts?.smartphoneNum}대</span>
                 </span>
               </div>
               <div className="circle">
                 <span>
                   태블릿
                   <br />
-                  <span className="count">{deviceCounts?.tabletNum}36대</span>
+                  <span className="count">{deviceCounts?.tabletNum}대</span>
                 </span>
               </div>
               <div className="circle">
                 <span>
                   노트북
                   <br />
-                  <span className="count">{deviceCounts?.laptopNum}72대</span>
+                  <span className="count">{deviceCounts?.labtopNum}대</span>
                 </span>
               </div>
             </div>
           </section>
           <h2>
             총{" "}
-            <span style={{ fontSize: "2em" }}>
-              {deviceCounts?.laptopNum}207
+            <span style={{ fontSize: "2em", marginRight: "2px" }}>
+              {deviceCounts?.totalNum}
             </span>
             대가 새 주인을 찾았어요!
           </h2>
