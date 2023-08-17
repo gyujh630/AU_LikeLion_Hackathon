@@ -13,6 +13,7 @@ import Home from "./pages/Home";
 import PostList from "./pages/PostList";
 import PostDetails from "./components/PostDetails";
 import Login from "./pages/Login";
+import About from "./pages/About";
 
 import MyPage from "./pages/MyPage/MyPage";
 import Application from "./pages/MyPage/Application";
@@ -34,6 +35,14 @@ const Routing = () => {
         element={
           <CommonLayout>
             <Home />
+          </CommonLayout>
+        }
+      />
+      <Route
+        path="/about"
+        element={
+          <CommonLayout>
+            <About />
           </CommonLayout>
         }
       />

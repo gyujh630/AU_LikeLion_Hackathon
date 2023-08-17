@@ -2,7 +2,11 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { useRef, useEffect } from "react";
 import styled from "styled-components";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 import { setLogOut, isLogin } from "../../constants/auth";
+
+const MySwal = withReactContent(Swal);
 
 const NavBar = () => {
   const navigate = useNavigate();
@@ -29,8 +33,7 @@ const NavBar = () => {
     // 로그아웃 처리 로직
     // <api 호출 부분>
     // 성공 시 -> localStorage 토큰과 category 삭제,
-    setLogOut();
-    document.location.href = "/"; // navigate로 이동이 안돼서 일단 이걸로 구현함
+    handleWithdrawal();
   };
 
   return (
@@ -47,6 +50,9 @@ const NavBar = () => {
         <ul id="ul-left">
           <li>
             <Button to="/">Home</Button>
+          </li>
+          <li>
+            <Button to="/about">About</Button>
           </li>
           <li>
             <Button to="/postlist">PostList</Button>
@@ -77,6 +83,64 @@ const NavBar = () => {
       </div>
     </StyledNav>
   );
+};
+
+const handleWithdrawal = () => {
+  MySwal.fire({
+    title: "로그아웃 하시겠습니까?",
+    // text: "탈퇴 시 모든 정보가 삭제됩니다.",
+    icon: "warning",
+    confirmButtonColor: "var(--color-blue)",
+    cancelButtonColor: "gray",
+    iconColor: "var(--color-blue)",
+    showCancelButton: true,
+    confirmButtonText: "확인",
+    cancelButtonText: "취소",
+    focusCancel: true,
+    customClass: {
+      confirmButton: "swal-confirm-button",
+      cancelButton: "swal-cancel-button",
+    },
+  }).then(async (result) => {
+    if (result.isConfirmed) {
+      try {
+        const response = { status: 204 };
+        if (response.status === 204 || response.status === 200) {
+          setLogOut();
+          MySwal.fire({
+            title: "로그아웃 완료",
+            text: "로그아웃이 완료되었습니다.",
+            icon: "success",
+            confirmButtonColor: "var(--color-blue)",
+            cancelButtonColor: "gray",
+            iconColor: "var(--color-blue)",
+          }).then(() => {
+            // 여기서 페이지를 새로고침 (리렌더링)
+            window.location.onload("/");
+          });
+        } else {
+          MySwal.fire({
+            title: "실패",
+            text: "로그아웃을 실패하였습니다.",
+            icon: "error",
+            confirmButtonColor: "var(--color-blue)",
+            cancelButtonColor: "gray",
+            iconColor: "var(--color-blue)",
+          });
+        }
+      } catch (error) {
+        console.error("Error deleting user:", error);
+        MySwal.fire({
+          title: "에러",
+          text: "로그아웃 중 에러가 발생하였습니다.",
+          icon: "error",
+          confirmButtonColor: "var(--color-blue)",
+          cancelButtonColor: "gray",
+          iconColor: "var(--color-blue)",
+        });
+      }
+    }
+  });
 };
 
 const StyledNav = styled.nav`
