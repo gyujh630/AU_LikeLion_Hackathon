@@ -1,29 +1,61 @@
-import { useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import BackButton from "./default/BackButton";
 import DeliveryConfirmModal from "./modal/DeliveryConfirmModal";
 import UpdateApplyModal from "./modal/UpdateApplyModal";
+import { getApplication, cancelApplication } from "../services/MyPageAPI";
+import { deleteAlert } from "./swal/deleteSwal";
 
 const MyPostDetail = () => {
   const location = useLocation();
-  const postData = location.state; //받아온 apply data
-  // const postData = {
-  //   //  api get 요청으로 데이터 받아오도록 수정
-  //   applyId: "1",
-  //   userId: "16",
-  //   userName: "홍길동",
-  //   deviceType: "노트북",
-  //   content: "너무 필요합니다",
-  //   address: "우만동 행정복지센터",
-  //   date: "2023-08-02",
-  //   status: 0,
-  // };
-  const { date, status, address, userName, deviceType, content } = postData; //  api get 요청으로 데이터 받아오도록 수정
-  const statusString = ["매칭 대기중", "매칭 완료", "배송중", "수령 완료"];
-
+  const navigate = useNavigate();
+  const applyId = location.state; //받아온 apply id
+  const [applicationData, setApplicationData] = useState();
   const [modalIsOpen, setModalIsOpen] = useState(false); //modal 열고 닫는 상태
   const [updateModalIsOpen, setUpdateModalIsOpen] = useState(false); //modal 열고 닫는 상태
+
+  useEffect(() => {
+    fetchMyApplication();
+  }, []);
+
+  const handleCancel = async (applyId, navigate) => {
+    deleteAlert(applyId);
+    try {
+      const response = await cancelApplication(applyId);
+      if (response.status === 200) {
+        console.log("취소 완료");
+        // 취소가 성공한 경우에 실행할 로직
+      } else {
+        console.log("취소 실패");
+        // 취소가 실패한 경우에 실행할 로직
+      }
+    } catch (error) {
+      console.log("Error deleting application:", error);
+    }
+  };
+
+  const fetchMyApplication = async () => {
+    try {
+      const postData = await getApplication(applyId);
+
+      const newData = {
+        ...postData.apply,
+        ...postData.user,
+      };
+      setApplicationData(newData);
+    } catch (error) {
+      console.error("Error fetching application detail:", error);
+    }
+  };
+
+  if (!applicationData) {
+    return <div>해당 항목을 찾을 수 없습니다.</div>;
+  }
+
+  const { date, status, address, name, deviceType, content } = applicationData; //  api get 요청으로 데이터 받아오도록 수정
+  const statusString = ["", "매칭 대기중", "매칭 완료", "배송중", "수령 완료"];
+
   // 모달 닫기 함수
   const closeModal = () => {
     // 모달이 닫힐 때 MyPostDetail 컴포넌트를 리렌더링하도록 상태 업데이트
@@ -35,10 +67,6 @@ const MyPostDetail = () => {
     setModalIsOpen(false);
     // 상태 업데이트를 통해 리렌더링 발생
   };
-
-  if (!postData) {
-    return <div>해당 항목을 찾을 수 없습니다.</div>;
-  }
 
   return (
     <CustomPostDetail>
@@ -78,8 +106,9 @@ const MyPostDetail = () => {
           <div id="apply-profile-image"></div>
           {/* 추후 img로 변경*/}
           <div id="apply-profile">
-            <p id="user-apply-name">{userName}</p>
+            <p id="user-apply-name">{name}</p>
             <p id="device-type">신청 기기 유형: {deviceType}</p>
+            <p id="device-type">수령위치: {address}</p>
           </div>
         </div>
         <h3 id="apply-content-title">신청 사유</h3>
@@ -89,7 +118,7 @@ const MyPostDetail = () => {
           </div>
         </div>
         <div id="device-container">
-          {status > 0 ? <p>매칭된 기기 정보 표시</p> : null}
+          {status > 1 ? <p>매칭된 기기 정보 표시</p> : null}
         </div>
         <div id="btn-container">
           {status === 2 ? (
@@ -100,7 +129,7 @@ const MyPostDetail = () => {
               수령 확인
             </BottomBtn>
           ) : null}
-          {status === 0 ? (
+          {status === 1 ? (
             <BottomBtn
               onClick={() => setUpdateModalIsOpen(true)}
               style={{ width: "200px" }}
@@ -108,8 +137,13 @@ const MyPostDetail = () => {
               신청내용 수정
             </BottomBtn>
           ) : null}
-          {status === 0 ? (
-            <BottomBtn style={{ width: "200px" }}>신청 취소</BottomBtn>
+          {status === 1 ? (
+            <BottomBtn
+              onClick={() => handleCancel(applyId)}
+              style={{ width: "200px" }}
+            >
+              신청 취소
+            </BottomBtn>
           ) : null}
         </div>
       </div>
@@ -125,7 +159,7 @@ const MyPostDetail = () => {
           isOpen={updateModalIsOpen}
           onClose={() => setUpdateModalIsOpen(false)}
           onConfirm={() => setUpdateModalIsOpen(false)}
-          props={postData}
+          props={applicationData}
         />
       )}
     </CustomPostDetail>
@@ -215,11 +249,11 @@ const CustomPostDetail = styled.div`
   p#user-apply-name {
     font-size: 17px;
     font-weight: 600;
-    margin-bottom: 8px;
+    margin-bottom: 4px;
   }
 
   p#device-type {
-    font-size: 14px;
+    font-size: 12px;
     margin-top: 5px;
   }
 

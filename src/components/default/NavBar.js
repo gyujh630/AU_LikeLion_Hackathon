@@ -116,7 +116,7 @@ const handleWithdrawal = () => {
             iconColor: "var(--color-blue)",
           }).then(() => {
             // 여기서 페이지를 새로고침 (리렌더링)
-            window.location.onload("/");
+            window.location.href = "/";
           });
         } else {
           MySwal.fire({

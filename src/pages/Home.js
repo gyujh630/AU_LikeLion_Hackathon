@@ -19,7 +19,6 @@ const Home = () => {
   const fetchDeviceCounts = async () => {
     try {
       const counts = await getDeviceCount();
-      console.log(counts);
       setDeviceCounts(counts);
     } catch (error) {
       console.error("Error fetching device counts:", error);

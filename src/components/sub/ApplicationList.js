@@ -3,13 +3,13 @@ import styled, { css } from "styled-components";
 import { useDeliveryStatus } from "../../contexts/DeliveryStatusContext";
 export const ApplicationList = (props) => {
   // props.data에서 데이터 추출
-  const { userName, devicetype, content, date, status } = props.data;
+  const { name, deviceType, content, date, status } = props.data;
 
   // DeliveryStatusContext 사용
   const { status: contextStatus, setStatus } = useDeliveryStatus();
 
   // 배송상태 string
-  const statusString = ["매칭 대기중", "매칭 완료", "배송중", "수령 완료"];
+  const statusString = ["", "매칭 대기중", "매칭 완료", "배송중", "수령 완료"];
 
   return (
     <StyledApplication>
@@ -18,8 +18,8 @@ export const ApplicationList = (props) => {
           <div id="apply-profile-image"></div>
           {/* 추후 img로 변경*/}
           <div id="apply-profile">
-            <p id="user-apply-name">{userName}</p>
-            <p id="device-type">신청 기기 유형: {devicetype}</p>
+            <p id="user-apply-name">{name}</p>
+            <p id="device-type">신청 기기 유형: {deviceType}</p>
           </div>
           <div id="apply-date">
             <p>등록날짜: {date}</p>

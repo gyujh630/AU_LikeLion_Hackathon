@@ -1,4 +1,5 @@
 import axios from "axios";
+axios.defaults.headers.common["Access-Control-Allow-Origin"] = "*";
 
 const apiUrl = "http://3.34.86.186:8080";
 const token = localStorage.getItem("token");
@@ -6,9 +7,9 @@ const token = localStorage.getItem("token");
 //user token으로 user의 수혜신청목록 가져오기
 export const getMyApplicationList = async () => {
   try {
-    const response = await axios.get(`${apiUrl}/myApplications`, {
+    const response = await axios.get(`${apiUrl}/apply`, {
       headers: {
-        // Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
     return response.data;
@@ -84,9 +85,10 @@ export const createApplication = async (dataSet) => {
     const response = await axios.post(`${apiUrl}/apply/post`, dataSet, {
       headers: {
         Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
       },
     });
-    if (response.status === 200) {
+    if (response.status === 200 || response.status === 201) {
       return response.data;
     } else {
       console.error(
@@ -102,9 +104,9 @@ export const createApplication = async (dataSet) => {
 };
 
 //수혜신청 취소
-export const cancelApplication = async () => {
+export const cancelApplication = async (applyId) => {
   try {
-    const response = await axios.delete(`${apiUrl}/:applyId`, {
+    const response = await axios.delete(`${apiUrl}/apply/${applyId}/delete`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -117,9 +119,28 @@ export const cancelApplication = async () => {
 };
 
 //수혜신청 수정
-export const updateApplication = async (dataSet) => {
+export const updateApplication = async (applyId, dataSet) => {
   try {
-    const response = await axios.patch(`${apiUrl}/:applyId`, dataSet, {
+    const response = await axios.patch(
+      `${apiUrl}/apply/${applyId}/update`,
+      dataSet,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error update application:", error);
+    throw error;
+  }
+};
+
+//수혜신청 조회
+export const getApplication = async (applyId) => {
+  try {
+    const response = await axios.get(`${apiUrl}/apply/${applyId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

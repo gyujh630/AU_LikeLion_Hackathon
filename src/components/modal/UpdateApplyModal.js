@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import Modal from "react-modal";
-import { createApplication } from "../../services/PostListAPI";
+import { updateApplication } from "../../services/MyPageAPI";
 
 Modal.setAppElement("#root");
 
@@ -11,24 +11,22 @@ const UpdateApplyModal = ({ isOpen, onClose, onConfirm, props }) => {
   const [address, setAddress] = useState(props.address);
   const [deviceType, setDeviceType] = useState(props.deviceType);
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     onConfirm();
     console.log(content, address, deviceType);
     // 제출 시 작업
-    // const data = {
-    //   // userId: "", //유저 정보 토큰으로 조회해서..
-    //   deviceType: deviceType,
-    //   address: address,
-    //   content: content,
-    //   status: 1,
-    // };
-    //
-    // try {
-    //   // 수혜신청 생성 api
-    //   await createApplication(data);
-    //  } catch (error) {
-    // console.error("error);
-    //  }
+    const data = {
+      deviceType: deviceType,
+      address: address,
+      content: content,
+    };
+
+    try {
+      // 수혜신청 생성 api
+      await updateApplication(props.applyId, data);
+    } catch (error) {
+      console.error(error);
+    }
     onClose();
   };
 
@@ -64,7 +62,7 @@ const UpdateApplyModal = ({ isOpen, onClose, onConfirm, props }) => {
             <div id="apply-profile-image"></div>
             {/* 추후 img로 변경*/}
             <div id="apply-profile">
-              <p id="user-apply-name">홍길동</p>
+              <p id="user-apply-name">{props.name}</p>
               <div id="select-box">
                 <p
                   style={{

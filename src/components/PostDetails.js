@@ -10,8 +10,8 @@ import BackButton from "../components/default/BackButton";
 const PostDetail = () => {
   const location = useLocation();
   const postData = location.state; //받아온 apply data
-  const { date, status, userName, devicetype, content } = postData;
-  const statusString = ["매칭 대기중", "매칭 완료", "배송중", "수령 완료"];
+  const { date, status, name, deviceType, content } = postData;
+  const statusString = ["", "매칭 대기중", "매칭 완료", "배송중", "수령 완료"];
 
   const [DonationModalIsOpen, setDonationModalIsOpen] = useState(false);
 
@@ -57,8 +57,8 @@ const PostDetail = () => {
           <div id="apply-profile-image"></div>
           {/* 추후 img로 변경*/}
           <div id="apply-profile">
-            <p id="user-apply-name">{userName}</p>
-            <p id="device-type">신청 기기 유형: {devicetype}</p>
+            <p id="user-apply-name">{name}</p>
+            <p id="device-type">신청 기기 유형: {deviceType}</p>
           </div>
         </div>
         <h3 id="apply-content-title">신청 사유</h3>
