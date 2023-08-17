@@ -4,10 +4,17 @@ import Modal from "react-modal";
 import styled from "styled-components";
 import { useForm, Controller, useFieldArray, reset } from "react-hook-form";
 import axios from "axios"; // Import axios
+import "../../styles/global.css";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
+import SERVER_URL from "../../constants/serverUrl";
 
 // TODO :: deviceType, model, condition, image, usedDate로 erd 반영해서 수정 필요
+// TODO :: 모달에서 추가하면 바로 리렌더링 되게
 
 Modal.setAppElement("#root");
+const MySwal = withReactContent(Swal);
 
 const AddMyDevice = ({ isOpen, onClose }) => {
   const {
@@ -33,19 +40,49 @@ const AddMyDevice = ({ isOpen, onClose }) => {
 
   const onSubmit = async (data) => {
     try {
-      const postData = {
-        deviceType: data.deviceType,
-        model: data.deviceModel,
-        condition: data.condition,
-        usedDate: data.usedDate,
-        // date: new Date().toISOString().slice(0, 10), // 현재 날짜를 "YYYY-MM-DD" 형태로 변환
-        image: data.deviceImage[0].name, // 이미지 파일 이름
-      };
+      const { image, ...jsonData } = data;
 
+      const formData = new FormData();
+      if (image && image[0]) {
+        formData.append("image", image[0]);
+      }
+      formData.append("data", JSON.stringify(jsonData));
+
+      // const postData = {
+      //   deviceType: data.deviceType,
+      //   model: data.deviceModel,
+      //   condition: data.condition,
+      //   usedDate: data.usedDate,
+      //   image: data.deviceImage[0].name, // 이미지 파일 이름
+      // };
+
+      const token = localStorage.getItem("token");
       // POST 요청 보내기
-      const response = await axios.post("/device", postData);
+      const response = await fetch(`${SERVER_URL}/device/post`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      });
 
-      console.log("Device registered successfully:", response.data);
+      if (response.ok) {
+        MySwal.fire({
+          icon: "success",
+          title: "등록 완료",
+          text: "기기가 성공적으로 등록되었습니다.",
+          confirmButtonColor: "var(--color-blue)",
+          iconColor: "var(--color-blue)",
+        });
+      } else {
+        MySwal.fire({
+          icon: "error",
+          title: "등록 실패",
+          text: "알 수 없는 오류가 발생했습니다.",
+          confirmButtonColor: "var(--color-blue)",
+          iconColor: "var(--color-blue)",
+        });
+      }
       onClose();
       reset(); // 입력값 초기화
     } catch (error) {
@@ -108,7 +145,7 @@ const AddMyDevice = ({ isOpen, onClose }) => {
           <div className="input-row">
             <h4>기기명 *</h4>
             <Controller
-              name="deviceModel"
+              name="model"
               control={control}
               rules={{ required: "모델명을 입력해주세요." }}
               render={({ field }) => (
@@ -119,20 +156,20 @@ const AddMyDevice = ({ isOpen, onClose }) => {
                 />
               )}
             />
-            {errors.deviceModel && (
-              <ErrorMessage>{errors.deviceModel.message}</ErrorMessage>
+            {errors.model && (
+              <ErrorMessage>{errors.model.message}</ErrorMessage>
             )}
           </div>
           <div className="input-row">
             <h4>이미지 등록 *</h4>
             <Controller
-              name="deviceImage"
+              name="image"
               control={control}
               rules={{ required: "이미지를 등록해주세요." }}
               render={({ field }) => <Input type="file" {...field} />}
             />
-            {errors.deviceImage && (
-              <ErrorMessage>{errors.deviceImage.message}</ErrorMessage>
+            {errors.image && (
+              <ErrorMessage>{errors.image.message}</ErrorMessage>
             )}
           </div>
           <div className="input-row">
