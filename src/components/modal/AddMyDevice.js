@@ -41,30 +41,28 @@ const AddMyDevice = ({ isOpen, onClose }) => {
   const onSubmit = async (data) => {
     try {
       const { image, ...jsonData } = data;
+      console.log(jsonData);
 
       const formData = new FormData();
+      formData.append(
+        "device",
+        new Blob([JSON.stringify(jsonData)], { type: "application/json" })
+      );
+      // 이미지가 있는 경우에만 추가
       if (image && image[0]) {
-        formData.append("image", image[0]);
+        formData.append("image", new Blob([image[0]], { type: image[0].type }));
       }
-      formData.append("data", JSON.stringify(jsonData));
-
-      // const postData = {
-      //   deviceType: data.deviceType,
-      //   model: data.deviceModel,
-      //   condition: data.condition,
-      //   usedDate: data.usedDate,
-      //   image: data.deviceImage[0].name, // 이미지 파일 이름
-      // };
 
       const token = localStorage.getItem("token");
-      // POST 요청 보내기
       const response = await fetch(`${SERVER_URL}/device/post`, {
         method: "POST",
+        body: formData,
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        body: formData,
       });
+
+      console.log(response.status);
 
       if (response.ok) {
         MySwal.fire({
