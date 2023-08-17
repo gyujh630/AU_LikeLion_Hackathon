@@ -15,7 +15,7 @@ const MySwal = withReactContent(Swal);
 function Login() {
   const navigate = useNavigate();
   const formSchema = yup.object({
-    id: yup.string().required("아이디을 입력해주세요."),
+    id: yup.string().required("아이디를 입력해주세요."),
     password: yup.string().required("비밀번호를 입력해주세요."),
   });
 
