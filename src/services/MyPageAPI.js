@@ -6,9 +6,9 @@ const token = localStorage.getItem("token");
 //user token으로 user의 수혜신청목록 가져오기
 export const getMyApplicationList = async () => {
   try {
-    const response = await axios.get(`${apiUrl}/myApplications`, {
+    const response = await axios.get(`${apiUrl}/apply`, {
       headers: {
-        // Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     });
     return response.data;
@@ -84,9 +84,10 @@ export const createApplication = async (dataSet) => {
     const response = await axios.post(`${apiUrl}/apply/post`, dataSet, {
       headers: {
         Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
       },
     });
-    if (response.status === 200) {
+    if (response.status === 200 || response.status === 201) {
       return response.data;
     } else {
       console.error(
