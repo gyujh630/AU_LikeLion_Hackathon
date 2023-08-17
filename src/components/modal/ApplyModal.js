@@ -2,15 +2,26 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Modal from "react-modal";
-import { createApplication } from "../../services/MyPageAPI";
+import { createApplication, getUserInfo } from "../../services/MyPageAPI";
 
 Modal.setAppElement("#root");
 
-const ApplyModal = ({ isOpen, onClose, onConfirm }) => {
+const ApplyModal = ({ isOpen, onClose, onConfirm, props }) => {
   const navigate = useNavigate();
   const [content, setContent] = useState("");
   const [address, setAddress] = useState("");
   const [deviceType, setDeviceType] = useState("스마트폰");
+  const [userInfo, setUserInfo] = useState(null);
+
+  useEffect(() => {
+    getUserInfo()
+      .then((data) => {
+        setUserInfo(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching user info:", error);
+      });
+  }, []);
 
   const handleConfirm = async () => {
     onConfirm();
@@ -64,7 +75,7 @@ const ApplyModal = ({ isOpen, onClose, onConfirm }) => {
             <div id="apply-profile-image"></div>
             {/* 추후 img로 변경*/}
             <div id="apply-profile">
-              <p id="user-apply-name">홍길동</p>
+              <p id="user-apply-name">{userInfo.name}</p>
               <div id="select-box">
                 <p
                   style={{

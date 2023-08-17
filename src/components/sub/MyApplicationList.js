@@ -2,6 +2,8 @@ import { useState } from "react";
 import styled, { css } from "styled-components";
 import DeliveryConfirmModal from "../modal/DeliveryConfirmModal";
 import { useDeliveryStatus } from "../../contexts/DeliveryStatusContext";
+import { formatDate } from "../../constants/formatDate";
+
 export const MyApplicationList = (props) => {
   const [modalIsOpen, setModalIsOpen] = useState(false); //modal 열고 닫는 상태
 
@@ -21,7 +23,7 @@ export const MyApplicationList = (props) => {
             <p id="device-type">신청 기기 유형: {deviceType}</p>
           </div>
           <div id="apply-date">
-            <p>등록날짜: {date}</p>
+            <p>등록날짜: {formatDate(date)}</p>
           </div>
           <div id="status-btn-container">
             <StyledStatusButton status={status}>
