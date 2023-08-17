@@ -41,9 +41,13 @@ function Login() {
         body: JSON.stringify(data),
       });
       if (response.ok) {
-        const jwtToken = response.headers.get("Authorization");
+        const responseBody = await response.json(); // JSON 응답 본문 파싱
+        const jwtToken = responseBody.token; // 토큰 값을 추출
+        // const jwtToken = response.headers.get("Authorization");
         if (jwtToken !== null) {
           localStorage.setItem("jwt", jwtToken); // JWT 토큰을 localStorage에 저장
+          const category = responseBody.category; // 카테고리 값을 추출
+          localStorage.setItem("category", category); // "category" 값을 로컬 스토리지에 저장
         }
         navigate("/");
         // localStorage.setItem("category", 1); // 예시 (수혜자)
