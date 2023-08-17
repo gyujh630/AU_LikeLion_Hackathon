@@ -5,9 +5,9 @@ import BackButton from "./default/BackButton";
 import DeliveryConfirmModal from "./modal/DeliveryConfirmModal";
 import UpdateApplyModal from "./modal/UpdateApplyModal";
 import { getApplication, cancelApplication } from "../services/MyPageAPI";
-import { deleteAlert } from "./swal/deleteSwal";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { formatDate } from "../constants/formatDate";
 
 const swalAlert = withReactContent(Swal);
 
@@ -98,7 +98,7 @@ const MyPostDetail = () => {
         <div id="apply-top">
           <h3 id="apply-user-inform">수혜자 정보</h3>
           <div id="apply-date">
-            <p>등록날짜: {date}</p>
+            <p>등록날짜: {formatDate(date)}</p>
           </div>
           <div id="status-btn-container">
             <StyledStatus status={status}>

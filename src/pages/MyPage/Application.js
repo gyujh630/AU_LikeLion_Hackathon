@@ -16,7 +16,6 @@ const Application = () => {
   const fetchMyApplicationList = async () => {
     try {
       const response = await getMyApplicationList();
-
       if (response && Array.isArray(response.apply)) {
         // user 정보를 객체의 userId를 기반으로 찾아서 추가
         const updatedList = response.apply.map((item) => {
@@ -30,6 +29,7 @@ const Application = () => {
         });
 
         setApplicationDataList(updatedList);
+        console.log(updatedList);
       } else {
         console.error("Invalid data format:", response);
       }
@@ -39,9 +39,7 @@ const Application = () => {
   };
 
   const handleModalConfirm = async () => {
-    // 모달 확인 버튼을 누를 때의 동작을 처리합니다.
-    // 수혜 신청 완료 후 상태 업데이트를 진행하고, 리스트를 다시 불러옵니다.
-    setModalIsOpen(false); // 모달을 닫습니다.
+    setModalIsOpen(false);
     await fetchMyApplicationList();
   };
 

@@ -1,12 +1,11 @@
 import { useState } from "react";
 import styled, { css } from "styled-components";
 import { useDeliveryStatus } from "../../contexts/DeliveryStatusContext";
+import { formatDate } from "../../constants/formatDate";
+
 export const ApplicationList = (props) => {
   // props.data에서 데이터 추출
   const { name, deviceType, content, date, status } = props.data;
-
-  // DeliveryStatusContext 사용
-  const { status: contextStatus, setStatus } = useDeliveryStatus();
 
   // 배송상태 string
   const statusString = ["", "매칭 대기중", "매칭 완료", "배송중", "수령 완료"];
@@ -22,7 +21,7 @@ export const ApplicationList = (props) => {
             <p id="device-type">신청 기기 유형: {deviceType}</p>
           </div>
           <div id="apply-date">
-            <p>등록날짜: {date}</p>
+            <p>등록날짜: {formatDate(date)}</p>
           </div>
           <div id="status-btn-container">
             <StyledStatus status={status}>

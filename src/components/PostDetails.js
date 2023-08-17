@@ -1,11 +1,10 @@
 import { useLocation, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import SelectMyDevice from "./modal/DonateMyDevice/SelectMyDevice";
 import { isLogin, getUserCategory } from "../constants/auth";
 import BackButton from "../components/default/BackButton";
+import { formatDate } from "../constants/formatDate";
 
 const PostDetail = () => {
   const location = useLocation();
@@ -45,7 +44,7 @@ const PostDetail = () => {
         <div id="apply-top">
           <h3 id="apply-user-inform">수혜자 정보</h3>
           <div id="apply-date">
-            <p>등록날짜: {date}</p>
+            <p>등록날짜: {formatDate(date)}</p>
           </div>
           <div id="status-btn-container">
             <StyledStatus status={status}>
