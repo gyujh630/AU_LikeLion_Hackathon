@@ -71,15 +71,17 @@ const Device = () => {
         {/* <AddMyDevice isOpen={isModalOpen} onClose={handleModalClose} /> */}
       </div>
       <main>
-        {deviceList.map((device) => (
-          <MyDeviceList
-            key={device.id}
-            deviceInfo={{
-              ...device,
-              conditions: conditionsMap[device.conditions],
-            }}
-          />
-        ))}
+        {deviceList
+          .filter((device) => device.status === 1) // status가 1인 항목만 필터링
+          .map((device) => (
+            <MyDeviceList
+              key={device.id}
+              deviceInfo={{
+                ...device,
+                conditions: conditionsMap[device.conditions],
+              }}
+            />
+          ))}
       </main>
     </StyleApplication>
   );
