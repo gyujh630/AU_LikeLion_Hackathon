@@ -13,45 +13,22 @@ const Donation = () => {
   const fetchDonationList = async () => {
     try {
       const response = await getDonationList();
-      console.log(response);
+      const newlist = [];
+
+      response.forEach((data) => {
+        const mergedData = {
+          ...data.apply,
+          ...data.user,
+          ...data.device,
+        };
+        newlist.push(mergedData);
+      });
+      setDonationDataList(newlist);
+      console.log(newlist);
     } catch (error) {
       console.error("Error fetching application list:", error);
     }
   };
-
-  const exampleDonateListData = [
-    {
-      deviceId: "1",
-      userId: "2",
-      applyId: "23",
-      userName: "홍길동",
-      devicetype: "태블릿",
-      profile: "profile image",
-      model: "아이패드 에어 2 wifi 128GB",
-      date: "2023-08-02",
-      condition: "2",
-      image: "기기 사진",
-      status: 1,
-      usedDate: "2년",
-      deliverNum: "1234567890",
-    },
-
-    {
-      deviceId: "1",
-      userId: "2",
-      applyId: "23",
-      userName: "홍길동",
-      devicetype: "태블릿",
-      profile: "profile image",
-      model: "아이패드 에어 2 wifi 128GB",
-      date: "2023-08-02",
-      condition: "2",
-      image: "기기 사진",
-      status: 2,
-      usedDate: "2년",
-      deliverNum: "1234567890",
-    },
-  ];
 
   return (
     <StyleDonation>
@@ -59,7 +36,7 @@ const Donation = () => {
       <main>
         {/* DeliveryStatusProvider로 감싸기 */}
         {/* data 배열을 반복 -> 컴포넌트 생성 */}
-        {exampleDonateListData.map((data, index) => (
+        {donationDataList.map((data, index) => (
           <MyDonationList key={index} data={data} />
         ))}
       </main>
