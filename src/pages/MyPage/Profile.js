@@ -8,6 +8,9 @@ import { deleteUser } from "../../services/MyPageAPI";
 import "../../styles/global.css";
 import { setLogOut } from "../../constants/auth";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+
 const MySwal = withReactContent(Swal);
 
 // TODO : api 연결 후 수정 필요
@@ -94,10 +97,14 @@ const Profile = () => {
       }}
     >
       {/* <h2>내 정보</h2> */}
-      {userInfo &&
-        userInfo.profile !== null && ( // userInfo가 있고 "profile"이 null이 아닌 경우에만 렌더링
-          <ProfileImage src={userInfo.profile} alt="프로필이미지" />
-        )}
+      {userInfo && userInfo.profile !== null ? (
+        <ProfileImage
+          src={`http://3.34.86.186:8080/${userInfo.profile}`}
+          alt="프로필이미지"
+        />
+      ) : (
+        <FontAwesomeIcon icon={faUser} style={{ fontSize: "24px" }} />
+      )}
 
       <div style={{ display: "flex", flexDirection: "column" }}>
         <div style={{ display: "flex", flexDirection: "column" }}>
