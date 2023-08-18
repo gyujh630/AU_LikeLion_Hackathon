@@ -184,7 +184,7 @@ const ConfirmDonation = ({ isOpen, onClose, selectedDevice, applyId }) => {
               marginTop: "20px",
               borderRadius: "50px",
             }}
-            // onClick={() => setShowDonationSuccess(true)}
+            onClick={() => setShowDonationSuccess(true)} // ! DonationSuccess 강제로 열기 위함 (api 완성되면 주석처리할 것)
           >
             선택한 기기 기부하기
           </ModalButton>
@@ -192,6 +192,7 @@ const ConfirmDonation = ({ isOpen, onClose, selectedDevice, applyId }) => {
             <DonationSuccess
               isOpen={showDonationSuccess}
               onClose={() => setShowDonationSuccess(false)} // Close the second modal
+              applyId={applyId}
             />
           )}
         </Form>

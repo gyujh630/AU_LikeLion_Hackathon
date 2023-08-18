@@ -3,10 +3,11 @@ import Modal from "react-modal";
 import styled, { keyframes, css } from "styled-components"; // Import styled-components
 import axios from "axios"; // Import axios
 import { useNavigate } from "react-router-dom";
+import SERVER_URL from "../../../constants/serverUrl";
 
 Modal.setAppElement("#root");
 
-const DonationSuccess = ({ isOpen, onClose }) => {
+const DonationSuccess = ({ isOpen, onClose, applyId }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,6 +22,37 @@ const DonationSuccess = ({ isOpen, onClose }) => {
       window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
     };
   }, []);
+
+  const [address, setAddress] = useState(""); // State to store the address data
+  useEffect(() => {
+    // Fetch address data from the server
+    const fetchAddress = async () => {
+      try {
+        const token = localStorage.getItem("token"); // Get the token from localStorage
+
+        if (token) {
+          const config = {
+            headers: {
+              Authorization: `Bearer ${token}`, // Add the token to the request headers
+            },
+          };
+
+          const response = await axios.get(
+            `${SERVER_URL}/apply/${applyId}`,
+            config
+          );
+          console.log("response:" + response.data.apply.address);
+          setAddress(response.data.apply.address); // Assuming the address field is named "address"
+        }
+      } catch (error) {
+        console.error("Error fetching address data:", error);
+      }
+    };
+
+    if (isOpen) {
+      fetchAddress();
+    }
+  }, [isOpen, applyId]);
 
   const handleModalClose = () => {
     onClose();
@@ -56,12 +88,11 @@ const DonationSuccess = ({ isOpen, onClose }) => {
         <DeviceBox style={{ marginTop: "40px" }}>
           <div>
             <br />
-            기한 내에 해당 주소로 택배를 발송하고, 운송장 번호를 입력해주세요.{" "}
+            일주일 내에 해당 주소로 택배를 발송하고, 운송장 번호를 입력해주세요.{" "}
             <br /> <br />
-            [우만동 행정복지센터]
+            주소: {address} <br />
             <br />
-            수원시 우만동, XXX로 XX번길 XX <br /> <br />
-            만료 기한 2023-08-26 <br />
+            {/* 만료 기한 2023-08-26 <br /> */}
             <br />
           </div>
         </DeviceBox>
