@@ -187,7 +187,7 @@ const AddMyDevice = ({ isOpen, onClose }) => {
           <div className="input-row">
             <h4>상태 *</h4>
             <Controller
-              name="condition"
+              name="conditions"
               control={control}
               rules={{ required: "상태를 입력해주세요." }}
               defaultValue=""
@@ -204,8 +204,8 @@ const AddMyDevice = ({ isOpen, onClose }) => {
                 </select>
               )}
             />
-            {errors.condition && (
-              <ErrorMessage>{errors.condition.message}</ErrorMessage>
+            {errors.conditions && (
+              <ErrorMessage>{errors.conditions.message}</ErrorMessage>
             )}
           </div>
           {/* <div>

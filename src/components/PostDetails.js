@@ -9,7 +9,7 @@ import { formatDate } from "../constants/formatDate";
 const PostDetail = () => {
   const location = useLocation();
   const postData = location.state; //받아온 apply data
-  const { date, status, name, deviceType, content } = postData;
+  const { date, status, name, deviceType, content, applyId } = postData;
   const statusString = ["", "매칭 대기중", "매칭 완료", "배송중", "수령 완료"];
 
   const [DonationModalIsOpen, setDonationModalIsOpen] = useState(false);
@@ -77,6 +77,7 @@ const PostDetail = () => {
           isOpen={DonationModalIsOpen}
           onClose={() => setDonationModalIsOpen(false)}
           onConfirm={() => setDonationModalIsOpen(false)}
+          applyId={applyId}
         />
       )}
     </CustomPostDetail>
