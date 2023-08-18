@@ -14,9 +14,9 @@ const PostDetail = () => {
 
   const [DonationModalIsOpen, setDonationModalIsOpen] = useState(false);
 
-  if (!postData) {
-    return <div>해당 항목을 찾을 수 없습니다.</div>;
-  }
+  // if (!postData) {
+  //   return <div>해당 항목을 찾을 수 없습니다.</div>;
+  // }
 
   return (
     <CustomPostDetail>
