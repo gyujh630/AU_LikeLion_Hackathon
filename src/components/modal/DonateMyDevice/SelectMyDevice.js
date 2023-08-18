@@ -78,6 +78,9 @@ const SelectMyDevice = ({ isOpen, onClose, applyId }) => {
         headers: {
           Authorization: `Bearer ${token}`,
         },
+        params: {
+          status: 1, // Add the status parameter
+        },
       })
       .then((response) => {
         // 응답 데이터에서 필요한 필드 추출하여 state 업데이트
