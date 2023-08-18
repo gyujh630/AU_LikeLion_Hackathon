@@ -6,12 +6,21 @@ import MyDeviceList from "../../components/sub/MyDeviceList";
 import styled from "styled-components";
 import axios from "axios"; // Import axios
 import SERVER_URL from "../../constants/serverUrl";
+import { fetchDevices } from "../../services/DeviceAPI";
+import { deleteDevice } from "../../services/DeviceAPI";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons"; // Trash 아이콘 가져오기
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+import "../../styles/global.css";
+
+const MySwal = withReactContent(Swal);
 
 const Device = () => {
   const [deviceList, setDeviceList] = useState([]);
 
   // 기기 데이터 가져오기
-  const fetchDevices = async () => {
+  const fetchDeviceData = async () => {
     try {
       const token = localStorage.getItem("token");
 
@@ -23,13 +32,16 @@ const Device = () => {
 
       setDeviceList(response.data); // Update the state with fetched data
       console.log(deviceList);
+
+      const devices = await fetchDevices(); // Use the imported fetchDevices function
+      setDeviceList(devices); // Update the state with fetched data
     } catch (error) {
       console.error("Error fetching device data:", error);
     }
   };
   useEffect(() => {
     // user_id 변경 필요
-    fetchDevices();
+    fetchDeviceData();
   }, []);
 
   const conditionsMap = {
@@ -56,6 +68,40 @@ const Device = () => {
   //   setIsModalOpen(false);
   // };
 
+  const handleModalConfirm = async () => {
+    setModalIsOpen(false);
+  };
+
+  // * 삭제
+
+  const handleDelete = async (deviceId) => {
+    // SweetAlert2를 사용하여 확인 다이얼로그 표시
+    MySwal.fire({
+      icon: "question",
+      title: "정말로 삭제하시겠습니까?",
+      text: "삭제된 기기는 복구할 수 없습니다.",
+      showCancelButton: true,
+      confirmButtonText: "삭제",
+      confirmButtonColor: "var(--color-blue)",
+      iconColor: "var(--color-blue)",
+      cancelButtonText: "취소",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          // 삭제 함수 또는 axios를 사용하여 기기 삭제
+          await deleteDevice(deviceId);
+          // 삭제 후 기기 목록 업데이트
+          const updatedDevices = deviceList.filter(
+            (device) => device.id !== deviceId
+          );
+          setDeviceList(updatedDevices); // deviceList 업데이트로 화면 갱신
+        } catch (error) {
+          console.error("기기 삭제 중 오류 발생:", error);
+        }
+      }
+    });
+  };
+
   return (
     <StyleApplication>
       <div id="title-box">
@@ -67,20 +113,28 @@ const Device = () => {
           <AddMyDevice
             isOpen={modalIsOpen}
             onClose={() => setModalIsOpen(false)}
-            onConfirm={() => setModalIsOpen(false)}
+            onConfirm={fetchDeviceData} // fetchDeviceData 함수 사용하여 목록 업데이트
           />
         )}
         {/* <AddMyDevice isOpen={isModalOpen} onClose={handleModalClose} /> */}
       </div>
       <main>
         {deviceList.map((device) => (
-          <MyDeviceList
-            key={device.id}
-            deviceInfo={{
-              ...device,
-              conditions: conditionsMap[device.conditions],
-            }}
-          />
+          <div key={device.id}>
+            <MyDeviceList
+              deviceInfo={{
+                ...device,
+                conditions: conditionsMap[device.conditions],
+              }}
+            />
+            <span
+              className="delete-button"
+              onClick={() => handleDelete(device.deviceId)}
+              style={{ cursor: "pointer" }}
+            >
+              <FontAwesomeIcon icon={faTrash} /> {/* Trash 아이콘 표시 */}
+            </span>
+          </div>
         ))}
       </main>
     </StyleApplication>
