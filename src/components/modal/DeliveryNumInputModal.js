@@ -1,32 +1,77 @@
 import { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import Modal from "react-modal";
-
+import { updateDelivery } from "../../services/MyPageAPI";
 Modal.setAppElement("#root");
 
-const DeliveryNumInputModal = ({ isOpen, onClose, onConfirm }) => {
-  const [deliveryNum, setDeliveryNum] = useState(""); // 송장번호 상태
+const DeliveryNumInputModal = ({ isOpen, onClose, onConfirm, deviceId }) => {
+  const [deliverNum, setDeliverNum] = useState(""); // 송장번호
+  const [deliverCorp, setDeliverCorp] = useState(""); // 택배사
 
-  const handleConfirm = () => {
+  const dataSet = {
+    deliverNum: deliverNum,
+    deliverCorp: deliverCorp,
+  };
+
+  const handleConfirm = async () => {
+    console.log(deliverNum, dataSet);
     onConfirm();
-    // try {
-    //   await updateDeliveryNum(deliveryNum); // deliveryNum update 함수 호출
-    //   await patchDeliveryState();           // 상태 변경
-    //  } catch (error) {
-    // console.error("error);
-    //  }
+    try {
+      await updateDelivery(deviceId, dataSet); // deliveryNum update 함수 호출
+    } catch (error) {
+      console.error(error);
+    }
     onClose();
   };
 
+  const deliveryOptions = [
+    "CJ대한통운",
+    "CVSnet 편의점택배",
+    "CU편의점택배",
+    "우체국택배",
+    "한진택배",
+    "로젠택배",
+    "롯데택배",
+    "경동택배",
+    "DHL",
+    "대신택배",
+    "일양로지스",
+    "농협택배",
+    "기타",
+  ];
+
   return (
     <Modal style={ModalStyles} isOpen={isOpen} onRequestClose={onClose}>
-      <p style={{ fontSize: "14px" }}>
-        기기를 발송하셨나요?<br></br>운송장 번호를 입력해주세요!
+      <p style={{ fontSize: "16px", marginBottom: "40px" }}>
+        기기를 발송하셨나요?<br></br>택배사와 운송장 번호를 입력해주세요!
       </p>
-      <CustomInput
-        value={deliveryNum}
-        onChange={(e) => setDeliveryNum(e.target.value)}
-      />
+      <div style={{ display: "flex", marginBottom: "20px" }}>
+        <span style={{ fontSize: "14px", margin: "auto", marginRight: "8px" }}>
+          택배사 선택
+        </span>
+        <CustomSelect
+          value={deliverCorp}
+          onChange={(e) => setDeliverCorp(e.target.value)}
+        >
+          <option value="" disabled>
+            선택하세요
+          </option>
+          {deliveryOptions.map((option, index) => (
+            <option key={index} value={option}>
+              {option}
+            </option>
+          ))}
+        </CustomSelect>
+      </div>
+      <div style={{ display: "flex" }}>
+        <span style={{ fontSize: "14px", margin: "auto", marginRight: "8px" }}>
+          운송장 번호
+        </span>
+        <CustomInput
+          value={deliverNum}
+          onChange={(e) => setDeliverNum(e.target.value)}
+        />
+      </div>
       <ButtonContainer>
         <ModalButton onClick={handleConfirm}>입력</ModalButton>
         <ModalButton style={{ backgroundColor: "grey" }} onClick={onClose}>
@@ -45,8 +90,8 @@ const ModalStyles = {
   },
 
   content: {
-    height: "200px",
-    width: "300px",
+    height: "300px",
+    width: "400px",
     borderRadius: "30px",
     padding: "20px",
     overflowY: "auto", //스크롤 허용
@@ -65,7 +110,16 @@ const ModalStyles = {
 };
 
 const CustomInput = styled.input`
-  width: 70%;
+  width: 150px;
+  padding: 6px;
+  font-size: 14px;
+  border-radius: 4px;
+  outline: none;
+  border: 1px solid #ccc;
+`;
+
+const CustomSelect = styled.select`
+  width: 165px;
   padding: 6px;
   font-size: 14px;
   border-radius: 4px;

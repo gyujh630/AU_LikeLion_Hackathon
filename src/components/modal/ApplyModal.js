@@ -99,7 +99,6 @@ const ApplyModal = ({ isOpen, onClose, onConfirm }) => {
                   <option value="스마트폰">스마트폰</option>
                   <option value="태블릿">태블릿</option>
                   <option value="노트북">노트북</option>
-                  <option value="스마트 워치">스마트 워치</option>
                 </CustomSelect>
               </div>
             </div>

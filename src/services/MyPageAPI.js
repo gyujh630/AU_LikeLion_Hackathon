@@ -158,7 +158,65 @@ export const getApplication = async (applyId) => {
     });
     return response.data;
   } catch (error) {
-    console.error("Error update application:", error);
+    console.error("Error get application:", error);
+    throw error;
+  }
+};
+
+//기기 조회
+export const getDevice = async (deviceId) => {
+  const token = localStorage.getItem("token");
+  try {
+    const response = await axios.get(`${apiUrl}/device/${deviceId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error get device:", error);
+    throw error;
+  }
+};
+
+//운송장번호,택배사입력(기부자)
+export const updateDelivery = async (deviceId, dataSet) => {
+  const token = localStorage.getItem("token");
+  try {
+    const response = await axios.patch(
+      `${apiUrl}/donatelist/${deviceId}`,
+      dataSet,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log(response.status);
+    return response.data;
+  } catch (error) {
+    console.error("Error update delivery:", error);
+    throw error;
+  }
+};
+
+//기기 수령확인 (수혜자)
+export const confirmDelivery = async (applyId) => {
+  const token = localStorage.getItem("token");
+  try {
+    const response = await axios.patch(
+      `${apiUrl}/apply/complete/${applyId}`,
+      null,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log(response.status);
+    return response.data;
+  } catch (error) {
+    console.error("Error confirm delivery:", error);
     throw error;
   }
 };

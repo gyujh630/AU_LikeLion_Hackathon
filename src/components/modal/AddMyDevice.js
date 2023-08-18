@@ -7,6 +7,7 @@ import axios from "axios"; // Import axios
 import "../../styles/global.css";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { fetchDevices } from "../../services/DeviceAPI";
 
 import SERVER_URL from "../../constants/serverUrl";
 
@@ -81,12 +82,16 @@ const AddMyDevice = ({ isOpen, onClose }) => {
           iconColor: "var(--color-blue)",
         });
       }
+      await fetchDevices(); // Fetch updated data
       onClose();
-      reset(); // 입력값 초기화
     } catch (error) {
       console.error("Error registering device:", error);
     }
   };
+
+  // useEffect(() => {
+  //   fetchDevices();
+  // });
 
   const handleModalClose = () => {
     onClose();
@@ -377,15 +382,6 @@ const ModalContainer = styled.main`
   }
 `;
 
-// // Styled components
-// const ModalContainer = styled.div`
-//   /* 모달 컨테이너 스타일 */
-//   display: flex;
-//   flex-direction: column;
-//   padding: 20px;
-//   background-color: #fff;
-// `;
-
 const Form = styled.form`
   display: flex;
   flex-direction: column;
@@ -417,20 +413,5 @@ const Button = styled.button`
 const ErrorMessage = styled.span`
   color: red;
 `;
-
-// Set modal styles
-// Modal.setAppElement("#root"); // Replace "#root" with your root element ID or remove this line if not using portals
-
-// const ModalStyle = {
-//   content: {
-//     width: "400px",
-//     // minWidth: "200px",
-//     top: "50%",
-//     left: "50%",
-//     right: "auto",
-//     bottom: "auto",
-//     position: "fix",
-//   },
-// };
 
 export default AddMyDevice;

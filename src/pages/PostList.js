@@ -40,7 +40,7 @@ const PostList = () => {
         <div style={styles.container}>
           <h1 style={{ fontSize: "28px" }}>수혜 신청 목록</h1>
           <div id="postlist-top">
-            <div id="postlist-filter">필터</div>
+            {/* <div id="postlist-filter">필터</div> */}
             {isLogin() && getUserCategory() === "1" && (
               <button
                 id="apply-btn"
@@ -98,7 +98,7 @@ const CustomPostList = styled.div`
   div#postlist-top {
     width: 85%;
     display: flex;
-    justify-content: space-between;
+    justify-content: right;
   }
 
   button#apply-btn {

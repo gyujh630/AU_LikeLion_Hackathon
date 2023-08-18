@@ -30,6 +30,10 @@ const Donation = () => {
     }
   };
 
+  const handleDonationListUpdate = () => {
+    fetchDonationList();
+  };
+
   return (
     <StyleDonation>
       <div id="title-box">{/* <h2>기부 목록</h2> */}</div>
@@ -37,7 +41,11 @@ const Donation = () => {
         {/* DeliveryStatusProvider로 감싸기 */}
         {/* data 배열을 반복 -> 컴포넌트 생성 */}
         {donationDataList.map((data, index) => (
-          <MyDonationList key={index} data={data} />
+          <MyDonationList
+            key={index}
+            data={data}
+            onUpdateDonationList={handleDonationListUpdate}
+          />
         ))}
       </main>
     </StyleDonation>

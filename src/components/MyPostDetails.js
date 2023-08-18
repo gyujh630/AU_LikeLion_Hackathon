@@ -4,12 +4,14 @@ import styled from "styled-components";
 import BackButton from "./default/BackButton";
 import DeliveryConfirmModal from "./modal/DeliveryConfirmModal";
 import UpdateApplyModal from "./modal/UpdateApplyModal";
-import { getApplication, cancelApplication } from "../services/MyPageAPI";
+import {
+  getApplication,
+  cancelApplication,
+  getDevice,
+} from "../services/MyPageAPI";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { formatDate } from "../constants/formatDate";
-
-const swalAlert = withReactContent(Swal);
 
 const MyPostDetail = () => {
   const location = useLocation();
@@ -23,16 +25,27 @@ const MyPostDetail = () => {
     fetchMyApplication();
   }, []);
 
+  const handleUpdateConfirm = async () => {
+    setUpdateModalIsOpen(false);
+    await fetchMyApplication(); // 모달이 닫힐 때 데이터 다시 불러오기
+  };
+
+  const handleConfirm = async () => {
+    setModalIsOpen(false);
+    await fetchMyApplication(); // 모달이 닫힐 때 데이터 다시 불러오기
+  };
+
   const handleCancel = async (applyId) => {
     try {
       const responseStatus = await cancelApplication(applyId);
 
       if (responseStatus === 204) {
         console.log("취소 완료");
-        // 취소가 성공한 경우에 실행할 로직
+        //alert - 완료되었습니다.
+        navigate(-1);
       } else {
         console.log("취소 실패");
-        // 취소가 실패한 경우에 실행할 로직
+        //alert - 취소에 실패하였습니다.
       }
     } catch (error) {
       console.log("Error deleting application:", error);
@@ -47,7 +60,19 @@ const MyPostDetail = () => {
         ...postData.apply,
         ...postData.user,
       };
+
+      console.log("함수 실행 완료");
+
       setApplicationData(newData);
+      console.log(newData);
+
+      // const deviceData = await getDevice(newData.deviceId);
+      // const finalData = {
+      //   ...newData,
+      //   ...deviceData,
+      // };
+      // console.log(finalData);
+      // setApplicationData(finalData);
     } catch (error) {
       console.error("Error fetching application detail:", error);
     }
@@ -57,20 +82,17 @@ const MyPostDetail = () => {
     return <div>해당 항목을 찾을 수 없습니다.</div>;
   }
 
-  const { date, status, address, name, deviceType, content } = applicationData; //  api get 요청으로 데이터 받아오도록 수정
+  const {
+    date,
+    status,
+    address,
+    name,
+    deviceType,
+    content,
+    deliverNum,
+    deliverCorp,
+  } = applicationData; //  api get 요청으로 데이터 받아오도록 수정
   const statusString = ["", "매칭 대기중", "매칭 완료", "배송중", "수령 완료"];
-
-  // 모달 닫기 함수
-  const closeModal = () => {
-    // 모달이 닫힐 때 MyPostDetail 컴포넌트를 리렌더링하도록 상태 업데이트
-    setModalIsOpen(false);
-    // 상태 업데이트를 통해 리렌더링 발생
-  };
-  const closeUpdateModal = () => {
-    // 모달이 닫힐 때 MyPostDetail 컴포넌트를 리렌더링하도록 상태 업데이트
-    setModalIsOpen(false);
-    // 상태 업데이트를 통해 리렌더링 발생
-  };
 
   return (
     <CustomPostDetail>
@@ -122,10 +144,22 @@ const MyPostDetail = () => {
           </div>
         </div>
         <div id="device-container">
-          {status > 1 ? <p>매칭된 기기 정보 표시</p> : null}
+          {status > 1 ? (
+            <>
+              <p>기부자 정보</p>
+              <p>매칭 기기 정보</p>
+            </>
+          ) : null}
+        </div>
+        <div id="device-container">
+          {status == 3 ? (
+            <p>
+              {deliverCorp} - {deliverNum}
+            </p>
+          ) : null}
         </div>
         <div id="btn-container">
-          {status === 2 ? (
+          {status === 3 ? (
             <BottomBtn
               style={{ width: "200px" }}
               onClick={() => setModalIsOpen(true)}
@@ -154,15 +188,16 @@ const MyPostDetail = () => {
       {modalIsOpen && (
         <DeliveryConfirmModal
           isOpen={modalIsOpen}
-          onClose={() => setModalIsOpen(false)}
+          onClose={() => handleConfirm}
           onConfirm={() => setModalIsOpen(false)}
+          applyId={applyId}
         />
       )}
       {updateModalIsOpen && (
         <UpdateApplyModal
           isOpen={updateModalIsOpen}
-          onClose={() => setUpdateModalIsOpen(false)}
-          onConfirm={() => setUpdateModalIsOpen(false)}
+          onClose={() => handleUpdateConfirm()}
+          onConfirm={() => handleUpdateConfirm}
           props={applicationData}
         />
       )}
