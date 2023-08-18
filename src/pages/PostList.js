@@ -19,7 +19,6 @@ const PostList = () => {
     try {
       const response = await getApplicationList();
       const newlist = [];
-      console.log(localStorage.getItem("token"));
 
       response.forEach((data) => {
         const mergedData = {

@@ -39,7 +39,6 @@ export const getDonationList = async () => {
 export const getUserInfo = async () => {
   const token = localStorage.getItem("token");
   try {
-    const token = localStorage.getItem("token");
     const response = await axios.get(`${apiUrl}/myinfo`, {
       headers: {
         Authorization: `Bearer ${token}`,

@@ -29,7 +29,6 @@ const Application = () => {
         });
 
         setApplicationDataList(updatedList);
-        console.log(updatedList);
       } else {
         console.error("Invalid data format:", response);
       }

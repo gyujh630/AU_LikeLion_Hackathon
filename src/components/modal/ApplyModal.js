@@ -6,7 +6,7 @@ import { createApplication, getUserInfo } from "../../services/MyPageAPI";
 
 Modal.setAppElement("#root");
 
-const ApplyModal = ({ isOpen, onClose, onConfirm, props }) => {
+const ApplyModal = ({ isOpen, onClose, onConfirm }) => {
   const navigate = useNavigate();
   const [content, setContent] = useState("");
   const [address, setAddress] = useState("");
@@ -16,6 +16,7 @@ const ApplyModal = ({ isOpen, onClose, onConfirm, props }) => {
   useEffect(() => {
     getUserInfo()
       .then((data) => {
+        console.log(data);
         setUserInfo(data);
       })
       .catch((error) => {
@@ -56,6 +57,9 @@ const ApplyModal = ({ isOpen, onClose, onConfirm, props }) => {
     };
   }, []);
 
+  if (!userInfo) {
+    return <div>해당 항목을 찾을 수 없습니다.</div>;
+  }
   return (
     <Modal style={ModalStyles} isOpen={isOpen} onRequestClose={onClose}>
       <div style={ModalHeader}>
