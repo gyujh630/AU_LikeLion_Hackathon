@@ -49,9 +49,9 @@ const AddMyDevice = ({ isOpen, onClose }) => {
         "device",
         new Blob([JSON.stringify(jsonData)], { type: "application/json" })
       );
-      // 이미지가 있는 경우에만 추가
+      // profile 이미지가 있는 경우에만 추가
       if (image && image[0]) {
-        formData.append("image", new Blob([image[0]], { type: image[0].type }));
+        formData.append("image", image[0]);
       }
 
       const token = localStorage.getItem("token");

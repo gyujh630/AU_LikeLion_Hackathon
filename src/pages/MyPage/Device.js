@@ -22,8 +22,15 @@ const Device = () => {
   // 기기 데이터 가져오기
   const fetchDeviceData = async () => {
     try {
-      const devices = await fetchDevices(); // Use the imported fetchDevices function
-      setDeviceList(devices); // Update the state with fetched data
+      const token = localStorage.getItem("token");
+
+      const response = await axios.get(`${SERVER_URL}/device`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      setDeviceList(response.data); // Update the state with fetched data
     } catch (error) {
       console.error("Error fetching device data:", error);
     }
