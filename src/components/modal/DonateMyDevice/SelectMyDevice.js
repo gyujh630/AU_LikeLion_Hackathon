@@ -78,9 +78,9 @@ const SelectMyDevice = ({ isOpen, onClose, applyId }) => {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-        params: {
-          status: 1, // Add the status parameter
-        },
+        // params: {
+        //   status: 1, // Add the status parameter
+        // },
       })
       .then((response) => {
         // 응답 데이터에서 필요한 필드 추출하여 state 업데이트
@@ -146,25 +146,28 @@ const SelectMyDevice = ({ isOpen, onClose, applyId }) => {
         </div>
         <Form onSubmit={handleSubmit(onSubmit)}>
           {/* {dummyData.map((device, index) => ( */}
-          {deviceList.map((device, index) => (
-            <DeviceBox key={index}>
-              <input
-                type="checkbox"
-                checked={selectedDeviceIndex === device.deviceId}
-                onChange={() => handleCheckboxChange(device.deviceId)} // Pass the deviceId
-              />
-              <DeviceContent>
-                <DeviceImage>
-                  <img src={device.image} alt="Device" />
-                </DeviceImage>
-                <DeviceInfo>
-                  <p>모델명: {device.model}</p>
-                  <p>사용기간: {device.usedDate}</p>
-                  <p>상태: {conditionsMap[device.conditions]}</p>
-                </DeviceInfo>
-              </DeviceContent>
-            </DeviceBox>
-          ))}
+
+          {deviceList
+            // .filter((device) => device.status === 1)
+            .map((device, index) => (
+              <DeviceBox key={index}>
+                <input
+                  type="checkbox"
+                  checked={selectedDeviceIndex === device.deviceId}
+                  onChange={() => handleCheckboxChange(device.deviceId)} // Pass the deviceId
+                />
+                <DeviceContent>
+                  <DeviceImage>
+                    <img src={device.image} alt="Device" />
+                  </DeviceImage>
+                  <DeviceInfo>
+                    <p>모델명: {device.model}</p>
+                    <p>사용기간: {device.usedDate}</p>
+                    <p>상태: {conditionsMap[device.conditions]}</p>
+                  </DeviceInfo>
+                </DeviceContent>
+              </DeviceBox>
+            ))}
           <ModalButton
             type="submit"
             disabled={!formIsValid} // Use formIsValid here
