@@ -144,7 +144,12 @@ const MyPostDetail = () => {
           </div>
         </div>
         <div id="device-container">
-          {status > 1 ? <p>매칭된 기기 정보 표시</p> : null}
+          {status > 1 ? (
+            <>
+              <p>기부자 정보</p>
+              <p>매칭 기기 정보</p>
+            </>
+          ) : null}
         </div>
         <div id="device-container">
           {status == 3 ? (

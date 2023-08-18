@@ -7,12 +7,12 @@ Modal.setAppElement("#root");
 
 const DeliveryConfirmModal = ({ isOpen, onClose, onConfirm, applyId }) => {
   const handleConfirm = async () => {
-    onConfirm();
     try {
       await confirmDelivery(applyId); // 예시 API 호출 (실제 API 함수명 및 호출 방식에 맞게 수정 필요)
     } catch (error) {
       console.log(error);
     }
+    onConfirm();
     onClose();
   };
 
