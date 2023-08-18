@@ -9,8 +9,8 @@ const DeliveryNumInputModal = ({ isOpen, onClose, onConfirm, deviceId }) => {
   const [deliveryCorp, setDeliveryCorp] = useState(""); // 송장번호 상태
 
   const dataSet = {
-    deliveryNum: deliveryNum,
-    deliveryCorp: deliveryCorp,
+    deliverNum: deliveryNum,
+    deliverCorp: deliveryCorp,
   };
 
   const handleConfirm = async () => {

@@ -192,6 +192,7 @@ export const updateDelivery = async (deviceId, dataSet) => {
         },
       }
     );
+    console.log(response.status);
     return response.data;
   } catch (error) {
     console.error("Error update delivery:", error);

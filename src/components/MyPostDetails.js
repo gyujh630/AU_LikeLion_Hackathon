@@ -77,7 +77,16 @@ const MyPostDetail = () => {
     return <div>해당 항목을 찾을 수 없습니다.</div>;
   }
 
-  const { date, status, address, name, deviceType, content } = applicationData; //  api get 요청으로 데이터 받아오도록 수정
+  const {
+    date,
+    status,
+    address,
+    name,
+    deviceType,
+    content,
+    deliverNum,
+    deliverCorp,
+  } = applicationData; //  api get 요청으로 데이터 받아오도록 수정
   const statusString = ["", "매칭 대기중", "매칭 완료", "배송중", "수령 완료"];
 
   return (
@@ -131,6 +140,13 @@ const MyPostDetail = () => {
         </div>
         <div id="device-container">
           {status > 1 ? <p>매칭된 기기 정보 표시</p> : null}
+        </div>
+        <div id="device-container">
+          {status > 2 ? (
+            <p>
+              {deliverCorp} - {deliverNum}
+            </p>
+          ) : null}
         </div>
         <div id="btn-container">
           {status === 3 ? (
