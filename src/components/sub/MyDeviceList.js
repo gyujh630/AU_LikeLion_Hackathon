@@ -1,11 +1,12 @@
 import styled from "styled-components";
 
 const MyDeviceList = ({ deviceInfo }) => {
+  console.log(deviceInfo.image);
   return (
     <StyledMyDevice>
       <div id="apply-box">
         <div id="apply-bottom">
-          <div id="donate-image"></div>
+          <img src={`http://3.34.86.186:8080/${deviceInfo.image}`} />
           {/* 추후 img로 변경*/}
           <div id="donate-device-container">
             <p

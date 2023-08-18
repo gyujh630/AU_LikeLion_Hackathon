@@ -22,7 +22,7 @@ const Device = () => {
       });
 
       setDeviceList(response.data); // Update the state with fetched data
-      console.log(deviceList);
+      console.log(response.data);
     } catch (error) {
       console.error("Error fetching device data:", error);
     }
