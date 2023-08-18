@@ -111,6 +111,14 @@ const ConfirmDonation = ({ isOpen, onClose, selectedDevice, applyId }) => {
   // new
   const [showDonationSuccess, setShowDonationSuccess] = useState(false); // Add state for the second modal
 
+  const conditionsMap = {
+    1: "최상",
+    2: "상",
+    3: "중",
+    4: "하",
+    5: "최하",
+  };
+
   return (
     <Modal style={ModalStyles} isOpen={isOpen} onRequestClose={onClose}>
       <div style={ModalHeader}>
@@ -137,7 +145,7 @@ const ConfirmDonation = ({ isOpen, onClose, selectedDevice, applyId }) => {
               <DeviceInfo>
                 <p>모델명: {selectedDevice.model}</p>
                 <p>사용기간: {selectedDevice.usedDate}</p>
-                <p>상태: {selectedDevice.conditions}</p>
+                <p>상태: {conditionsMap[selectedDevice.conditions]}</p>
               </DeviceInfo>
             </DeviceContent>
           </DeviceBox>
