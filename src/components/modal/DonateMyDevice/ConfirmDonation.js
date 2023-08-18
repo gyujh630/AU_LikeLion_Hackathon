@@ -65,7 +65,7 @@ const ConfirmDonation = ({ isOpen, onClose, selectedDevice, applyId }) => {
         // Handle the response as needed
         console.log("Patch request successful:", response.data);
 
-        if (response.ok) {
+        if (response.status === 204 || response.status === 200) {
           setShowDonationSuccess(true);
         } else {
           // Handle the case where the response is not OK
@@ -192,7 +192,7 @@ const ConfirmDonation = ({ isOpen, onClose, selectedDevice, applyId }) => {
               marginTop: "20px",
               borderRadius: "50px",
             }}
-            onClick={() => setShowDonationSuccess(true)} // ! DonationSuccess 강제로 열기 위함 (api 완성되면 주석처리할 것)
+            // onClick={() => setShowDonationSuccess(true)} // ! DonationSuccess 강제로 열기 위함 (api 완성되면 주석처리할 것)
           >
             선택한 기기 기부하기
           </ModalButton>
