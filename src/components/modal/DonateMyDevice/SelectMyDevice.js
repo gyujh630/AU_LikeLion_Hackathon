@@ -5,9 +5,11 @@ import { useForm, Controller, useFieldArray, reset } from "react-hook-form";
 import axios from "axios"; // Import axios
 import ConfirmDonation from "./ConfirmDonation";
 
+import SERVER_URL from "../../../constants/serverUrl";
+
 Modal.setAppElement("#root");
 
-const SelectMyDevice = ({ isOpen, onClose }) => {
+const SelectMyDevice = ({ isOpen, onClose, applyId }) => {
   const {
     register,
     control,
@@ -45,7 +47,7 @@ const SelectMyDevice = ({ isOpen, onClose }) => {
     //       const postData = {
     //         deviceType: data.deviceType,
     //         model: data.deviceModel,
-    //         condition: data.condition,
+    //         condition: data.conditions,
     //         usedDate: data.usedDate,
     //         // date: new Date().toISOString().slice(0, 10), // 현재 날짜를 "YYYY-MM-DD" 형태로 변환
     //         image: data.deviceImage[0].name, // 이미지 파일 이름
@@ -68,28 +70,11 @@ const SelectMyDevice = ({ isOpen, onClose }) => {
   const [deviceList, setDeviceList] = useState([]);
   const token = "access_token"; // TODO : 수정 필요
 
-  // api 연결 전 dummyData
-  const dummyData = [
-    {
-      //   deviceType: "태블릿",
-      model: "ipad3",
-      condition: 2,
-      usedDate: "2년",
-      image: "기기 사진",
-    },
-    {
-      //   deviceType: "휴대폰",
-      model: "iphone12",
-      condition: 1,
-      usedDate: "3년",
-      image: "기기 사진",
-    },
-  ];
-
   useEffect(() => {
     // GET 요청 보내기
+    const token = localStorage.getItem("token");
     axios
-      .get("/device", {
+      .get(`${SERVER_URL}/device`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -97,9 +82,10 @@ const SelectMyDevice = ({ isOpen, onClose }) => {
       .then((response) => {
         // 응답 데이터에서 필요한 필드 추출하여 state 업데이트
         const extractedData = response.data.map((device) => ({
-          //   deviceType: device.deviceType,
+          deviceId: device.deviceId,
           model: device.model,
-          condition: device.condition,
+          usedDate: device.usedDate,
+          conditions: device.conditions,
           image: device.image,
         }));
         setDeviceList(extractedData);
@@ -117,12 +103,20 @@ const SelectMyDevice = ({ isOpen, onClose }) => {
     // Calculate form validity whenever selectedDeviceIndex changes
     setFormIsValid(selectedDeviceIndex !== null);
   }, [selectedDeviceIndex]);
-  const handleCheckboxChange = (index) => {
-    if (selectedDeviceIndex === index) {
+  const handleCheckboxChange = (deviceId) => {
+    if (selectedDeviceIndex === deviceId) {
       setSelectedDeviceIndex(null);
     } else {
-      setSelectedDeviceIndex(index);
+      setSelectedDeviceIndex(deviceId);
     }
+  };
+
+  const conditionsMap = {
+    1: "최상",
+    2: "상",
+    3: "중",
+    4: "하",
+    5: "최하",
   };
 
   return (
@@ -148,13 +142,13 @@ const SelectMyDevice = ({ isOpen, onClose }) => {
           기부할 기기를 선택해주세요!
         </div>
         <Form onSubmit={handleSubmit(onSubmit)}>
-          {dummyData.map((device, index) => (
-            //   {deviceList.map((device, index) => (
+          {/* {dummyData.map((device, index) => ( */}
+          {deviceList.map((device, index) => (
             <DeviceBox key={index}>
               <input
                 type="checkbox"
-                checked={selectedDeviceIndex === index}
-                onChange={() => handleCheckboxChange(index)}
+                checked={selectedDeviceIndex === device.deviceId}
+                onChange={() => handleCheckboxChange(device.deviceId)} // Pass the deviceId
               />
               <DeviceContent>
                 <DeviceImage>
@@ -163,7 +157,7 @@ const SelectMyDevice = ({ isOpen, onClose }) => {
                 <DeviceInfo>
                   <p>모델명: {device.model}</p>
                   <p>사용기간: {device.usedDate}</p>
-                  <p>상태: {device.condition}</p>
+                  <p>상태: {conditionsMap[device.conditions]}</p>
                 </DeviceInfo>
               </DeviceContent>
             </DeviceBox>
@@ -182,14 +176,21 @@ const SelectMyDevice = ({ isOpen, onClose }) => {
           >
             선택 완료!
           </ModalButton>
-          {showConfirmModal && (
+          {showConfirmModal && selectedDeviceIndex !== null && (
             <ConfirmDonation
               isOpen={showConfirmModal}
               onClose={() => setShowConfirmModal(false)}
               onConfirm={() => {
+                const selectedDeviceData = deviceList.find(
+                  (device) => device.deviceId === selectedDeviceIndex
+                );
                 closeConfirmModal();
                 setShowDonationSuccess(true);
               }}
+              selectedDevice={deviceList.find(
+                (device) => device.deviceId === selectedDeviceIndex
+              )}
+              applyId={applyId}
             />
           )}
         </Form>

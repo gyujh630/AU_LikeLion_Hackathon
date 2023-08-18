@@ -4,12 +4,17 @@ import styled, { keyframes, css } from "styled-components"; // Import styled-com
 import { useForm, Controller, useFieldArray, reset } from "react-hook-form";
 import axios from "axios"; // Import axios
 import DonationSuccess from "./DonationSuccess";
+import SERVER_URL from "../../../constants/serverUrl";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 // TODO :: SelectMyDevice -> 선택한 값 넘겨 받고, ConfirmDonation에서 Put 요청
 
 Modal.setAppElement("#root");
 
-const ConfirmDonation = ({ isOpen, onClose }) => {
+const MySwal = withReactContent(Swal);
+
+const ConfirmDonation = ({ isOpen, onClose, selectedDevice, applyId }) => {
   const {
     register,
     control,
@@ -17,6 +22,9 @@ const ConfirmDonation = ({ isOpen, onClose }) => {
     reset,
     formState: { errors, isValid, isDirty },
   } = useForm();
+
+  console.log("deviceId: " + selectedDevice.deviceId);
+  console.log("applyId: " + applyId);
 
   useEffect(() => {
     document.body.style.cssText = `
@@ -31,23 +39,66 @@ const ConfirmDonation = ({ isOpen, onClose }) => {
     };
   }, []);
 
-  const onSubmit = async (data) => {};
+  const onSubmit = async (data) => {
+    try {
+      const token = localStorage.getItem("token");
+
+      // Create the data payload for the patch request
+      const patchData = {
+        // Add any fields you want to update
+        // For example, if you want to update the status field:
+        // status: "updatedStatusValue",
+      };
+
+      // Send the patch request
+      try {
+        const response = await axios.patch(
+          `${SERVER_URL}/receiver/${applyId}/${selectedDevice.deviceId}`,
+          patchData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        // Handle the response as needed
+        console.log("Patch request successful:", response.data);
+
+        if (response.ok) {
+          setShowDonationSuccess(true);
+        } else {
+          // Handle the case where the response is not OK
+          console.error("Patch request failed:", response.data);
+          MySwal.fire({
+            icon: "error",
+            title: "실패",
+            text: "알 수 없는 오류가 발생했습니다.",
+            confirmButtonColor: "var(--color-blue)",
+            iconColor: "var(--color-blue)",
+          });
+        }
+
+        // You can close the modal or perform any other actions here
+      } catch (error) {
+        console.error("Error updating data:", error);
+        MySwal.fire({
+          icon: "error",
+          title: "실패",
+          text: "요청을 처리할 수 없습니다. 나중에 다시 시도해주세요.",
+          confirmButtonColor: "var(--color-blue)",
+          iconColor: "var(--color-blue)",
+        });
+      }
+    } catch (error) {
+      console.error("Error retrieving token:", error);
+    }
+  };
 
   const handleModalClose = () => {
     onClose();
     reset(); // 입력값 초기화
   };
-
-  // api 연결 전 dummyData
-  const dummyData = [
-    {
-      //   deviceType: "태블릿",
-      model: "ipad3",
-      condition: 2,
-      usedDate: "2년",
-      image: "기기 사진",
-    },
-  ];
 
   const [formIsValid, setFormIsValid] = useState(false);
 
@@ -75,21 +126,22 @@ const ConfirmDonation = ({ isOpen, onClose }) => {
       <ModalContainer slide={isOpen}>
         <Form onSubmit={handleSubmit(onSubmit)}>
           <h3>선택한 기기</h3>
-          {dummyData.map((device, index) => (
-            //   {deviceList.map((device, index) => (
-            <DeviceBox key={index}>
-              <DeviceContent>
-                <DeviceImage>
-                  <img src={device.image} alt="Device" />
-                </DeviceImage>
-                <DeviceInfo>
-                  <p>모델명: {device.model}</p>
-                  <p>사용기간: {device.usedDate}</p>
-                  <p>상태: {device.condition}</p>
-                </DeviceInfo>
-              </DeviceContent>
-            </DeviceBox>
-          ))}
+          {/* {dummyData.map((device, index) => ( */}
+          {/* {deviceList.map((device, index) => ( */}
+          {/* <DeviceBox key={index}> */}
+          <DeviceBox>
+            <DeviceContent>
+              <DeviceImage>
+                <img src={selectedDevice.image} alt="Device" />
+              </DeviceImage>
+              <DeviceInfo>
+                <p>모델명: {selectedDevice.model}</p>
+                <p>사용기간: {selectedDevice.usedDate}</p>
+                <p>상태: {selectedDevice.conditions}</p>
+              </DeviceInfo>
+            </DeviceContent>
+          </DeviceBox>
+          {/* ))} */}
           <h3>안내사항</h3>
           <DeviceBox>
             <DeviceContent>
@@ -132,7 +184,7 @@ const ConfirmDonation = ({ isOpen, onClose }) => {
               marginTop: "20px",
               borderRadius: "50px",
             }}
-            onClick={() => setShowDonationSuccess(true)}
+            onClick={() => setShowDonationSuccess(true)} // ! DonationSuccess 강제로 열기 위함 (api 완성되면 주석처리할 것)
           >
             선택한 기기 기부하기
           </ModalButton>
@@ -140,6 +192,7 @@ const ConfirmDonation = ({ isOpen, onClose }) => {
             <DonationSuccess
               isOpen={showDonationSuccess}
               onClose={() => setShowDonationSuccess(false)} // Close the second modal
+              applyId={applyId}
             />
           )}
         </Form>

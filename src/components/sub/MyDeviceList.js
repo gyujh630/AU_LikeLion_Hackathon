@@ -17,7 +17,7 @@ const MyDeviceList = ({ deviceInfo }) => {
               {deviceInfo.model}
             </p>
             <p id="used-date">사용기간 {deviceInfo.usedDate}</p>
-            <p id="used-date">상태: {deviceInfo.condition}</p>
+            <p id="used-date">상태: {deviceInfo.conditions}</p>
           </div>
         </div>
       </div>
