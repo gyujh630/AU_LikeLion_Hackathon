@@ -31,7 +31,7 @@ const Routing = () => {
   return (
     <Routes>
       <Route
-        path={process.env.PUBLIC_URL + "/"}
+        path="/"
         element={
           <CommonLayout>
             <Home />
@@ -39,7 +39,7 @@ const Routing = () => {
         }
       />
       <Route
-        path={process.env.PUBLIC_URL + "/about"}
+        path="/about"
         element={
           <CommonLayout>
             <About />
@@ -47,7 +47,7 @@ const Routing = () => {
         }
       />
       <Route
-        path={process.env.PUBLIC_URL + "/login"}
+        path="/login"
         element={
           <CommonLayout>
             <Login />
@@ -55,7 +55,7 @@ const Routing = () => {
         }
       />
       <Route
-        path={process.env.PUBLIC_URL + "/signup"}
+        path="/signup"
         element={
           <CommonLayout>
             <SignUp />
@@ -63,7 +63,7 @@ const Routing = () => {
         }
       />
       <Route
-        path={process.env.PUBLIC_URL + "/signup/receiver"}
+        path="/signup/receiver"
         element={
           <CommonLayout>
             <SignUpReceiver />
@@ -71,7 +71,7 @@ const Routing = () => {
         }
       />
       <Route
-        path={process.env.PUBLIC_URL + "/signup/donator"}
+        path="/signup/donator"
         element={
           <CommonLayout>
             <SignUpDonator />
@@ -79,7 +79,7 @@ const Routing = () => {
         }
       />
       <Route
-        path={process.env.PUBLIC_URL + "/mypage"}
+        path="/mypage"
         element={
           <CommonLayout>
             <MyPage />
@@ -93,7 +93,7 @@ const Routing = () => {
         <Route path="device" element={<Device />} />
       </Route>
       <Route
-        path={process.env.PUBLIC_URL + "/postlist"}
+        path="/postlist"
         element={
           <CommonLayout>
             <PostList />
@@ -101,7 +101,7 @@ const Routing = () => {
         }
       />
       <Route
-        path={process.env.PUBLIC_URL + "/mypage/application/:apply_id"}
+        path="/mypage/application/:apply_id"
         element={
           <CommonLayout>
             <MyPostDetails />
@@ -109,7 +109,7 @@ const Routing = () => {
         }
       />
       <Route
-        path={process.env.PUBLIC_URL + "/postlist/:apply_id"}
+        path="/postlist/:apply_id"
         element={
           <CommonLayout>
             <PostDetails />
@@ -117,7 +117,7 @@ const Routing = () => {
         }
       />
       <Route
-        path={process.env.PUBLIC_URL + "/device/:device_id"}
+        path="/device/:device_id"
         element={
           <CommonLayout>
             <DeviceDetails />
