@@ -96,10 +96,10 @@ const ApplyModal = ({ isOpen, onClose, onConfirm }) => {
                   value={deviceType}
                   onChange={(e) => setDeviceType(e.target.value)}
                 >
-                  <option value="phone">스마트폰</option>
-                  <option value="tablet">태블릿</option>
-                  <option value="laptop">노트북</option>
-                  <option value="watch">스마트 워치</option>
+                  <option value="스마트폰">스마트폰</option>
+                  <option value="태블릿">태블릿</option>
+                  <option value="노트북">노트북</option>
+                  <option value="스마트 워치">스마트 워치</option>
                 </CustomSelect>
               </div>
             </div>

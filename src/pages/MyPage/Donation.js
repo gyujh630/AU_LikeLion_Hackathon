@@ -1,8 +1,24 @@
 import styled from "styled-components";
+import { useState, useEffect } from "react";
 import { MyDonationList } from "../../components/sub/MyDonationList";
 import { getDonationList } from "../../services/MyPageAPI";
 
 const Donation = () => {
+  const [donationDataList, setDonationDataList] = useState([]);
+
+  useEffect(() => {
+    fetchDonationList();
+  }, []);
+
+  const fetchDonationList = async () => {
+    try {
+      const response = await getDonationList();
+      console.log(response);
+    } catch (error) {
+      console.error("Error fetching application list:", error);
+    }
+  };
+
   const exampleDonateListData = [
     {
       deviceId: "1",

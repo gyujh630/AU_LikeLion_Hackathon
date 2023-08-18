@@ -28,6 +28,7 @@ export const getDonationList = async () => {
         Authorization: `Bearer ${token}`,
       },
     });
+    console.log("테스트", response.data);
     return response.data;
   } catch (error) {
     console.error("Error fetching user Donation list:", error);
