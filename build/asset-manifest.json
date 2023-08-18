@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/AjouLion/static/css/main.37960415.css",
-    "main.js": "/AjouLion/static/js/main.65573324.js",
+    "main.js": "/AjouLion/static/js/main.bf023b14.js",
     "index.html": "/AjouLion/index.html",
     "main.37960415.css.map": "/AjouLion/static/css/main.37960415.css.map",
-    "main.65573324.js.map": "/AjouLion/static/js/main.65573324.js.map"
+    "main.bf023b14.js.map": "/AjouLion/static/js/main.bf023b14.js.map"
   },
   "entrypoints": [
     "static/css/main.37960415.css",
-    "static/js/main.65573324.js"
+    "static/js/main.bf023b14.js"
   ]
 }
