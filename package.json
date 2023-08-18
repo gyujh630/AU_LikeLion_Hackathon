@@ -1,4 +1,5 @@
 {
+  "homepage": "https://gyujh630.github.io/AjouLion/",
   "name": "2023-likelion-hackathon",
   "version": "0.1.0",
   "private": true,
@@ -35,7 +36,6 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"
   },
-  "homepage": "https://gyujh630.github.io/AjouLion/",
   "eslintConfig": {
     "extends": [
       "react-app",
