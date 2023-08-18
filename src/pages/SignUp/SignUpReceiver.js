@@ -1,12 +1,17 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useRef, useState } from "react";
 
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import "../../styles/global.css";
 
 import SERVER_URL from "../../constants/serverUrl";
+import styled from "styled-components";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 const MySwal = withReactContent(Swal);
 
@@ -107,11 +112,101 @@ function SignUpReceiver() {
     }
   };
 
+  // * 프사
+  const [imgFile, setImgFile] = useState("");
+  const imgRef = useRef();
+
+  // 이미지 업로드 input의 onChange
+  const saveImgFile = () => {
+    const file = imgRef.current.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setImgFile(reader.result);
+    };
+  };
+
   return (
     <div className="SignUpReceiver" style={{ marginTop: "100px" }}>
       <div style={styles.container}>
         <h2>수혜자 회원가입</h2>
         <form onSubmit={handleSubmit(onSubmit)} style={styles.form}>
+          <div style={styles.inputGroup}>
+            <label htmlFor="profile" style={styles.label}>
+              <span
+                style={{
+                  display: "inline-block",
+                  width: "100px",
+                  marginRight: "10px",
+                }}
+              >
+                프로필 사진
+              </span>
+            </label>
+            {/* <form>
+              <ProfileImgLabel htmlFor="profileImg">
+                프로필 이미지 추가
+              </ProfileImgLabel>
+              <ProfileImgInput
+                type="file"
+                accept="image/*"
+                id="profileImg"
+                {...register("profile")}
+              />
+            </form> */}
+            <div
+              style={{
+                width: "50px",
+                height: "50px",
+                border: "1px solid #ccc",
+                borderRadius: "50%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                position: "relative",
+              }}
+            >
+              {imgFile ? (
+                <img
+                  src={imgFile}
+                  alt="프로필 이미지"
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    borderRadius: "50%",
+                  }}
+                />
+              ) : (
+                <FontAwesomeIcon
+                  icon={faUser}
+                  style={{
+                    fontSize: "24px",
+                    position: "absolute",
+                  }}
+                />
+              )}
+            </div>
+            <input
+              type="file"
+              accept="image/*"
+              id="profileImg"
+              onChange={saveImgFile}
+              ref={imgRef}
+            />
+            {/* <input
+              type="file"
+              name="profile"
+              placeholder="프로필 사진"
+              {...register("profile")}
+              // onChange={(e) => {
+              //   if (e.target.files && e.target.files[0]) {
+              //     // 선택된 이미지 파일을 상태에 저장
+              //     setValue("profile", e.target.files[0]);
+              //   }
+              // }}
+              style={styles.input}
+            />{" "} */}
+          </div>
           <div style={styles.inputGroup}>
             <label htmlFor="name" style={styles.label}>
               <span
@@ -235,32 +330,6 @@ function SignUpReceiver() {
             )}
           </div>
           <div style={styles.inputGroup}>
-            <label htmlFor="profile" style={styles.label}>
-              <span
-                style={{
-                  display: "inline-block",
-                  width: "100px",
-                  marginRight: "10px",
-                }}
-              >
-                프로필 사진
-              </span>
-            </label>
-            <input
-              type="file"
-              name="profile"
-              placeholder="프로필 사진"
-              {...register("profile")}
-              // onChange={(e) => {
-              //   if (e.target.files && e.target.files[0]) {
-              //     // 선택된 이미지 파일을 상태에 저장
-              //     setValue("profile", e.target.files[0]);
-              //   }
-              // }}
-              style={styles.input}
-            />{" "}
-          </div>
-          <div style={styles.inputGroup}>
             <label htmlFor="certification" style={styles.label}>
               <span
                 style={{
@@ -351,5 +420,19 @@ const styles = {
     width: "250px",
   },
 };
+
+const ProfileImgLabel = styled.label`
+  margin: 5px 0 20px 0;
+  font-weight: bold;
+  font-size: 13px;
+  color: #0095f6;
+  display: inline-block;
+  cursor: pointer;
+`;
+
+const ProfileImgInput = styled.input`
+  display: none;
+  /* Add additional input styles if needed */
+`;
 
 export default SignUpReceiver;
