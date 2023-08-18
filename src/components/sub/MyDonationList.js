@@ -35,7 +35,7 @@ export const MyDonationList = (props) => {
             <p id="user-apply-name">{name}</p>
             <p id="device-type">신청 기기 유형: {deviceType}</p>
           </div>
-          {status === 1 && (
+          {status === 2 && (
             <StyledDeliveryNumButton onClick={() => setModalIsOpen(true)}>
               운송장 번호 입력하기
             </StyledDeliveryNumButton>
