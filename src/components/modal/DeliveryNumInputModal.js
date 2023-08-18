@@ -5,16 +5,16 @@ import { updateDelivery } from "../../services/MyPageAPI";
 Modal.setAppElement("#root");
 
 const DeliveryNumInputModal = ({ isOpen, onClose, onConfirm, deviceId }) => {
-  const [deliveryNum, setDeliveryNum] = useState(""); // 송장번호
-  const [deliveryCorp, setDeliveryCorp] = useState(""); // 송장번호 상태
+  const [deliverNum, setDeliverNum] = useState(""); // 송장번호
+  const [deliverCorp, setDeliverCorp] = useState(""); // 택배사
 
   const dataSet = {
-    deliverNum: deliveryNum,
-    deliverCorp: deliveryCorp,
+    deliverNum: deliverNum,
+    deliverCorp: deliverCorp,
   };
 
   const handleConfirm = async () => {
-    console.log(deliveryNum, dataSet);
+    console.log(deliverNum, dataSet);
     onConfirm();
     try {
       await updateDelivery(deviceId, dataSet); // deliveryNum update 함수 호출
@@ -26,14 +26,14 @@ const DeliveryNumInputModal = ({ isOpen, onClose, onConfirm, deviceId }) => {
 
   const deliveryOptions = [
     "CJ대한통운",
+    "CVSnet 편의점택배",
+    "CU편의점택배",
     "우체국택배",
     "한진택배",
     "로젠택배",
     "롯데택배",
     "경동택배",
-    "CVSnet 편의점택배",
     "DHL",
-    "CU편의점택배",
     "대신택배",
     "일양로지스",
     "농협택배",
@@ -50,8 +50,8 @@ const DeliveryNumInputModal = ({ isOpen, onClose, onConfirm, deviceId }) => {
           택배사 선택
         </span>
         <CustomSelect
-          value={deliveryCorp}
-          onChange={(e) => setDeliveryCorp(e.target.value)}
+          value={deliverCorp}
+          onChange={(e) => setDeliverCorp(e.target.value)}
         >
           <option value="" disabled>
             선택하세요
@@ -68,8 +68,8 @@ const DeliveryNumInputModal = ({ isOpen, onClose, onConfirm, deviceId }) => {
           운송장 번호
         </span>
         <CustomInput
-          value={deliveryNum}
-          onChange={(e) => setDeliveryNum(e.target.value)}
+          value={deliverNum}
+          onChange={(e) => setDeliverNum(e.target.value)}
         />
       </div>
       <ButtonContainer>
