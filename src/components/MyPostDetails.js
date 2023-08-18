@@ -4,7 +4,11 @@ import styled from "styled-components";
 import BackButton from "./default/BackButton";
 import DeliveryConfirmModal from "./modal/DeliveryConfirmModal";
 import UpdateApplyModal from "./modal/UpdateApplyModal";
-import { getApplication, cancelApplication } from "../services/MyPageAPI";
+import {
+  getApplication,
+  cancelApplication,
+  getDevice,
+} from "../services/MyPageAPI";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { formatDate } from "../constants/formatDate";
@@ -47,7 +51,17 @@ const MyPostDetail = () => {
         ...postData.apply,
         ...postData.user,
       };
+
       setApplicationData(newData);
+      console.log(newData);
+
+      // const deviceData = await getDevice(newData.deviceId);
+      // const finalData = {
+      //   ...newData,
+      //   ...deviceData,
+      // };
+      // console.log(finalData);
+      // setApplicationData(finalData);
     } catch (error) {
       console.error("Error fetching application detail:", error);
     }
@@ -125,7 +139,7 @@ const MyPostDetail = () => {
           {status > 1 ? <p>매칭된 기기 정보 표시</p> : null}
         </div>
         <div id="btn-container">
-          {status === 2 ? (
+          {status === 3 ? (
             <BottomBtn
               style={{ width: "200px" }}
               onClick={() => setModalIsOpen(true)}

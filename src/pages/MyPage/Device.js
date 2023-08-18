@@ -20,7 +20,9 @@ const Device = () => {
           Authorization: `Bearer ${token}`,
         },
       });
+
       setDeviceList(response.data); // Update the state with fetched data
+      console.log(deviceList);
     } catch (error) {
       console.error("Error fetching device data:", error);
     }
