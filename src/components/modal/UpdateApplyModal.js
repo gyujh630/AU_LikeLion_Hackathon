@@ -12,7 +12,6 @@ const UpdateApplyModal = ({ isOpen, onClose, onConfirm, props }) => {
   const [deviceType, setDeviceType] = useState(props.deviceType);
 
   const handleConfirm = async () => {
-    onConfirm();
     console.log(content, address, deviceType);
     // 제출 시 작업
     const data = {
@@ -24,6 +23,7 @@ const UpdateApplyModal = ({ isOpen, onClose, onConfirm, props }) => {
     try {
       // 수혜신청 생성 api
       await updateApplication(props.applyId, data);
+      onConfirm();
     } catch (error) {
       console.error(error);
     }

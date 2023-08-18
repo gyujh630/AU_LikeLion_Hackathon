@@ -13,8 +13,6 @@ import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { formatDate } from "../constants/formatDate";
 
-const swalAlert = withReactContent(Swal);
-
 const MyPostDetail = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -26,6 +24,12 @@ const MyPostDetail = () => {
   useEffect(() => {
     fetchMyApplication();
   }, []);
+
+  const handleUpdateConfirm = async () => {
+    console.log("모달이 닫힘");
+    setUpdateModalIsOpen(false);
+    await fetchMyApplication(); // 모달이 닫힐 때 데이터 다시 불러오기
+  };
 
   const handleCancel = async (applyId) => {
     try {
@@ -52,6 +56,8 @@ const MyPostDetail = () => {
         ...postData.user,
       };
 
+      console.log("함수 실행 완료");
+
       setApplicationData(newData);
       console.log(newData);
 
@@ -73,18 +79,6 @@ const MyPostDetail = () => {
 
   const { date, status, address, name, deviceType, content } = applicationData; //  api get 요청으로 데이터 받아오도록 수정
   const statusString = ["", "매칭 대기중", "매칭 완료", "배송중", "수령 완료"];
-
-  // 모달 닫기 함수
-  const closeModal = () => {
-    // 모달이 닫힐 때 MyPostDetail 컴포넌트를 리렌더링하도록 상태 업데이트
-    setModalIsOpen(false);
-    // 상태 업데이트를 통해 리렌더링 발생
-  };
-  const closeUpdateModal = () => {
-    // 모달이 닫힐 때 MyPostDetail 컴포넌트를 리렌더링하도록 상태 업데이트
-    setModalIsOpen(false);
-    // 상태 업데이트를 통해 리렌더링 발생
-  };
 
   return (
     <CustomPostDetail>
@@ -176,7 +170,7 @@ const MyPostDetail = () => {
         <UpdateApplyModal
           isOpen={updateModalIsOpen}
           onClose={() => setUpdateModalIsOpen(false)}
-          onConfirm={() => setUpdateModalIsOpen(false)}
+          onConfirm={() => handleUpdateConfirm()}
           props={applicationData}
         />
       )}
