@@ -1,18 +1,18 @@
 import { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import Modal from "react-modal";
+import { confirmDelivery } from "../../services/MyPageAPI";
 
 Modal.setAppElement("#root");
 
-const DeliveryConfirmModal = ({ isOpen, onClose, onConfirm }) => {
-  const handleConfirm = () => {
+const DeliveryConfirmModal = ({ isOpen, onClose, onConfirm, applyId }) => {
+  const handleConfirm = async () => {
     onConfirm();
-    // try {
-    //   // status를 3(수령완료)로 업데이트하는 API 호출
-    //   await ???(); // 예시 API 호출 (실제 API 함수명 및 호출 방식에 맞게 수정 필요)
-    //  } catch (error) {
-    // console.error("error);
-    //  }
+    try {
+      await confirmDelivery(applyId); // 예시 API 호출 (실제 API 함수명 및 호출 방식에 맞게 수정 필요)
+    } catch (error) {
+      console.log(error);
+    }
     onClose();
   };
 

@@ -179,7 +179,7 @@ export const getDevice = async (deviceId) => {
   }
 };
 
-//운송장번호,택배사입력
+//운송장번호,택배사입력(기부자)
 export const updateDelivery = async (deviceId, dataSet) => {
   const token = localStorage.getItem("token");
   try {
@@ -196,6 +196,27 @@ export const updateDelivery = async (deviceId, dataSet) => {
     return response.data;
   } catch (error) {
     console.error("Error update delivery:", error);
+    throw error;
+  }
+};
+
+//기기 수령확인 (수혜자)
+export const confirmDelivery = async (applyId) => {
+  const token = localStorage.getItem("token");
+  try {
+    const response = await axios.patch(
+      `${apiUrl}/apply/complete/${applyId}`,
+      null,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log(response.status);
+    return response.data;
+  } catch (error) {
+    console.error("Error confirm delivery:", error);
     throw error;
   }
 };

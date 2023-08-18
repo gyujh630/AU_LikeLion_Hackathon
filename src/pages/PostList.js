@@ -98,7 +98,7 @@ const CustomPostList = styled.div`
   div#postlist-top {
     width: 85%;
     display: flex;
-    justify-content: space-between;
+    justify-content: right;
   }
 
   button#apply-btn {

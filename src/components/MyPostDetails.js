@@ -30,6 +30,11 @@ const MyPostDetail = () => {
     await fetchMyApplication(); // 모달이 닫힐 때 데이터 다시 불러오기
   };
 
+  const handleConfirm = async () => {
+    setModalIsOpen(false);
+    await fetchMyApplication(); // 모달이 닫힐 때 데이터 다시 불러오기
+  };
+
   const handleCancel = async (applyId) => {
     try {
       const responseStatus = await cancelApplication(applyId);
@@ -142,7 +147,7 @@ const MyPostDetail = () => {
           {status > 1 ? <p>매칭된 기기 정보 표시</p> : null}
         </div>
         <div id="device-container">
-          {status > 2 ? (
+          {status == 3 ? (
             <p>
               {deliverCorp} - {deliverNum}
             </p>
@@ -178,15 +183,16 @@ const MyPostDetail = () => {
       {modalIsOpen && (
         <DeliveryConfirmModal
           isOpen={modalIsOpen}
-          onClose={() => setModalIsOpen(false)}
+          onClose={() => handleConfirm}
           onConfirm={() => setModalIsOpen(false)}
+          applyId={applyId}
         />
       )}
       {updateModalIsOpen && (
         <UpdateApplyModal
           isOpen={updateModalIsOpen}
-          onClose={() => setUpdateModalIsOpen(false)}
-          onConfirm={() => handleUpdateConfirm()}
+          onClose={() => handleUpdateConfirm()}
+          onConfirm={() => handleUpdateConfirm}
           props={applicationData}
         />
       )}
