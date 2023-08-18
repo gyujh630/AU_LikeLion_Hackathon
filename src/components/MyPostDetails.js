@@ -36,10 +36,11 @@ const MyPostDetail = () => {
 
       if (responseStatus === 204) {
         console.log("취소 완료");
-        // 취소가 성공한 경우에 실행할 로직
+        //alert - 완료되었습니다.
+        navigate(-1);
       } else {
         console.log("취소 실패");
-        // 취소가 실패한 경우에 실행할 로직
+        //alert - 취소에 실패하였습니다.
       }
     } catch (error) {
       console.log("Error deleting application:", error);
