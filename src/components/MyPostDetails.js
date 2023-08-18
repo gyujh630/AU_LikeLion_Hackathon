@@ -26,7 +26,6 @@ const MyPostDetail = () => {
   }, []);
 
   const handleUpdateConfirm = async () => {
-    console.log("모달이 닫힘");
     setUpdateModalIsOpen(false);
     await fetchMyApplication(); // 모달이 닫힐 때 데이터 다시 불러오기
   };
